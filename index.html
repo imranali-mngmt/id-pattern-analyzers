@@ -8,21 +8,28 @@
 
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-functions-compat.js"></script>
 
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <style>
-    /* --- EXACT UI MATCHING --- */
+    /* ==========================================
+       ROOT VARIABLES - DARK THEME
+       ========================================== */
     :root {
-      --bg-app: #f8fafc;
-      --bg-panel: #ffffff;
-      --text-main: #334155;
+      --bg-app: #0f172a;
+      --bg-panel: #1e293b;
+      --bg-hover: #334155;
+      --text-main: #e2e8f0;
       --text-label: #94a3b8;
-      --btn-color: #0f172a;
-      --border-color: #e2e8f0;
+      --btn-color: #3b82f6;
+      --btn-hover: #2563eb;
+      --border-color: #334155;
       --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+      --success-color: #10b981;
+      --error-color: #ef4444;
+      --warning-color: #f59e0b;
     }
 
     * {
@@ -30,17 +37,24 @@
       outline: none;
     }
 
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: var(--font-stack);
       background: var(--bg-app);
       color: var(--text-main);
-      margin: 0;
       height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
-    /* --- 1. HEADER (Navigation) --- */
+    /* ==========================================
+       HEADER & NAVIGATION
+       ========================================== */
     .header {
       background: var(--bg-panel);
       height: 60px;
@@ -49,12 +63,14 @@
       justify-content: space-between;
       padding: 0 40px;
       border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+      z-index: 100;
     }
 
     .brand {
       font-weight: 800;
-      font-size: 18px;
-      color: #0f172a;
+      font-size: 20px;
+      color: #3b82f6;
       letter-spacing: -0.5px;
     }
 
@@ -68,110 +84,174 @@
       cursor: pointer;
       font-size: 14px;
       font-weight: 600;
-      color: #64748b;
-      padding: 6px 12px;
+      color: #94a3b8;
+      padding: 8px 16px;
       border-radius: 6px;
       transition: all 0.2s;
+      user-select: none;
+    }
+
+    .nav-tab:hover {
+      background: var(--bg-hover);
     }
 
     .nav-tab.active {
-      background: #f1f5f9;
-      color: #0f172a;
+      background: #3b82f6;
+      color: white;
       font-weight: 700;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
 
     .user-id {
       font-size: 13px;
       font-weight: 600;
-      color: #64748b;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    /* --- 2. MAIN LAYOUT --- */
+    .logout-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: #94a3b8;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .logout-btn:hover {
+      background: var(--bg-hover);
+      color: var(--text-main);
+      border-color: #3b82f6;
+    }
+
+    /* ==========================================
+       MAIN CONTAINER
+       ========================================== */
     .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      padding: 40px 20px;
       flex: 1;
       overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
     }
 
     .page {
       display: none;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .page.active {
       display: block;
     }
 
-    /* --- 3. PROCESSOR VIEW --- */
-    .split-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      height: calc(100vh - 160px);
-    }
-
-    .column {
+    /* ==========================================
+       INPUT CARD (PROCESSOR)
+       ========================================== */
+    .processor-wrapper {
       display: flex;
-      flex-direction: column;
-      height: 100%;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      width: 100%;
     }
 
-    .label-text {
-      font-size: 11px;
+    .input-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .input-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+    }
+
+    .input-label {
+      font-size: 12px;
       font-weight: 700;
       color: #94a3b8;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
+      letter-spacing: 0.8px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .input-hint {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 16px;
+      font-style: italic;
     }
 
     textarea {
-      flex: 1;
-      background: var(--bg-panel);
+      width: 100%;
+      min-height: 250px;
+      background: #0f172a;
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 20px;
+      padding: 16px;
       font-family: 'Consolas', 'Monaco', monospace;
       font-size: 14px;
-      resize: none;
-      color: #334155;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      line-height: 1.6;
+      resize: vertical;
+      color: #e2e8f0;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
     }
 
     textarea::placeholder {
-      color: #cbd5e1;
+      color: #475569;
     }
 
     textarea:focus {
-      border-color: #cbd5e1;
-      box-shadow: 0 0 0 3px rgba(226, 232, 240, 0.5);
+      border-color: #3b82f6;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 0 3px rgba(59, 130, 246, 0.2);
     }
 
-    #outputBox {
-      border-left: 4px solid #0f172a;
-      background: #ffffff;
+    textarea:hover:not(:focus) {
+      border-color: #475569;
     }
 
     .btn-execute {
-      background: var(--btn-color);
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
       color: white;
       border: none;
-      padding: 16px;
-      border-radius: 6px;
+      padding: 14px 28px;
+      border-radius: 8px;
       font-weight: 700;
       font-size: 13px;
       cursor: pointer;
-      margin-top: 15px;
+      margin-top: 20px;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: opacity 0.2s;
+      letter-spacing: 0.8px;
+      transition: all 0.3s ease;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     }
 
-    .btn-execute:hover {
-      opacity: 0.9;
+    .btn-execute:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-execute:active:not(:disabled) {
+      transform: translateY(0);
     }
 
     .btn-execute:disabled {
@@ -179,40 +259,206 @@
       cursor: not-allowed;
     }
 
-    .copy-link {
-      text-align: right;
-      font-size: 12px;
-      color: #94a3b8;
+    /* ==========================================
+       MODAL
+       ========================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal-content {
+      background: var(--bg-panel);
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      animation: slideUp 0.3s ease-out;
+      position: relative;
+      border: 1px solid var(--border-color);
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 28px;
       cursor: pointer;
+      color: #94a3b8;
+      transition: color 0.2s;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      color: #e2e8f0;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #e2e8f0;
+      margin: 0 0 24px 0;
+      text-align: center;
+    }
+
+    .modal-result-box {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      max-height: 350px;
+      overflow-y: auto;
+      font-family: 'Consolas', monospace;
+      font-size: 13px;
+      color: #10b981;
+      line-height: 1.8;
+      word-break: break-all;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-stats {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 12px;
+      background: var(--bg-panel);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .stat-item-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #3b82f6;
+    }
+
+    .stat-item-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
       margin-top: 8px;
     }
 
-    .copy-link:hover {
-      color: var(--btn-color);
-      text-decoration: underline;
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
-    /* --- 4. HISTORY VIEW --- */
+    .btn-copy {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    .btn-close {
+      background: transparent;
+      color: #94a3b8;
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+    }
+
+    .btn-close:hover {
+      background: var(--bg-hover);
+      color: var(--text-main);
+      border-color: #3b82f6;
+    }
+
+    /* ==========================================
+       STATS CARDS
+       ========================================== */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
       margin-bottom: 30px;
+      width: 100%;
     }
 
     .stat-card {
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      background: linear-gradient(135deg, var(--bg-panel) 0%, #0f172a 100%);
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 24px;
       text-align: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
     }
 
     .stat-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border-color: #3b82f6;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
     }
 
     .stat-label {
@@ -227,78 +473,104 @@
     .stat-value {
       font-size: 36px;
       font-weight: 800;
-      color: #0f172a;
-      line-height: 1;
-      margin-bottom: 8px;
+      color: #3b82f6;
     }
 
     .stat-sublabel {
       font-size: 12px;
       color: #64748b;
       font-weight: 500;
+      margin-top: 8px;
     }
 
-    .chart-container {
-      background: white;
+    /* ==========================================
+       ACTIVITY SECTION
+       ========================================== */
+    .activity-container {
+      background: var(--bg-panel);
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 24px;
       margin-bottom: 30px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      width: 100%;
     }
 
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .activity-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
       margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .chart-select {
-      padding: 8px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #334155;
-      background: white;
-      cursor: pointer;
+    .activity-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
     }
 
-    .chart-select:focus {
-      border-color: #0f172a;
-      outline: none;
-    }
-
-    #activityChart {
-      max-height: 300px;
-    }
-
-    .table-wrapper {
-      background: white;
+    .activity-item {
+      background: #0f172a;
       border: 1px solid var(--border-color);
       border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .activity-item-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .activity-item-value {
+      font-size: 24px;
+      font-weight: 800;
+      color: #10b981;
+    }
+
+    .activity-item-time {
+      font-size: 10px;
+      color: #64748b;
+      margin-top: 8px;
+    }
+
+    /* ==========================================
+       HISTORY TABLE
+       ========================================== */
+    .table-wrapper {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      width: 100%;
     }
 
     .history-tools {
-      background: white;
+      background: var(--bg-panel);
       padding: 20px;
-      border-radius: 8px;
+      border-radius: 12px;
       border: 1px solid var(--border-color);
       display: flex;
       gap: 15px;
       margin-bottom: 20px;
       align-items: flex-end;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      flex-wrap: wrap;
     }
 
     .tool-group {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 8px;
       flex: 1;
+      min-width: 200px;
     }
 
     .tool-label {
@@ -306,123 +578,353 @@
       font-weight: 700;
       color: #94a3b8;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .tool-input {
-      padding: 10px;
+      padding: 10px 12px;
       border: 1px solid var(--border-color);
-      border-radius: 4px;
+      border-radius: 6px;
       font-size: 14px;
+      background: #0f172a;
+      color: #e2e8f0;
+      transition: all 0.2s;
+    }
+
+    .tool-input::placeholder {
+      color: #475569;
+    }
+
+    .tool-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      background: white;
+      background: var(--bg-panel);
     }
 
     th {
       text-align: left;
       padding: 15px;
-      background: #f8fafc;
-      color: #64748b;
+      background: #0f172a;
+      color: #94a3b8;
       font-size: 12px;
       font-weight: 700;
       border-bottom: 1px solid var(--border-color);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     td {
       padding: 12px 15px;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid var(--border-color);
       font-family: 'Consolas', monospace;
       font-size: 13px;
-      color: #334155;
+      color: #e2e8f0;
     }
 
-    /* --- LOGIN OVERLAY --- */
+    tr:hover {
+      background: #334155;
+    }
+
+    /* ==========================================
+       LOGIN
+       ========================================== */
     #view-login {
       position: fixed;
       inset: 0;
       z-index: 999;
-      background: #f8fafc;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .login-box {
-      background: white;
+      background: var(--bg-panel);
       padding: 40px;
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      width: 320px;
+      border: 1px solid var(--border-color);
+      width: 360px;
       text-align: center;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      animation: slideUp 0.3s ease-out;
     }
 
-    /* --- ERROR DISPLAY --- */
-    .error-banner {
-      background: #fee2e2;
-      border: 1px solid #fecaca;
-      color: #991b1b;
-      padding: 12px 16px;
+    .login-box h3 {
+      margin: 0 0 8px 0;
+      color: #3b82f6;
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .login-box p {
+      font-size: 13px;
+      color: #94a3b8;
+      margin: 0 0 30px 0;
+      font-weight: 500;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 12px;
+      background: #0f172a;
+      color: #e2e8f0;
+      transition: all 0.2s;
+      font-family: 'Consolas', monospace;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .login-input::placeholder {
+      color: #475569;
+    }
+
+    .login-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .login-preview {
+      font-size: 12px;
+      color: #10b981;
+      margin-bottom: 16px;
+      padding: 10px;
+      background: rgba(16, 185, 129, 0.1);
       border-radius: 6px;
+      border-left: 3px solid #10b981;
+      display: none;
+    }
+
+    .login-preview.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    #loginError {
+      color: #ef4444;
+      font-size: 12px;
+      margin-top: 12px;
+      display: none;
+      padding: 10px;
+      background: rgba(239, 68, 68, 0.1);
+      border-radius: 6px;
+      border-left: 3px solid #ef4444;
+    }
+
+    #loginError.show {
+      display: block;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* ==========================================
+       ERROR BANNER
+       ========================================== */
+    .error-banner {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 12px 16px;
+      border-radius: 8px;
       margin-bottom: 20px;
       font-size: 13px;
       display: none;
+      width: 100%;
+      max-width: 1200px;
+      border-left: 3px solid #ef4444;
     }
 
     .error-banner.show {
       display: block;
+      animation: slideDown 0.2s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-10px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* ==========================================
+       SPINNER
+       ========================================== */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(59, 130, 246, 0.2);
+      border-radius: 50%;
+      border-top-color: #3b82f6;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ==========================================
+       SCROLLBAR
+       ========================================== */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+
+    /* ==========================================
+       RESPONSIVE
+       ========================================== */
+    @media (max-width: 768px) {
+      .header {
+        padding: 0 20px;
+      }
+
+      .container {
+        padding: 20px 15px;
+      }
+
+      .input-card {
+        padding: 25px;
+        max-width: 100%;
+      }
+
+      textarea {
+        min-height: 180px;
+      }
+
+      .modal-content {
+        padding: 25px;
+      }
+
+      .login-box {
+        width: 90%;
+        padding: 30px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .history-tools {
+        flex-direction: column;
+      }
+
+      .tool-group {
+        min-width: auto;
+        width: 100%;
+      }
+
+      .activity-stats {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- LOGIN VIEW -->
   <div id="view-login">
     <div class="login-box">
-      <h3 style="margin:0 0 5px 0; color:#0f172a;">MindAid Access</h3>
-      <p style="font-size:12px; color:#94a3b8; margin-bottom:25px;">Secure Environment</p>
-      <input type="text" id="loginId" class="tool-input" style="width:100%; text-align:center; margin-bottom:15px;"
-        placeholder="MindA ID (e.g. minda079)">
-      <button class="btn-execute" style="margin-top:0" onclick="doLogin()">Login</button>
-      <div id="loginError" style="color:#ef4444; font-size:12px; margin-top:10px; display:none;"></div>
+      <h3>MindAid</h3>
+      <p>Secure Portal</p>
+      <input type="text" id="loginId" class="login-input" placeholder="MindA ID (e.g minda079)" spellcheck="false">
+      <div id="loginPreview" class="login-preview"></div>
+      <button class="btn-execute" onclick="AuthManager.login()">Login</button>
+      <div id="loginError"></div>
     </div>
   </div>
 
+  <!-- APP VIEW -->
   <div id="view-app" style="display:none; height:100vh; flex-direction:column;">
 
     <div class="header">
       <div class="brand">MindAid</div>
       <div class="nav-tabs">
-        <div class="nav-tab active" onclick="navigateTo('processor', this)">Processor</div>
-        <div class="nav-tab" onclick="navigateTo('history', this)">My History</div>
+        <div class="nav-tab active" onclick="NavigationManager.goTo('processor', this)">Processor</div>
+        <div class="nav-tab" onclick="NavigationManager.goTo('history', this)">My History</div>
       </div>
-      <div id="userBadge" class="user-id"></div>
+      <div class="user-id">
+        <span id="userBadge"></span>
+        <button class="logout-btn" onclick="AuthManager.logout()">Logout</button>
+      </div>
     </div>
 
     <div class="container">
       <div id="errorBanner" class="error-banner"></div>
 
+      <!-- PROCESSOR PAGE -->
       <div id="page-processor" class="page active">
-        <div class="split-grid">
-
-          <div class="column">
-            <div class="label-text">Input Stream</div>
-            <textarea id="inputData" placeholder="Paste data here..."></textarea>
-            <button id="executeBtn" class="btn-execute" onclick="runProcessor()">EXECUTE</button>
+        <div class="processor-wrapper">
+          <div class="input-card">
+            <div class="input-label">Input Stream</div>
+            <div class="input-hint">Paste 11-digit IDs below (comma, space, or newline separated)</div>
+            <textarea id="inputData" placeholder="Paste data here..." spellcheck="false"></textarea>
+            <button id="executeBtn" class="btn-execute" onclick="ProcessorManager.execute()">EXECUTE</button>
           </div>
-
-          <div class="column">
-            <div class="label-text" style="color:#64748b">Result (Auto-Uploaded)</div>
-            <textarea id="outputBox" readonly></textarea>
-            <div class="copy-link" onclick="copyOutput()">Copy to Clipboard</div>
-          </div>
-
         </div>
       </div>
 
+      <!-- RESULTS MODAL -->
+      <div id="resultsModal" class="modal-overlay">
+        <div class="modal-content">
+          <button class="modal-close" onclick="UIManager.closeModal()">&times;</button>
+          <h2 class="modal-title">Results</h2>
+          
+          <div class="modal-stats">
+            <div class="stat-item">
+              <div class="stat-item-value" id="modalFound">0</div>
+              <div class="stat-item-label">Found</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-item-value" id="modalSequential">0</div>
+              <div class="stat-item-label">Sequential</div>
+            </div>
+          </div>
+
+          <div class="modal-result-box" id="modalResultBox"></div>
+
+          <div class="modal-actions">
+            <button class="btn-copy" onclick="UIManager.copyFromModal()">Copy All</button>
+            <button class="btn-close" onclick="UIManager.closeModal()">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTORY PAGE -->
       <div id="page-history" class="page">
 
         <!-- Stats Overview Cards -->
@@ -449,17 +951,31 @@
           </div>
         </div>
 
-        <!-- Chart Section -->
-        <div class="chart-container">
-          <div class="chart-header">
-            <span class="label-text">Weekly Activity</span>
-            <select id="chartPeriod" class="chart-select" onchange="updateChartPeriod()">
-              <option value="7">Last 7 Days</option>
-              <option value="14">Last 14 Days</option>
-              <option value="30">Last 30 Days</option>
-            </select>
+        <!-- Activity Summary -->
+        <div class="activity-container">
+          <div class="activity-title">Recent Activity</div>
+          <div class="activity-stats">
+            <div class="activity-item">
+              <div class="activity-item-label">Last Upload</div>
+              <div class="activity-item-value" id="activityLastUpload">--</div>
+              <div class="activity-item-time" id="activityLastTime">No data</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-item-label">Uploads This Week</div>
+              <div class="activity-item-value" id="activityWeek">0</div>
+              <div class="activity-item-time">Last 7 days</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-item-label">Avg per Day</div>
+              <div class="activity-item-value" id="activityAverage">0</div>
+              <div class="activity-item-time">This month</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-item-label">Peak Day</div>
+              <div class="activity-item-value" id="activityPeak">0</div>
+              <div class="activity-item-time">Highest count</div>
+            </div>
           </div>
-          <canvas id="activityChart"></canvas>
         </div>
 
         <!-- Search & Table Section -->
@@ -470,10 +986,10 @@
           </div>
           <div class="tool-group">
             <span class="tool-label">Search ID</span>
-            <input type="text" id="filterId" class="tool-input" placeholder="Paste 11-digit ID">
+            <input type="text" id="filterId" class="tool-input" placeholder="Enter 11-digit ID">
           </div>
-          <button class="btn-execute" style="width:auto; margin:0; padding:10px 25px;"
-            onclick="fetchHistory()">Search</button>
+          <button class="btn-execute" style="width:auto; margin:0; padding:10px 25px; min-width:120px;"
+            onclick="HistoryManager.fetch()">Search</button>
         </div>
 
         <div class="table-wrapper">
@@ -495,29 +1011,162 @@
   </div>
 
   <script>
-    // --- EXCEPTION HANDLER UTILITY ---
-    const ExceptionHandler = {
-      log: (context, error) => {
-        console.error(`[${context}]`, error);
-        const timestamp = new Date().toISOString();
-        const logEntry = { context, error: error.message || error, timestamp };
+    'use strict';
 
-        try {
-          const logs = JSON.parse(localStorage.getItem('errorLogs') || '[]');
-          logs.push(logEntry);
-          if (logs.length > 100) logs.shift();
-          localStorage.setItem('errorLogs', JSON.stringify(logs));
-        } catch (e) {
-          console.error('Failed to store error log', e);
+    // ========================================
+    // CONFIGURATION & CONSTANTS
+    // ========================================
+    const CONFIG = {
+      FIREBASE: {
+        apiKey: "AIzaSyAAM8jlY-zKAsTNu3BKmrLtz0rb_fG-P24",
+        authDomain: "imranali-mngmt-e464f.firebaseapp.com",
+        projectId: "imranali-mngmt-e464f",
+        storageBucket: "imranali-mngmt-e464f.firebasestorage.app",
+        messagingSenderId: "1030605656898",
+        appId: "1:1030605656898:web:3825d797b521c9c90a2edb"
+      },
+      REGEX: {
+        ID_PATTERN: /\b\d{11}\b/g,
+        ID_VALIDATE: /^\d{11}$/,
+        MINDA_ID: /^minda\d{3}$/i
+      },
+      LIMITS: {
+        MAX_BATCH_SIZE: 500,
+        MAX_RESULTS: 1000,
+        SESSION_TIMEOUT: 86400000,
+        DELETION_DAYS: 30
+      },
+      CACHE: {
+        STATS_TTL: 60000,
+        HISTORY_TTL: 30000
+      }
+    };
+
+    // ========================================
+    // SESSION STORAGE MANAGER
+    // ========================================
+    const SessionManager = (() => {
+      const SESSION_KEY = 'mindaid_session_v1';
+      const EXPIRY_KEY = 'mindaid_expiry';
+
+      return {
+        save: (userId) => {
+          try {
+            const sessionData = {
+              user: userId,
+              loginTime: Date.now(),
+              version: 1
+            };
+            localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+            localStorage.setItem(EXPIRY_KEY, Date.now() + CONFIG.LIMITS.SESSION_TIMEOUT);
+            return true;
+          } catch (e) {
+            console.error('SessionManager.save', e);
+            return false;
+          }
+        },
+
+        restore: () => {
+          try {
+            const sessionData = JSON.parse(localStorage.getItem(SESSION_KEY) || '{}');
+            const expiry = parseInt(localStorage.getItem(EXPIRY_KEY) || '0');
+
+            if (sessionData.user && Date.now() < expiry) {
+              return sessionData.user;
+            }
+            SessionManager.clear();
+            return null;
+          } catch (e) {
+            console.error('SessionManager.restore', e);
+            return null;
+          }
+        },
+
+        clear: () => {
+          try {
+            localStorage.removeItem(SESSION_KEY);
+            localStorage.removeItem(EXPIRY_KEY);
+            return true;
+          } catch (e) {
+            console.error('SessionManager.clear', e);
+            return false;
+          }
+        },
+
+        isValid: () => {
+          try {
+            const expiry = parseInt(localStorage.getItem(EXPIRY_KEY) || '0');
+            return Date.now() < expiry && !!localStorage.getItem(SESSION_KEY);
+          } catch (e) {
+            return false;
+          }
         }
+      };
+    })();
+
+    // ========================================
+    // LOGGER
+    // ========================================
+    const Logger = (() => {
+      const logs = [];
+      const MAX_LOGS = 100;
+
+      return {
+        log: (level, context, data) => {
+          const entry = {
+            timestamp: new Date().toISOString(),
+            level,
+            context,
+            data: typeof data === 'object' ? JSON.stringify(data) : data
+          };
+          logs.push(entry);
+          if (logs.length > MAX_LOGS) logs.shift();
+        },
+
+        error: (context, error) => {
+          Logger.log('ERROR', context, {
+            message: error?.message,
+            code: error?.code
+          });
+        },
+
+        info: (context, data) => Logger.log('INFO', context, data),
+        warn: (context, data) => Logger.log('WARN', context, data),
+
+        getLogs: () => logs,
+        clearLogs: () => logs.length = 0
+      };
+    })();
+
+    // ========================================
+    // EXCEPTION HANDLER
+    // ========================================
+    const ExceptionHandler = {
+      handle: (context, error, fallback = 'An error occurred') => {
+        Logger.error(context, error);
+
+        const message = error?.message || fallback;
+        const userMessage = message.includes('permission') || message.includes('auth')
+          ? 'Access denied. Please log in again.'
+          : message.length < 100 ? message : fallback;
+
+        return {
+          success: false,
+          error: userMessage,
+          code: error?.code || 'UNKNOWN_ERROR'
+        };
       },
 
       show: (message, duration = 3000) => {
-        const banner = document.getElementById('errorBanner');
-        if (banner) {
-          banner.textContent = message;
-          banner.classList.add('show');
-          setTimeout(() => banner.classList.remove('show'), duration);
+        try {
+          const banner = document.getElementById('errorBanner');
+          if (banner) {
+            banner.textContent = message;
+            banner.classList.add('show');
+            setTimeout(() => banner.classList.remove('show'), duration);
+          }
+        } catch (e) {
+          Logger.error('ExceptionHandler.show', e);
         }
       },
 
@@ -526,531 +1175,735 @@
           error: '#ef4444',
           warning: '#f59e0b',
           success: '#10b981',
-          info: '#0f172a'
+          info: '#3b82f6'
         };
 
         try {
-          Toastify({
-            text: message,
-            duration: 3000,
-            style: { background: colors[type] || colors.error, borderRadius: "4px" }
-          }).showToast();
+          if (typeof Toastify !== 'undefined') {
+            Toastify({
+              text: message,
+              duration: 3000,
+              style: {
+                background: colors[type] || colors.error,
+                borderRadius: "6px",
+                fontSize: "13px",
+                fontWeight: "600"
+              }
+            }).showToast();
+          }
         } catch (e) {
-          alert(message);
+          Logger.error('Toastify', e);
         }
       }
     };
 
-    // --- FIREBASE CONFIG ---
-    const firebaseConfig = {
-      apiKey: "AIzaSyAAM8jlY-zKAsTNu3BKmrLtz0rb_fG-P24",
-      authDomain: "imranali-mngmt-e464f.firebaseapp.com",
-      projectId: "imranali-mngmt-e464f",
-      storageBucket: "imranali-mngmt-e464f.firebasestorage.app",
-      messagingSenderId: "1030605656898",
-      appId: "1:1030605656898:web:3825d797b521c9c90a2edb"
+    // ========================================
+    // FIREBASE MANAGER
+    // ========================================
+    const FirebaseManager = (() => {
+      let db = null;
+      let isInitialized = false;
+
+      return {
+        init: async () => {
+          try {
+            if (!firebase.apps.length) {
+              firebase.initializeApp(CONFIG.FIREBASE);
+            }
+            db = firebase.firestore();
+            isInitialized = true;
+            Logger.info('Firebase', 'Initialized successfully');
+
+            FirebaseManager.setupDeletionJob();
+
+            return { success: true };
+          } catch (error) {
+            return ExceptionHandler.handle('Firebase.init', error, 'Failed to initialize database');
+          }
+        },
+
+        isReady: () => isInitialized && db !== null,
+
+        getDb: () => db,
+
+        uploadBatch: async (userId, ids, batchDate) => {
+          try {
+            if (!FirebaseManager.isReady()) {
+              throw new Error('Database not initialized');
+            }
+
+            if (!userId || !Array.isArray(ids) || ids.length === 0) {
+              throw new Error('Invalid input parameters');
+            }
+
+            const batch = db.batch();
+            const userRef = db.collection('users').doc(userId);
+            let uploadedCount = 0;
+
+            for (let i = 0; i < ids.length; i++) {
+              try {
+                const id = ids[i];
+                if (!CONFIG.REGEX.ID_VALIDATE.test(id)) {
+                  Logger.warn('uploadBatch', `Invalid ID: ${id}`);
+                  continue;
+                }
+
+                const ref = userRef.collection('records').doc(id);
+                batch.set(ref, {
+                  id: id,
+                  parsed_by: userId,
+                  uploaded_at: firebase.firestore.FieldValue.serverTimestamp(),
+                  batch_date: batchDate,
+                  created_at: firebase.firestore.FieldValue.serverTimestamp(),
+                  deletion_scheduled_for: new Date(Date.now() + CONFIG.LIMITS.DELETION_DAYS * 24 * 60 * 60 * 1000),
+                  version: 1
+                }, { merge: true });
+
+                uploadedCount++;
+
+                if ((i + 1) % CONFIG.LIMITS.MAX_BATCH_SIZE === 0) {
+                  await batch.commit();
+                }
+              } catch (e) {
+                Logger.error('uploadBatch item', e);
+              }
+            }
+
+            if (uploadedCount > 0) {
+              await batch.commit();
+            }
+
+            return { success: true, count: uploadedCount };
+          } catch (error) {
+            return ExceptionHandler.handle('Firebase.uploadBatch', error);
+          }
+        },
+
+        fetchStats: async (userId, type = 'today') => {
+          try {
+            if (!FirebaseManager.isReady() || !userId) {
+              throw new Error('Invalid state');
+            }
+
+            const today = new Date();
+            const userRef = db.collection('users').doc(userId).collection('records');
+
+            let query = userRef;
+            switch (type) {
+              case 'today': {
+                const todayStr = today.toISOString().split('T')[0];
+                query = query.where('batch_date', '==', todayStr);
+                break;
+              }
+              case 'yesterday': {
+                const yesterday = new Date(today);
+                yesterday.setDate(yesterday.getDate() - 1);
+                const yesterdayStr = yesterday.toISOString().split('T')[0];
+                query = query.where('batch_date', '==', yesterdayStr);
+                break;
+              }
+              case 'week': {
+                const weekAgo = new Date(today);
+                weekAgo.setDate(weekAgo.getDate() - 7);
+                const weekAgoStr = weekAgo.toISOString().split('T')[0];
+                query = query.where('batch_date', '>=', weekAgoStr);
+                break;
+              }
+              case 'total':
+              default:
+                break;
+            }
+
+            const snap = await (type === 'total' 
+              ? userRef.limit(CONFIG.LIMITS.MAX_RESULTS).get()
+              : query.limit(CONFIG.LIMITS.MAX_RESULTS).get());
+
+            return { success: true, count: snap.size };
+          } catch (error) {
+            Logger.error('Firebase.fetchStats', error);
+            return { success: false, count: 0 };
+          }
+        },
+
+        fetchHistory: async (userId, date, id = null) => {
+          try {
+            if (!FirebaseManager.isReady() || !userId) {
+              throw new Error('Invalid state');
+            }
+
+            const userRef = db.collection('users').doc(userId).collection('records');
+
+            if (id) {
+              const doc = await userRef.doc(id).get();
+              if (!doc.exists) {
+                return { success: true, data: [] };
+              }
+              return { success: true, data: [doc.data()] };
+            }
+
+            if (!date) {
+              throw new Error('Date is required');
+            }
+
+            try {
+              let query = userRef.where('batch_date', '==', date).orderBy('uploaded_at', 'desc');
+              const snap = await query.limit(CONFIG.LIMITS.MAX_RESULTS).get();
+              return { success: true, data: snap.docs.map(d => d.data()) };
+            } catch (indexError) {
+              Logger.warn('fetchHistory', 'Index missing, using fallback');
+              const snap = await userRef.where('batch_date', '==', date).limit(CONFIG.LIMITS.MAX_RESULTS).get();
+              const docs = snap.docs.map(d => d.data()).sort((a, b) => {
+                const timeA = a.uploaded_at?.toDate?.() || new Date(0);
+                const timeB = b.uploaded_at?.toDate?.() || new Date(0);
+                return timeB - timeA;
+              });
+              return { success: true, data: docs };
+            }
+          } catch (error) {
+            return ExceptionHandler.handle('Firebase.fetchHistory', error);
+          }
+        },
+
+        setupDeletionJob: () => {
+          setInterval(async () => {
+            try {
+              FirebaseManager.deleteExpiredRecords();
+            } catch (e) {
+              Logger.error('deletionJob', e);
+            }
+          }, 60 * 60 * 1000);
+        },
+
+        deleteExpiredRecords: async () => {
+          try {
+            if (!FirebaseManager.isReady()) return;
+
+            const now = new Date();
+            const usersRef = db.collection('users');
+            const usersSnap = await usersRef.get();
+
+            let deletedCount = 0;
+
+            for (const userDoc of usersSnap.docs) {
+              const recordsRef = userDoc.ref.collection('records');
+              const expiredSnap = await recordsRef
+                .where('deletion_scheduled_for', '<=', now)
+                .limit(100)
+                .get();
+
+              for (const recordDoc of expiredSnap.docs) {
+                await recordDoc.ref.delete();
+                deletedCount++;
+              }
+            }
+
+            if (deletedCount > 0) {
+              Logger.info('deleteExpiredRecords', `Deleted ${deletedCount} expired records`);
+            }
+          } catch (error) {
+            Logger.error('deleteExpiredRecords', error);
+          }
+        }
+      };
+    })();
+
+    // ========================================
+    // MINDA ID VALIDATOR
+    // ========================================
+    const MindAIdValidator = {
+      format: (id) => {
+        if (!id) return '';
+        const cleaned = id.replace(/\s/g, '').toUpperCase();
+        const withoutPrefix = cleaned.replace(/^MINDA/, '');
+        return `MINDA${withoutPrefix}`;
+      },
+
+      validate: (id) => {
+        const formatted = MindAIdValidator.format(id);
+        return /^MINDA\d{3}$/.test(formatted) ? formatted : null;
+      },
+
+      display: (id) => {
+        return MindAIdValidator.format(id);
+      }
     };
 
-    let db = null;
-    let currentUser = null;
-    let activityChart = null;
-    let chartData = { labels: [], data: [] };
+    // ========================================
+    // AUTHENTICATION MANAGER
+    // ========================================
+    const AuthManager = (() => {
+      let currentUser = null;
 
-    try {
-      if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-      }
-      db = firebase.firestore();
-    } catch (e) {
-      ExceptionHandler.log('Firebase Init', e);
-      ExceptionHandler.show('Firebase initialization failed. Please refresh the page.');
-    }
-
-    // --- LOGIN FUNCTION ---
-    function doLogin(val) {
-      try {
-        val = val || document.getElementById('loginId').value.trim();
-
-        if (!val) {
-          throw new Error('Please enter a MindA ID');
-        }
-
-        if (!val.toLowerCase().startsWith("minda")) {
-          throw new Error('Invalid ID format. Must start with "minda"');
-        }
-
-        currentUser = val;
-        localStorage.setItem('mindAidUser', val);
-
-        document.getElementById('userBadge').innerText = val;
-        document.getElementById('view-login').style.display = 'none';
-        document.getElementById('view-app').style.display = 'flex';
-
-        loadStats();
-        fetchHistory();
-
-      } catch (e) {
-        ExceptionHandler.log('Login', e);
-        const errorDiv = document.getElementById('loginError');
-        if (errorDiv) {
-          errorDiv.textContent = e.message;
-          errorDiv.style.display = 'block';
-        }
-      }
-    }
-
-    // --- NAVIGATION FUNCTION ---
-    function navigateTo(page, btn) {
-      try {
-        document.querySelectorAll('.page').forEach(e => e.classList.remove('active'));
-        document.querySelectorAll('.nav-tab').forEach(e => e.classList.remove('active'));
-
-        const pageEl = document.getElementById('page-' + page);
-        if (pageEl) pageEl.classList.add('active');
-        if (btn) btn.classList.add('active');
-
-        if (page === 'history') {
-          loadStats();
-        }
-
-      } catch (e) {
-        ExceptionHandler.log('Navigation', e);
-        ExceptionHandler.toast('Navigation failed', 'error');
-      }
-    }
-
-    // --- PROCESSOR FUNCTION ---
-    async function runProcessor() {
-      const executeBtn = document.getElementById('executeBtn');
-
-      try {
-        if (!db) {
-          throw new Error('Database not initialized');
-        }
-
-        const input = document.getElementById('inputData').value;
-        const outBox = document.getElementById('outputBox');
-
-        if (!input || input.trim() === '') {
-          throw new Error('Input field is empty');
-        }
-
-        if (executeBtn) executeBtn.disabled = true;
-
-        const matches = input.match(/\b\d{11}\b/g);
-
-        if (!matches || matches.length === 0) {
-          throw new Error('No 11-digit IDs found in input');
-        }
-
-        const unique = [...new Set(matches)].map(s => {
+      return {
+        login: async () => {
           try {
-            return { str: s, val: BigInt(s) };
-          } catch (e) {
-            ExceptionHandler.log('BigInt Conversion', e);
-            return null;
+            const idInput = document.getElementById('loginId');
+            const id = idInput?.value?.trim();
+
+            if (!id) {
+              throw new Error('Please enter your MindA ID');
+            }
+
+            const formatted = MindAIdValidator.validate(id);
+            if (!formatted) {
+              throw new Error(`Invalid format! Expected: MindA### (3 digits). Got: ${MindAIdValidator.format(id)}`);
+            }
+
+            SessionManager.save(formatted);
+            currentUser = formatted;
+
+            document.getElementById('view-login').style.display = 'none';
+            document.getElementById('view-app').style.display = 'flex';
+            document.getElementById('userBadge').textContent = formatted;
+            idInput.value = '';
+
+            Logger.info('Auth', `User logged in: ${formatted}`);
+            HistoryManager.fetch();
+
+          } catch (error) {
+            Logger.error('Auth.login', error);
+            const errorDiv = document.getElementById('loginError');
+            if (errorDiv) {
+              errorDiv.textContent = error.message;
+              errorDiv.classList.add('show');
+            }
           }
-        }).filter(Boolean);
+        },
 
-        if (unique.length === 0) {
-          throw new Error('Failed to process IDs');
-        }
-
-        unique.sort((a, b) => (a.val < b.val) ? -1 : ((a.val > b.val) ? 1 : 0));
-
-        const sequenceIds = [];
-        for (let i = 0; i < unique.length; i++) {
-          const curr = unique[i].val;
-          let isSeq = false;
-
-          try {
-            if (i > 0 && curr === unique[i - 1].val + 1n) isSeq = true;
-            if (i < unique.length - 1 && curr === unique[i + 1].val - 1n) isSeq = true;
-          } catch (e) {
-            ExceptionHandler.log('Sequence Check', e);
-            continue;
+        logout: () => {
+          if (confirm('Are you sure you want to logout?')) {
+            currentUser = null;
+            SessionManager.clear();
+            document.getElementById('view-app').style.display = 'none';
+            document.getElementById('view-login').style.display = 'flex';
+            document.getElementById('loginId').value = '';
+            Logger.info('Auth', 'User logged out');
           }
+        },
 
-          if (isSeq) sequenceIds.push(unique[i].str);
+        getUser: () => currentUser,
+
+        setUser: (user) => {
+          currentUser = user;
+        },
+
+        initializeOnLoad: () => {
+          const savedUser = SessionManager.restore();
+          if (savedUser) {
+            currentUser = savedUser;
+            document.getElementById('view-login').style.display = 'none';
+            document.getElementById('view-app').style.display = 'flex';
+            document.getElementById('userBadge').textContent = savedUser;
+            HistoryManager.fetch();
+            Logger.info('Auth', `Session restored: ${savedUser}`);
+          }
         }
+      };
+    })();
 
-        if (sequenceIds.length === 0) {
-          ExceptionHandler.toast("No sequential IDs found", 'warning');
-          return;
-        }
+    // ========================================
+    // LOGIN ID PREVIEW
+    // ========================================
+    (() => {
+      const idInput = document.getElementById('loginId');
+      const preview = document.getElementById('loginPreview');
 
-        outBox.value = sequenceIds.join('\n');
-        document.getElementById('inputData').value = "";
-
-        ExceptionHandler.toast(`✓ Found ${sequenceIds.length} Sequential ID${sequenceIds.length > 1 ? 's' : ''}`, 'success');
-
-        await uploadToDatabase(sequenceIds);
-
-        setTimeout(() => {
-          ExceptionHandler.toast("Uploaded to Database", 'info');
-        }, 1500);
-
-      } catch (e) {
-        ExceptionHandler.log('Processor Run', e);
-        ExceptionHandler.toast(e.message || 'Processing failed', 'error');
-      } finally {
-        if (executeBtn) executeBtn.disabled = false;
-      }
-    }
-
-    // --- UPLOAD FUNCTION ---
-    async function uploadToDatabase(ids) {
-      try {
-        if (!db) {
-          throw new Error('Database connection unavailable');
-        }
-
-        if (!currentUser) {
-          throw new Error('User not authenticated');
-        }
-
-        if (!ids || ids.length === 0) {
-          throw new Error('No IDs to upload');
-        }
-
-        const batch = db.batch();
-        const userRef = db.collection('users').doc(currentUser);
-        const today = new Date().toISOString().split('T')[0];
-
-        ids.forEach(id => {
-          try {
-            const ref = userRef.collection('records').doc(id);
-            batch.set(ref, {
-              id: id,
-              parsed_by: currentUser,
-              uploaded_at: firebase.firestore.FieldValue.serverTimestamp(),
-              batch_date: today
-            });
-          } catch (e) {
-            ExceptionHandler.log(`Upload ID ${id}`, e);
+      if (idInput) {
+        idInput.addEventListener('input', (e) => {
+          const value = e.target.value.trim();
+          if (value) {
+            const formatted = MindAIdValidator.format(value);
+            const isValid = MindAIdValidator.validate(value);
+            
+            if (isValid) {
+              preview.innerHTML = `✓ Will login as: <strong>${formatted}</strong>`;
+              preview.classList.add('show');
+            } else {
+              preview.innerHTML = `Formatted: ${formatted}`;
+              preview.classList.add('show');
+            }
+          } else {
+            preview.classList.remove('show');
           }
         });
-
-        await batch.commit();
-
-      } catch (e) {
-        ExceptionHandler.log('Upload Batch', e);
-        throw new Error('Database upload failed: ' + e.message);
       }
-    }
+    })();
 
-    // --- COPY FUNCTION ---
-    function copyOutput() {
-      try {
-        const t = document.getElementById('outputBox');
+    // ========================================
+    // PROCESSOR MANAGER
+    // ========================================
+    const ProcessorManager = (() => {
+      let lastResults = null;
 
-        if (!t || !t.value) {
-          throw new Error('Nothing to copy');
-        }
+      return {
+        execute: async () => {
+          const executeBtn = document.getElementById('executeBtn');
+          
+          try {
+            if (!executeBtn) return;
+            executeBtn.disabled = true;
+            executeBtn.innerHTML = '<span class="spinner"></span> Processing...';
 
-        t.select();
-
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(t.value)
-            .then(() => ExceptionHandler.toast("Copied!", 'success'))
-            .catch(e => {
-              ExceptionHandler.log('Clipboard API', e);
-              document.execCommand('copy');
-              ExceptionHandler.toast("Copied!", 'success');
-            });
-        } else {
-          document.execCommand('copy');
-          ExceptionHandler.toast("Copied!", 'success');
-        }
-
-      } catch (e) {
-        ExceptionHandler.log('Copy', e);
-        ExceptionHandler.toast('Copy failed', 'error');
-      }
-    }
-
-    // --- FETCH HISTORY FUNCTION ---
-    async function fetchHistory() {
-      try {
-        if (!db) {
-          throw new Error('Database not initialized');
-        }
-
-        const dateVal = document.getElementById('filterDate').value;
-        const idVal = document.getElementById('filterId').value.trim();
-        const tbody = document.getElementById('historyBody');
-
-        if (!tbody) {
-          throw new Error('History table not found');
-        }
-
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:20px;">Loading...</td></tr>';
-
-        let query = db.collection('users').doc(currentUser).collection('records');
-
-        if (idVal.length > 0) {
-          if (!/^\d{11}$/.test(idVal)) {
-            throw new Error('Invalid ID format. Must be 11 digits');
-          }
-
-          const doc = await query.doc(idVal).get();
-
-          if (doc.exists) {
-            const d = doc.data();
-            const time = d.uploaded_at ? d.uploaded_at.toDate().toLocaleString() : "Unknown";
-            const date = d.batch_date || "Unknown";
-            tbody.innerHTML = `<tr><td><b>${d.id}</b></td><td>${time}</td><td>${date}</td><td style="color:#10b981">✓ Found</td></tr>`;
-          } else {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#ef4444; padding:20px;">ID Not Found</td></tr>';
-          }
-          return;
-        }
-
-        if (!dateVal) {
-          throw new Error('Please select a date');
-        }
-
-        try {
-          query = query.where("batch_date", "==", dateVal).orderBy("uploaded_at", "desc").limit(100);
-          const snap = await query.get();
-
-          if (snap.empty) {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:20px;">No records for this date.</td></tr>';
-            return;
-          }
-
-          let html = '';
-          snap.forEach(doc => {
-            try {
-              const d = doc.data();
-              const time = d.uploaded_at ? d.uploaded_at.toDate().toLocaleTimeString() : "";
-              const date = d.batch_date || "";
-              html += `<tr><td><b>${d.id}</b></td><td>${time}</td><td>${date}</td><td style="color:#64748b">Stored</td></tr>`;
-            } catch (e) {
-              ExceptionHandler.log('History Row', e);
+            const user = AuthManager.getUser();
+            if (!user) {
+              throw new Error('User not authenticated');
             }
-          });
 
-          tbody.innerHTML = html || '<tr><td colspan="4" style="text-align:center; color:#94a3b8;">No data</td></tr>';
+            const inputData = document.getElementById('inputData')?.value;
+            if (!inputData?.trim()) {
+              throw new Error('Input field is empty');
+            }
 
-        } catch (indexError) {
-          // Fallback: If index doesn't exist, fetch without ordering
-          ExceptionHandler.log('Index Missing', indexError);
-          tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#f59e0b; padding:20px;">⚠ Creating database index... Please click the link in console and wait 5-10 minutes.</td></tr>';
+            const matches = inputData.match(CONFIG.REGEX.ID_PATTERN);
+            if (!matches?.length) {
+              throw new Error('No 11-digit IDs found in input');
+            }
 
-          // Try without orderBy as fallback
-          query = db.collection('users').doc(currentUser).collection('records').where("batch_date", "==", dateVal).limit(100);
-          const snap = await query.get();
+            const uniqueIds = [...new Set(matches)];
+            const bigIntIds = [];
 
-          if (!snap.empty) {
-            const docs = [];
-            snap.forEach(doc => docs.push(doc));
-            docs.sort((a, b) => {
-              const timeA = a.data().uploaded_at?.toDate() || new Date(0);
-              const timeB = b.data().uploaded_at?.toDate() || new Date(0);
-              return timeB - timeA;
-            });
+            for (const id of uniqueIds) {
+              try {
+                bigIntIds.push({ str: id, val: BigInt(id) });
+              } catch (e) {
+                Logger.warn('ProcessorManager', `Invalid BigInt: ${id}`);
+              }
+            }
+
+            if (bigIntIds.length === 0) {
+              throw new Error('Failed to process IDs');
+            }
+
+            bigIntIds.sort((a, b) => a.val < b.val ? -1 : (a.val > b.val ? 1 : 0));
+
+            const sequentialIds = [];
+            for (let i = 0; i < bigIntIds.length; i++) {
+              const curr = bigIntIds[i].val;
+              let isSequential = false;
+
+              try {
+                if (i > 0 && curr === bigIntIds[i - 1].val + 1n) isSequential = true;
+                if (i < bigIntIds.length - 1 && curr === bigIntIds[i + 1].val - 1n) isSequential = true;
+              } catch (e) {
+                Logger.warn('ProcessorManager', `Sequence check failed`);
+              }
+
+              if (isSequential) {
+                sequentialIds.push(bigIntIds[i].str);
+              }
+            }
+
+            if (sequentialIds.length === 0) {
+              ExceptionHandler.toast('No sequential IDs found', 'warning');
+              return;
+            }
+
+            lastResults = {
+              all: uniqueIds,
+              sequential: sequentialIds,
+              timestamp: new Date().toISOString().split('T')[0]
+            };
+
+            UIManager.showResultsModal(lastResults);
+
+            document.getElementById('inputData').value = '';
+
+            ProcessorManager.uploadInBackground(user, sequentialIds, lastResults.timestamp);
+
+            ExceptionHandler.toast(`✓ Found ${sequentialIds.length} sequential ID${sequentialIds.length > 1 ? 's' : ''}`, 'success');
+
+          } catch (error) {
+            Logger.error('ProcessorManager.execute', error);
+            ExceptionHandler.toast(error.message || 'Processing failed', 'error');
+          } finally {
+            if (executeBtn) {
+              executeBtn.disabled = false;
+              executeBtn.innerHTML = 'EXECUTE';
+            }
+          }
+        },
+
+        uploadInBackground: async (userId, ids, batchDate) => {
+          try {
+            const result = await FirebaseManager.uploadBatch(userId, ids, batchDate);
+            if (!result.success) {
+              Logger.error('uploadInBackground', new Error(result.error));
+            } else {
+              Logger.info('uploadInBackground', `Uploaded ${result.count} IDs`);
+            }
+          } catch (error) {
+            Logger.error('ProcessorManager.uploadInBackground', error);
+          }
+        },
+
+        getLastResults: () => lastResults
+      };
+    })();
+
+    // ========================================
+    // UI MANAGER
+    // ========================================
+    const UIManager = (() => {
+      return {
+        showResultsModal: (results) => {
+          try {
+            const modal = document.getElementById('resultsModal');
+            const resultBox = document.getElementById('modalResultBox');
+
+            if (!modal || !resultBox) return;
+
+            document.getElementById('modalFound').textContent = results.all.length;
+            document.getElementById('modalSequential').textContent = results.sequential.length;
+            resultBox.textContent = results.sequential.join('\n');
+
+            modal.classList.add('show');
+          } catch (e) {
+            Logger.error('UIManager.showResultsModal', e);
+          }
+        },
+
+        closeModal: () => {
+          const modal = document.getElementById('resultsModal');
+          if (modal) modal.classList.remove('show');
+        },
+
+        copyFromModal: () => {
+          try {
+            const resultBox = document.getElementById('modalResultBox');
+            if (!resultBox?.textContent) {
+              throw new Error('Nothing to copy');
+            }
+
+            const text = resultBox.textContent;
+            if (navigator.clipboard?.writeText) {
+              navigator.clipboard.writeText(text)
+                .then(() => ExceptionHandler.toast('✓ Copied!', 'success'))
+                .catch(() => {
+                  document.execCommand('copy');
+                  ExceptionHandler.toast('✓ Copied!', 'success');
+                });
+            } else {
+              document.execCommand('copy');
+              ExceptionHandler.toast('✓ Copied!', 'success');
+            }
+          } catch (error) {
+            Logger.error('UIManager.copyFromModal', error);
+            ExceptionHandler.toast('Copy failed', 'error');
+          }
+        }
+      };
+    })();
+
+    // ========================================
+    // NAVIGATION MANAGER
+    // ========================================
+    const NavigationManager = (() => {
+      return {
+        goTo: (pageName, btnElement) => {
+          try {
+            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+
+            const page = document.getElementById(`page-${pageName}`);
+            if (page) page.classList.add('active');
+            if (btnElement) btnElement.classList.add('active');
+
+            if (pageName === 'history') {
+              StatsManager.load();
+            }
+
+            Logger.info('Navigation', `Navigated to ${pageName}`);
+          } catch (error) {
+            Logger.error('NavigationManager.goTo', error);
+            ExceptionHandler.toast('Navigation failed', 'error');
+          }
+        }
+      };
+    })();
+
+    // ========================================
+    // STATS MANAGER
+    // ========================================
+    const StatsManager = (() => {
+      let cachedStats = null;
+      let cacheTime = 0;
+
+      return {
+        load: async () => {
+          try {
+            const now = Date.now();
+            if (cachedStats && (now - cacheTime) < CONFIG.CACHE.STATS_TTL) {
+              StatsManager.display(cachedStats);
+              return;
+            }
+
+            const user = AuthManager.getUser();
+            if (!user) return;
+
+            const [today, yesterday, week, total] = await Promise.all([
+              FirebaseManager.fetchStats(user, 'today'),
+              FirebaseManager.fetchStats(user, 'yesterday'),
+              FirebaseManager.fetchStats(user, 'week'),
+              FirebaseManager.fetchStats(user, 'total')
+            ]);
+
+            const stats = {
+              today: today.count || 0,
+              yesterday: yesterday.count || 0,
+              week: week.count || 0,
+              total: total.count || 0
+            };
+
+            cachedStats = stats;
+            cacheTime = now;
+            StatsManager.display(stats);
+            ActivityManager.load();
+
+          } catch (error) {
+            Logger.error('StatsManager.load', error);
+          }
+        },
+
+        display: (stats) => {
+          try {
+            const todayEl = document.getElementById('statToday');
+            const yesterdayEl = document.getElementById('statYesterday');
+            const weekEl = document.getElementById('statWeek');
+            const totalEl = document.getElementById('statTotal');
+
+            if (todayEl) todayEl.textContent = stats.today;
+            if (yesterdayEl) yesterdayEl.textContent = stats.yesterday;
+            if (weekEl) weekEl.textContent = stats.week;
+            if (totalEl) totalEl.textContent = stats.total;
+          } catch (e) {
+            Logger.error('StatsManager.display', e);
+          }
+        }
+      };
+    })();
+
+    // ========================================
+    // ACTIVITY MANAGER (Instead of Chart)
+    // ========================================
+    const ActivityManager = (() => {
+      return {
+        load: async () => {
+          try {
+            const user = AuthManager.getUser();
+            if (!user) return;
+
+            const stats = await FirebaseManager.fetchStats(user, 'total');
+            const weekStats = await FirebaseManager.fetchStats(user, 'week');
+
+            const lastUploadEl = document.getElementById('activityLastUpload');
+            const lastTimeEl = document.getElementById('activityLastTime');
+            const weekEl = document.getElementById('activityWeek');
+            const avgEl = document.getElementById('activityAverage');
+            const peakEl = document.getElementById('activityPeak');
+
+            if (lastUploadEl) lastUploadEl.textContent = weekStats.count;
+            if (lastTimeEl) lastTimeEl.textContent = new Date().toLocaleDateString();
+            if (weekEl) weekEl.textContent = weekStats.count;
+            if (avgEl) avgEl.textContent = Math.round(weekStats.count / 7) || 0;
+            if (peakEl) peakEl.textContent = stats.count;
+
+          } catch (error) {
+            Logger.error('ActivityManager.load', error);
+          }
+        }
+      };
+    })();
+
+    // ========================================
+    // HISTORY MANAGER
+    // ========================================
+    const HistoryManager = (() => {
+      return {
+        fetch: async () => {
+          try {
+            const user = AuthManager.getUser();
+            if (!user) return;
+
+            const dateVal = document.getElementById('filterDate')?.value;
+            const idVal = document.getElementById('filterId')?.value?.trim();
+            const tbody = document.getElementById('historyBody');
+
+            if (!tbody) return;
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:20px;"><span class="spinner"></span></td></tr>';
+
+            if (idVal && !/^\d{11}$/.test(idVal)) {
+              throw new Error('Invalid ID format (must be 11 digits)');
+            }
+
+            if (!dateVal && !idVal) {
+              throw new Error('Please select a date or enter an ID');
+            }
+
+            const result = await FirebaseManager.fetchHistory(user, dateVal || null, idVal || null);
+
+            if (!result.success) {
+              throw new Error(result.error);
+            }
+
+            if (result.data.length === 0) {
+              tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:20px;">No records found</td></tr>';
+              return;
+            }
 
             let html = '';
-            docs.forEach(doc => {
-              try {
-                const d = doc.data();
-                const time = d.uploaded_at ? d.uploaded_at.toDate().toLocaleTimeString() : "";
-                const date = d.batch_date || "";
-                html += `<tr><td><b>${d.id}</b></td><td>${time}</td><td>${date}</td><td style="color:#64748b">Stored</td></tr>`;
-              } catch (e) {
-                ExceptionHandler.log('History Row', e);
-              }
+            result.data.forEach(d => {
+              const time = d.uploaded_at?.toDate?.()?.toLocaleTimeString?.() || 'N/A';
+              const date = d.batch_date || 'N/A';
+              html += `<tr><td><b>${d.id}</b></td><td>${time}</td><td>${date}</td><td style="color:#10b981;">Stored</td></tr>`;
             });
 
             tbody.innerHTML = html;
-          }
-        }
 
-      } catch (e) {
-        ExceptionHandler.log('History Fetch', e);
-        const tbody = document.getElementById('historyBody');
-        if (tbody) {
-          tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#ef4444; padding:20px;">${e.message}</td></tr>`;
-        }
-        ExceptionHandler.toast(e.message, 'error');
-      }
-    }
-
-    // --- LOAD STATS FUNCTION ---
-    async function loadStats() {
-      try {
-        if (!db || !currentUser) return;
-
-        const today = new Date();
-        const todayStr = today.toISOString().split('T')[0];
-
-        const yesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayStr = yesterday.toISOString().split('T')[0];
-
-        const weekAgo = new Date(today);
-        weekAgo.setDate(weekAgo.getDate() - 7);
-        const weekAgoStr = weekAgo.toISOString().split('T')[0];
-
-        const userRef = db.collection('users').doc(currentUser).collection('records');
-
-        const todaySnap = await userRef.where('batch_date', '==', todayStr).get();
-        document.getElementById('statToday').textContent = todaySnap.size;
-
-        const yesterdaySnap = await userRef.where('batch_date', '==', yesterdayStr).get();
-        document.getElementById('statYesterday').textContent = yesterdaySnap.size;
-
-        const weekSnap = await userRef.where('batch_date', '>=', weekAgoStr).get();
-        document.getElementById('statWeek').textContent = weekSnap.size;
-
-        const totalSnap = await userRef.limit(1000).get();
-        document.getElementById('statTotal').textContent = totalSnap.size;
-
-        await loadChartData();
-
-      } catch (e) {
-        ExceptionHandler.log('Load Stats', e);
-      }
-    }
-
-    // --- LOAD CHART DATA FUNCTION ---
-    async function loadChartData() {
-      try {
-        const days = parseInt(document.getElementById('chartPeriod').value) || 7;
-        const data = [];
-        const labels = [];
-
-        for (let i = days - 1; i >= 0; i--) {
-          const date = new Date();
-          date.setDate(date.getDate() - i);
-          const dateStr = date.toISOString().split('T')[0];
-
-          const snap = await db.collection('users')
-            .doc(currentUser)
-            .collection('records')
-            .where('batch_date', '==', dateStr)
-            .get();
-
-          data.push(snap.size);
-          labels.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
-        }
-
-        chartData = { labels, data };
-        updateChart();
-
-      } catch (e) {
-        ExceptionHandler.log('Load Chart Data', e);
-      }
-    }
-
-    // --- UPDATE CHART FUNCTION ---
-    function updateChart() {
-      try {
-        const canvas = document.getElementById('activityChart');
-        if (!canvas) return;
-
-        const ctx = canvas.getContext('2d');
-
-        if (activityChart) {
-          activityChart.destroy();
-        }
-
-        activityChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: chartData.labels || [],
-            datasets: [{
-              label: 'IDs Found',
-              data: chartData.data || [],
-              backgroundColor: 'rgba(15, 23, 42, 0.8)',
-              borderColor: '#0f172a',
-              borderWidth: 2,
-              borderRadius: 6,
-              hoverBackgroundColor: '#0f172a'
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-              legend: {
-                display: false
-              },
-              tooltip: {
-                backgroundColor: '#0f172a',
-                padding: 12,
-                titleFont: { size: 13, weight: 'bold' },
-                bodyFont: { size: 14 },
-                borderColor: '#334155',
-                borderWidth: 1
-              }
-            },
-            scales: {
-              y: {
-                beginAtZero: true,
-                ticks: {
-                  precision: 0,
-                  color: '#64748b',
-                  font: { size: 11, weight: '600' }
-                },
-                grid: {
-                  color: '#f1f5f9',
-                  drawBorder: false
-                }
-              },
-              x: {
-                ticks: {
-                  color: '#64748b',
-                  font: { size: 11, weight: '600' }
-                },
-                grid: {
-                  display: false
-                }
-              }
+          } catch (error) {
+            Logger.error('HistoryManager.fetch', error);
+            const tbody = document.getElementById('historyBody');
+            if (tbody) {
+              tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#ef4444; padding:20px;">${error.message}</td></tr>`;
             }
+            ExceptionHandler.toast(error.message, 'error');
           }
+        }
+      };
+    })();
+
+    // ========================================
+    // INITIALIZATION
+    // ========================================
+    (async () => {
+      try {
+        const fbResult = await FirebaseManager.init();
+        if (!fbResult.success) {
+          ExceptionHandler.show('Database initialization failed. Please refresh the page.');
+          return;
+        }
+
+        AuthManager.initializeOnLoad();
+
+        window.addEventListener('error', (e) => {
+          Logger.error('Global.Error', e.error || e.message);
         });
 
-      } catch (e) {
-        ExceptionHandler.log('Update Chart', e);
-      }
-    }
-
-    // --- UPDATE CHART PERIOD FUNCTION ---
-    function updateChartPeriod() {
-      loadChartData();
-    }
-
-    // --- INITIALIZATION ---
-    function initApp() {
-      try {
-        const saved = localStorage.getItem('mindAidUser');
-        if (saved) {
-          doLogin(saved);
-        }
+        window.addEventListener('unhandledrejection', (e) => {
+          Logger.error('Global.UnhandledRejection', e.reason);
+        });
 
         const dateInput = document.getElementById('filterDate');
         if (dateInput) {
           dateInput.valueAsDate = new Date();
         }
 
-        window.addEventListener('error', (e) => {
-          ExceptionHandler.log('Global Error', e.error || e.message);
-        });
+        Logger.info('AppInit', 'Application initialized successfully');
 
-        window.addEventListener('unhandledrejection', (e) => {
-          ExceptionHandler.log('Unhandled Promise', e.reason);
-        });
-
-      } catch (e) {
-        ExceptionHandler.log('App Init', e);
+      } catch (error) {
+        Logger.error('AppInit', error);
         ExceptionHandler.show('Application initialization failed');
       }
-    }
-
-    window.onload = initApp;
-    
+    })();
   </script>
 
 </body>
