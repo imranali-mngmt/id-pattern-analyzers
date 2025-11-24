@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MindAid | Operations</title>
+  <title>Operations</title>
 
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -61,7 +61,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 40px;
+      padding: 0 30px;
       border-bottom: 1px solid var(--border-color);
       flex-shrink: 0;
       z-index: 100;
@@ -69,23 +69,23 @@
 
     .brand {
       font-weight: 800;
-      font-size: 20px;
+      font-size: 18px;
       color: #3b82f6;
       letter-spacing: -0.5px;
     }
 
     .nav-tabs {
       display: flex;
-      gap: 20px;
+      gap: 15px;
       align-items: center;
     }
 
     .nav-tab {
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       color: #94a3b8;
-      padding: 8px 16px;
+      padding: 6px 12px;
       border-radius: 6px;
       transition: all 0.2s;
       user-select: none;
@@ -98,16 +98,26 @@
     .nav-tab.active {
       background: #3b82f6;
       color: white;
-      font-weight: 700;
     }
 
-    .user-id {
-      font-size: 13px;
-      font-weight: 600;
-      color: #94a3b8;
+    .user-section {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 15px;
+    }
+
+    .user-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: #10b981;
+      padding: 4px 8px;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 4px;
+    }
+
+    .user-badge.admin {
+      color: #f59e0b;
+      background: rgba(245, 158, 11, 0.1);
     }
 
     .logout-btn {
@@ -117,7 +127,7 @@
       padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       transition: all 0.2s;
     }
@@ -139,13 +149,13 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 40px 20px;
+      padding: 30px 20px;
     }
 
     .page {
       display: none;
       width: 100%;
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
@@ -160,54 +170,50 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 400px;
+      min-height: 350px;
       width: 100%;
     }
 
     .input-card {
       background: var(--bg-panel);
       border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 40px;
+      border-radius: 10px;
+      padding: 35px;
       width: 100%;
-      max-width: 600px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      max-width: 550px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
       transition: all 0.3s ease;
     }
 
     .input-card:hover {
       border-color: #3b82f6;
-      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+      box-shadow: 0 12px 32px rgba(59, 130, 246, 0.15);
     }
 
     .input-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: #94a3b8;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      letter-spacing: 0.6px;
+      margin-bottom: 12px;
     }
 
     .input-hint {
-      font-size: 12px;
+      font-size: 11px;
       color: #64748b;
-      margin-bottom: 16px;
-      font-style: italic;
+      margin-bottom: 14px;
     }
 
     textarea {
       width: 100%;
-      min-height: 250px;
+      min-height: 200px;
       background: #0f172a;
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 16px;
+      padding: 14px;
       font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1.6;
       resize: vertical;
       color: #e2e8f0;
@@ -224,30 +230,26 @@
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 0 3px rgba(59, 130, 246, 0.2);
     }
 
-    textarea:hover:not(:focus) {
-      border-color: #475569;
-    }
-
     .btn-execute {
       background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
       color: white;
       border: none;
-      padding: 14px 28px;
+      padding: 12px 24px;
       border-radius: 8px;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: 18px;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.6px;
       transition: all 0.3s ease;
       width: 100%;
-      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
 
     .btn-execute:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
     }
 
     .btn-execute:active:not(:disabled) {
@@ -257,6 +259,27 @@
     .btn-execute:disabled {
       opacity: 0.5;
       cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #3b82f6;
+      border: 1px solid #3b82f6;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: #2563eb;
     }
 
     /* ==========================================
@@ -279,24 +302,21 @@
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .modal-content {
       background: var(--bg-panel);
-      border-radius: 12px;
-      padding: 40px;
-      max-width: 600px;
+      border-radius: 10px;
+      padding: 35px;
+      max-width: 550px;
       width: 90%;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
       animation: slideUp 0.3s ease-out;
-      position: relative;
       border: 1px solid var(--border-color);
+      max-height: 80vh;
+      overflow-y: auto;
     }
 
     @keyframes slideUp {
@@ -312,17 +332,17 @@
 
     .modal-close {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      top: 14px;
+      right: 14px;
       background: none;
       border: none;
-      font-size: 28px;
+      font-size: 24px;
       cursor: pointer;
       color: #94a3b8;
       transition: color 0.2s;
       padding: 0;
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -333,10 +353,10 @@
     }
 
     .modal-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 800;
       color: #e2e8f0;
-      margin: 0 0 24px 0;
+      margin: 0 0 20px 0;
       text-align: center;
     }
 
@@ -344,65 +364,61 @@
       background: #0f172a;
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-      max-height: 350px;
+      padding: 16px;
+      margin-bottom: 18px;
+      max-height: 300px;
       overflow-y: auto;
       font-family: 'Consolas', monospace;
-      font-size: 13px;
+      font-size: 12px;
       color: #10b981;
-      line-height: 1.8;
+      line-height: 1.7;
       word-break: break-all;
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .modal-stats {
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 12px;
+      margin-bottom: 18px;
     }
 
     .stat-item {
-      text-align: center;
-      padding: 12px;
-      background: var(--bg-panel);
-      border-radius: 8px;
+      background: #0f172a;
       border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
     }
 
     .stat-item-value {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 800;
       color: #3b82f6;
     }
 
     .stat-item-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       color: #94a3b8;
       text-transform: uppercase;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .modal-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
     }
 
     .btn-copy {
       background: #3b82f6;
       color: white;
       border: none;
-      padding: 12px;
+      padding: 10px;
       border-radius: 6px;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -411,17 +427,16 @@
 
     .btn-copy:hover {
       background: #2563eb;
-      transform: translateY(-1px);
     }
 
     .btn-close {
       background: transparent;
       color: #94a3b8;
       border: 1px solid var(--border-color);
-      padding: 12px;
+      padding: 10px;
       border-radius: 6px;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -430,162 +445,261 @@
 
     .btn-close:hover {
       background: var(--bg-hover);
-      color: var(--text-main);
       border-color: #3b82f6;
     }
 
     /* ==========================================
-       STATS CARDS
+       ADMIN PANEL
        ========================================== */
+    .admin-panel-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 350px;
+      width: 100%;
+    }
+
+    .admin-panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 35px;
+      width: 100%;
+      max-width: 650px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .admin-section {
+      margin-bottom: 30px;
+    }
+
+    .admin-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .admin-section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .user-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .user-item {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+
+    .user-item:hover {
+      border-color: #3b82f6;
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    .user-item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .user-item-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #e2e8f0;
+      font-family: 'Consolas', monospace;
+    }
+
+    .user-item-status {
+      font-size: 11px;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    .user-item-status.granted {
+      color: #10b981;
+    }
+
+    .user-item-status.denied {
+      color: #ef4444;
+    }
+
+    .user-item-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-grant {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-grant:hover {
+      background: #059669;
+    }
+
+    .btn-revoke {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-revoke:hover {
+      background: #dc2626;
+    }
+
+    .add-user-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .add-user-input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 12px;
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: 'Consolas', monospace;
+    }
+
+    .add-user-input::placeholder {
+      color: #475569;
+    }
+
+    .add-user-input:focus {
+      border-color: #3b82f6;
+    }
+
+    .btn-add-user {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-add-user:hover {
+      background: #2563eb;
+    }
+
+    /* ==========================================
+       HISTORY PAGE - MINIMAL
+       ========================================== */
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .history-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
       width: 100%;
     }
 
     .stat-card {
-      background: linear-gradient(135deg, var(--bg-panel) 0%, #0f172a 100%);
+      background: var(--bg-panel);
       border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 24px;
+      border-radius: 8px;
+      padding: 16px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       transition: all 0.3s ease;
     }
 
     .stat-card:hover {
       border-color: #3b82f6;
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+      transform: translateY(-2px);
     }
 
     .stat-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       color: #94a3b8;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .stat-value {
-      font-size: 36px;
+      font-size: 28px;
       font-weight: 800;
       color: #3b82f6;
     }
 
-    .stat-sublabel {
-      font-size: 12px;
-      color: #64748b;
-      font-weight: 500;
-      margin-top: 8px;
-    }
-
-    /* ==========================================
-       ACTIVITY SECTION
-       ========================================== */
-    .activity-container {
-      background: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      width: 100%;
-    }
-
-    .activity-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .activity-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 16px;
-    }
-
-    .activity-item {
-      background: #0f172a;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 16px;
-      text-align: center;
-    }
-
-    .activity-item-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #94a3b8;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .activity-item-value {
-      font-size: 24px;
-      font-weight: 800;
-      color: #10b981;
-    }
-
-    .activity-item-time {
-      font-size: 10px;
-      color: #64748b;
-      margin-top: 8px;
-    }
-
-    /* ==========================================
-       HISTORY TABLE
-       ========================================== */
-    .table-wrapper {
-      background: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      width: 100%;
-    }
-
     .history-tools {
       background: var(--bg-panel);
-      padding: 20px;
-      border-radius: 12px;
+      padding: 16px;
+      border-radius: 8px;
       border: 1px solid var(--border-color);
       display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 18px;
       align-items: flex-end;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      width: 100%;
       flex-wrap: wrap;
     }
 
     .tool-group {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       flex: 1;
-      min-width: 200px;
+      min-width: 150px;
     }
 
     .tool-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       color: #94a3b8;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
     }
 
     .tool-input {
-      padding: 10px 12px;
+      padding: 8px 10px;
       border: 1px solid var(--border-color);
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 13px;
       background: #0f172a;
       color: #e2e8f0;
       transition: all 0.2s;
@@ -597,41 +711,67 @@
 
     .tool-input:focus {
       border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .table-wrapper {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      margin-bottom: 18px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      background: var(--bg-panel);
     }
 
     th {
       text-align: left;
-      padding: 15px;
+      padding: 12px 14px;
       background: #0f172a;
       color: #94a3b8;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       border-bottom: 1px solid var(--border-color);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
     }
 
     td {
-      padding: 12px 15px;
+      padding: 10px 14px;
       border-bottom: 1px solid var(--border-color);
       font-family: 'Consolas', monospace;
-      font-size: 13px;
+      font-size: 12px;
       color: #e2e8f0;
     }
 
     tr:hover {
-      background: #334155;
+      background: rgba(51, 65, 85, 0.5);
+    }
+
+    .copy-all-btn {
+      width: 100%;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+    }
+
+    .copy-all-btn:hover {
+      background: #2563eb;
     }
 
     /* ==========================================
-       LOGIN
+       LOGIN & ADMIN AUTH
        ========================================== */
     #view-login {
       position: fixed;
@@ -645,43 +785,41 @@
 
     .login-box {
       background: var(--bg-panel);
-      padding: 40px;
-      border-radius: 12px;
+      padding: 35px;
+      border-radius: 10px;
       border: 1px solid var(--border-color);
-      width: 360px;
+      width: 340px;
       text-align: center;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
       animation: slideUp 0.3s ease-out;
     }
 
     .login-box h3 {
-      margin: 0 0 8px 0;
+      margin: 0 0 6px 0;
       color: #3b82f6;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
     }
 
     .login-box p {
-      font-size: 13px;
+      font-size: 12px;
       color: #94a3b8;
-      margin: 0 0 30px 0;
-      font-weight: 500;
+      margin: 0 0 25px 0;
     }
 
     .login-input {
       width: 100%;
-      padding: 12px 14px;
+      padding: 10px 12px;
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 13px;
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       background: #0f172a;
       color: #e2e8f0;
       transition: all 0.2s;
       font-family: 'Consolas', monospace;
       font-weight: 500;
-      letter-spacing: 0.5px;
     }
 
     .login-input::placeholder {
@@ -694,41 +832,33 @@
     }
 
     .login-preview {
-      font-size: 12px;
+      font-size: 11px;
       color: #10b981;
-      margin-bottom: 16px;
-      padding: 10px;
+      margin-bottom: 14px;
+      padding: 8px;
       background: rgba(16, 185, 129, 0.1);
       border-radius: 6px;
-      border-left: 3px solid #10b981;
+      border-left: 2px solid #10b981;
       display: none;
     }
 
     .login-preview.show {
       display: block;
-      animation: fadeIn 0.3s ease;
     }
 
     #loginError {
       color: #ef4444;
-      font-size: 12px;
-      margin-top: 12px;
+      font-size: 11px;
+      margin-top: 10px;
       display: none;
-      padding: 10px;
+      padding: 8px;
       background: rgba(239, 68, 68, 0.1);
       border-radius: 6px;
-      border-left: 3px solid #ef4444;
+      border-left: 2px solid #ef4444;
     }
 
     #loginError.show {
       display: block;
-      animation: shake 0.4s ease;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
     }
 
     /* ==========================================
@@ -738,30 +868,18 @@
       background: rgba(239, 68, 68, 0.1);
       border: 1px solid rgba(239, 68, 68, 0.3);
       color: #fca5a5;
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-radius: 8px;
-      margin-bottom: 20px;
-      font-size: 13px;
+      margin-bottom: 18px;
+      font-size: 12px;
       display: none;
       width: 100%;
-      max-width: 1200px;
-      border-left: 3px solid #ef4444;
+      max-width: 1000px;
+      border-left: 2px solid #ef4444;
     }
 
     .error-banner.show {
       display: block;
-      animation: slideDown 0.2s ease-out;
-    }
-
-    @keyframes slideDown {
-      from {
-        transform: translateY(-10px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
     }
 
     /* ==========================================
@@ -769,8 +887,8 @@
        ========================================== */
     .spinner {
       display: inline-block;
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       border: 2px solid rgba(59, 130, 246, 0.2);
       border-radius: 50%;
       border-top-color: #3b82f6;
@@ -778,17 +896,14 @@
     }
 
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      to { transform: rotate(360deg); }
     }
 
     /* ==========================================
        SCROLLBAR
        ========================================== */
     ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      width: 6px;
     }
 
     ::-webkit-scrollbar-track {
@@ -797,7 +912,7 @@
 
     ::-webkit-scrollbar-thumb {
       background: #475569;
-      border-radius: 4px;
+      border-radius: 3px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
@@ -816,13 +931,12 @@
         padding: 20px 15px;
       }
 
-      .input-card {
+      .input-card, .admin-panel {
         padding: 25px;
-        max-width: 100%;
       }
 
       textarea {
-        min-height: 180px;
+        min-height: 150px;
       }
 
       .modal-content {
@@ -830,12 +944,12 @@
       }
 
       .login-box {
-        width: 90%;
-        padding: 30px;
+        width: 85%;
+        padding: 25px;
       }
 
       .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
       }
 
       .history-tools {
@@ -843,12 +957,21 @@
       }
 
       .tool-group {
-        min-width: auto;
         width: 100%;
       }
 
-      .activity-stats {
-        grid-template-columns: 1fr;
+      .user-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .user-item-actions {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .user-item-actions button {
+        flex: 1;
       }
     }
   </style>
@@ -859,12 +982,26 @@
   <!-- LOGIN VIEW -->
   <div id="view-login">
     <div class="login-box">
-      <h3>MindAid</h3>
-      <p>Secure Portal</p>
-      <input type="text" id="loginId" class="login-input" placeholder="MindA ID (e.g minda079)" spellcheck="false">
+      <h3>MindA_ID</h3>
+      <input type="text" id="loginId" class="login-input" placeholder="MindA ID (e.g minda077)" spellcheck="false">
       <div id="loginPreview" class="login-preview"></div>
       <button class="btn-execute" onclick="AuthManager.login()">Login</button>
       <div id="loginError"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN AUTH MODAL -->
+  <div id="adminAuthModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="AuthManager.closeAdminAuth()">&times;</button>
+      <h2 class="modal-title">Admin Verification</h2>
+      <div class="input-label" style="margin-bottom: 16px; text-align: center;">Enter your name to proceed</div>
+      <input type="password" id="adminPassword" class="login-input" placeholder="Enter your name" spellcheck="false">
+      <div id="adminError" style="color: #ef4444; font-size: 11px; margin-top: 10px; display: none;"></div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px;">
+        <button class="btn-copy" onclick="AuthManager.verifyAdmin()">Verify</button>
+        <button class="btn-close" onclick="AuthManager.closeAdminAuth()">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -872,13 +1009,14 @@
   <div id="view-app" style="display:none; height:100vh; flex-direction:column;">
 
     <div class="header">
-      <div class="brand">MindAid</div>
+      <div class="brand">MindA Operations</div>
       <div class="nav-tabs">
         <div class="nav-tab active" onclick="NavigationManager.goTo('processor', this)">Processor</div>
-        <div class="nav-tab" onclick="NavigationManager.goTo('history', this)">My History</div>
+        <div id="historyNavTab" class="nav-tab" style="display:none;" onclick="NavigationManager.goTo('history', this)">History</div>
+        <div id="adminNavTab" class="nav-tab" style="display:none;" onclick="NavigationManager.goTo('admin', this)">Admin Panel</div>
       </div>
-      <div class="user-id">
-        <span id="userBadge"></span>
+      <div class="user-section">
+        <div id="userBadge" class="user-badge"></div>
         <button class="logout-btn" onclick="AuthManager.logout()">Logout</button>
       </div>
     </div>
@@ -891,8 +1029,8 @@
         <div class="processor-wrapper">
           <div class="input-card">
             <div class="input-label">Input Stream</div>
-            <div class="input-hint">Paste 11-digit IDs below (comma, space, or newline separated)</div>
-            <textarea id="inputData" placeholder="Paste data here..." spellcheck="false"></textarea>
+            <div class="input-hint">Paste 11-digit IDs (comma, space, or newline separated)</div>
+            <textarea id="inputData" placeholder="Paste your data here..." spellcheck="false"></textarea>
             <button id="executeBtn" class="btn-execute" onclick="ProcessorManager.execute()">EXECUTE</button>
           </div>
         </div>
@@ -924,61 +1062,64 @@
         </div>
       </div>
 
+      <!-- ADMIN PANEL PAGE -->
+      <div id="page-admin" class="page">
+        <div class="admin-panel-wrapper">
+          <div class="admin-panel">
+            
+            <!-- Access Control Section -->
+            <div class="admin-section">
+              <div class="admin-section-title">🔐 History Access Control</div>
+              <div class="user-list" id="accessList"></div>
+              <div class="add-user-group" style="margin-top: 15px;">
+                <input type="text" id="newUserInput" class="add-user-input" placeholder="e.g., minda001" spellcheck="false">
+                <button class="btn-add-user" onclick="AdminManager.addUser()">Add User</button>
+              </div>
+            </div>
+
+            <!-- Audit Section -->
+            <div class="admin-section">
+              <div class="admin-section-title">📊 System Audit</div>
+              <button class="copy-all-btn" onclick="AdminManager.copyAllAudits()">Copy All IDs (11-Digit)</button>
+              <div style="margin-top: 16px;">
+                <div class="tool-label">Preview (Latest 100)</div>
+                <div class="modal-result-box" id="auditPreview" style="margin-bottom: 0; margin-top: 8px; max-height: 250px;">
+                  <span style="color: #94a3b8;">Click button to load audits...</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <!-- HISTORY PAGE -->
       <div id="page-history" class="page">
+        <div class="history-header">
+          <div class="history-title">History & Analytics</div>
+        </div>
 
-        <!-- Stats Overview Cards -->
+        <!-- Stats Overview -->
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-label">Today</div>
             <div class="stat-value" id="statToday">0</div>
-            <div class="stat-sublabel">IDs Found</div>
           </div>
           <div class="stat-card">
             <div class="stat-label">Yesterday</div>
             <div class="stat-value" id="statYesterday">0</div>
-            <div class="stat-sublabel">IDs Found</div>
           </div>
           <div class="stat-card">
             <div class="stat-label">This Week</div>
             <div class="stat-value" id="statWeek">0</div>
-            <div class="stat-sublabel">IDs Found</div>
           </div>
           <div class="stat-card">
             <div class="stat-label">Total</div>
             <div class="stat-value" id="statTotal">0</div>
-            <div class="stat-sublabel">All Time</div>
           </div>
         </div>
 
-        <!-- Activity Summary -->
-        <div class="activity-container">
-          <div class="activity-title">Recent Activity</div>
-          <div class="activity-stats">
-            <div class="activity-item">
-              <div class="activity-item-label">Last Upload</div>
-              <div class="activity-item-value" id="activityLastUpload">--</div>
-              <div class="activity-item-time" id="activityLastTime">No data</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-item-label">Uploads This Week</div>
-              <div class="activity-item-value" id="activityWeek">0</div>
-              <div class="activity-item-time">Last 7 days</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-item-label">Avg per Day</div>
-              <div class="activity-item-value" id="activityAverage">0</div>
-              <div class="activity-item-time">This month</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-item-label">Peak Day</div>
-              <div class="activity-item-value" id="activityPeak">0</div>
-              <div class="activity-item-time">Highest count</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Search & Table Section -->
+        <!-- Search & Filter -->
         <div class="history-tools">
           <div class="tool-group">
             <span class="tool-label">Filter Date</span>
@@ -986,17 +1127,18 @@
           </div>
           <div class="tool-group">
             <span class="tool-label">Search ID</span>
-            <input type="text" id="filterId" class="tool-input" placeholder="Enter 11-digit ID">
+            <input type="text" id="filterId" class="tool-input" placeholder="11-digit ID">
           </div>
-          <button class="btn-execute" style="width:auto; margin:0; padding:10px 25px; min-width:120px;"
+          <button class="btn-execute" style="width: auto; padding: 8px 18px; font-size: 11px;" 
             onclick="HistoryManager.fetch()">Search</button>
         </div>
 
+        <!-- Table -->
         <div class="table-wrapper">
           <table id="historyTable">
             <thead>
               <tr>
-                <th>ID Sequence</th>
+                <th>ID</th>
                 <th>Time Logged</th>
                 <th>Batch Date</th>
                 <th>Status</th>
@@ -1025,6 +1167,8 @@
         messagingSenderId: "1030605656898",
         appId: "1:1030605656898:web:3825d797b521c9c90a2edb"
       },
+      ADMIN_USER: 'MINDA077',
+      ADMIN_PASSWORD: 'imran077',
       REGEX: {
         ID_PATTERN: /\b\d{11}\b/g,
         ID_VALIDATE: /^\d{11}$/,
@@ -1035,19 +1179,16 @@
         MAX_RESULTS: 1000,
         SESSION_TIMEOUT: 86400000,
         DELETION_DAYS: 30
-      },
-      CACHE: {
-        STATS_TTL: 60000,
-        HISTORY_TTL: 30000
       }
     };
 
     // ========================================
-    // SESSION STORAGE MANAGER
+    // SESSION MANAGER
     // ========================================
     const SessionManager = (() => {
-      const SESSION_KEY = 'mindaid_session_v1';
-      const EXPIRY_KEY = 'mindaid_expiry';
+      const SESSION_KEY = 'mindaid_session_v3';
+      const ADMIN_KEY = 'mindaid_admin_auth';
+      const ACCESS_KEY = 'mindaid_access_control';
 
       return {
         save: (userId) => {
@@ -1055,13 +1196,60 @@
             const sessionData = {
               user: userId,
               loginTime: Date.now(),
-              version: 1
+              isAdmin: userId === CONFIG.ADMIN_USER,
+              version: 3
             };
             localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
-            localStorage.setItem(EXPIRY_KEY, Date.now() + CONFIG.LIMITS.SESSION_TIMEOUT);
+            localStorage.setItem('mindaid_expiry', Date.now() + CONFIG.LIMITS.SESSION_TIMEOUT);
             return true;
           } catch (e) {
-            console.error('SessionManager.save', e);
+            Logger.error('SessionManager.save', e);
+            return false;
+          }
+        },
+
+        markAdminVerified: () => {
+          try {
+            localStorage.setItem(ADMIN_KEY, JSON.stringify({
+              verified: true,
+              time: Date.now()
+            }));
+          } catch (e) {
+            Logger.error('markAdminVerified', e);
+          }
+        },
+
+        isAdminVerified: () => {
+          try {
+            const auth = JSON.parse(localStorage.getItem(ADMIN_KEY) || '{}');
+            return auth.verified === true;
+          } catch (e) {
+            return false;
+          }
+        },
+
+        getAccessControl: () => {
+          try {
+            return JSON.parse(localStorage.getItem(ACCESS_KEY) || '{"granted": [], "denied": []}');
+          } catch (e) {
+            return { granted: [], denied: [] };
+          }
+        },
+
+        saveAccessControl: (access) => {
+          try {
+            localStorage.setItem(ACCESS_KEY, JSON.stringify(access));
+            return true;
+          } catch (e) {
+            return false;
+          }
+        },
+
+        hasHistoryAccess: (userId) => {
+          try {
+            const access = SessionManager.getAccessControl();
+            return access.granted.includes(userId);
+          } catch (e) {
             return false;
           }
         },
@@ -1069,15 +1257,14 @@
         restore: () => {
           try {
             const sessionData = JSON.parse(localStorage.getItem(SESSION_KEY) || '{}');
-            const expiry = parseInt(localStorage.getItem(EXPIRY_KEY) || '0');
+            const expiry = parseInt(localStorage.getItem('mindaid_expiry') || '0');
 
             if (sessionData.user && Date.now() < expiry) {
-              return sessionData.user;
+              return sessionData;
             }
             SessionManager.clear();
             return null;
           } catch (e) {
-            console.error('SessionManager.restore', e);
             return null;
           }
         },
@@ -1085,21 +1272,17 @@
         clear: () => {
           try {
             localStorage.removeItem(SESSION_KEY);
-            localStorage.removeItem(EXPIRY_KEY);
+            localStorage.removeItem(ADMIN_KEY);
+            localStorage.removeItem('mindaid_expiry');
             return true;
           } catch (e) {
-            console.error('SessionManager.clear', e);
             return false;
           }
         },
 
         isValid: () => {
-          try {
-            const expiry = parseInt(localStorage.getItem(EXPIRY_KEY) || '0');
-            return Date.now() < expiry && !!localStorage.getItem(SESSION_KEY);
-          } catch (e) {
-            return false;
-          }
+          const expiry = parseInt(localStorage.getItem('mindaid_expiry') || '0');
+          return Date.now() < expiry && !!localStorage.getItem(SESSION_KEY);
         }
       };
     })();
@@ -1109,7 +1292,7 @@
     // ========================================
     const Logger = (() => {
       const logs = [];
-      const MAX_LOGS = 100;
+      const MAX_LOGS = 50;
 
       return {
         log: (level, context, data) => {
@@ -1132,7 +1315,6 @@
 
         info: (context, data) => Logger.log('INFO', context, data),
         warn: (context, data) => Logger.log('WARN', context, data),
-
         getLogs: () => logs,
         clearLogs: () => logs.length = 0
       };
@@ -1144,29 +1326,17 @@
     const ExceptionHandler = {
       handle: (context, error, fallback = 'An error occurred') => {
         Logger.error(context, error);
-
         const message = error?.message || fallback;
-        const userMessage = message.includes('permission') || message.includes('auth')
-          ? 'Access denied. Please log in again.'
-          : message.length < 100 ? message : fallback;
-
-        return {
-          success: false,
-          error: userMessage,
-          code: error?.code || 'UNKNOWN_ERROR'
-        };
+        const userMessage = message.includes('permission') ? 'Access denied' : message.length < 100 ? message : fallback;
+        return { success: false, error: userMessage };
       },
 
       show: (message, duration = 3000) => {
-        try {
-          const banner = document.getElementById('errorBanner');
-          if (banner) {
-            banner.textContent = message;
-            banner.classList.add('show');
-            setTimeout(() => banner.classList.remove('show'), duration);
-          }
-        } catch (e) {
-          Logger.error('ExceptionHandler.show', e);
+        const banner = document.getElementById('errorBanner');
+        if (banner) {
+          banner.textContent = message;
+          banner.classList.add('show');
+          setTimeout(() => banner.classList.remove('show'), duration);
         }
       },
 
@@ -1178,21 +1348,17 @@
           info: '#3b82f6'
         };
 
-        try {
-          if (typeof Toastify !== 'undefined') {
-            Toastify({
-              text: message,
-              duration: 3000,
-              style: {
-                background: colors[type] || colors.error,
-                borderRadius: "6px",
-                fontSize: "13px",
-                fontWeight: "600"
-              }
-            }).showToast();
-          }
-        } catch (e) {
-          Logger.error('Toastify', e);
+        if (typeof Toastify !== 'undefined') {
+          Toastify({
+            text: message,
+            duration: 2500,
+            style: {
+              background: colors[type] || colors.error,
+              borderRadius: "6px",
+              fontSize: "12px",
+              fontWeight: "600"
+            }
+          }).showToast();
         }
       }
     };
@@ -1212,28 +1378,19 @@
             }
             db = firebase.firestore();
             isInitialized = true;
-            Logger.info('Firebase', 'Initialized successfully');
-
-            FirebaseManager.setupDeletionJob();
-
             return { success: true };
           } catch (error) {
-            return ExceptionHandler.handle('Firebase.init', error, 'Failed to initialize database');
+            return ExceptionHandler.handle('Firebase.init', error);
           }
         },
 
         isReady: () => isInitialized && db !== null,
-
         getDb: () => db,
 
         uploadBatch: async (userId, ids, batchDate) => {
           try {
-            if (!FirebaseManager.isReady()) {
-              throw new Error('Database not initialized');
-            }
-
-            if (!userId || !Array.isArray(ids) || ids.length === 0) {
-              throw new Error('Invalid input parameters');
+            if (!FirebaseManager.isReady() || !userId || !Array.isArray(ids) || ids.length === 0) {
+              throw new Error('Invalid parameters');
             }
 
             const batch = db.batch();
@@ -1241,31 +1398,24 @@
             let uploadedCount = 0;
 
             for (let i = 0; i < ids.length; i++) {
-              try {
-                const id = ids[i];
-                if (!CONFIG.REGEX.ID_VALIDATE.test(id)) {
-                  Logger.warn('uploadBatch', `Invalid ID: ${id}`);
-                  continue;
-                }
+              const id = ids[i];
+              if (!CONFIG.REGEX.ID_VALIDATE.test(id)) continue;
 
-                const ref = userRef.collection('records').doc(id);
-                batch.set(ref, {
-                  id: id,
-                  parsed_by: userId,
-                  uploaded_at: firebase.firestore.FieldValue.serverTimestamp(),
-                  batch_date: batchDate,
-                  created_at: firebase.firestore.FieldValue.serverTimestamp(),
-                  deletion_scheduled_for: new Date(Date.now() + CONFIG.LIMITS.DELETION_DAYS * 24 * 60 * 60 * 1000),
-                  version: 1
-                }, { merge: true });
+              const ref = userRef.collection('records').doc(id);
+              batch.set(ref, {
+                id: id,
+                parsed_by: userId,
+                uploaded_at: firebase.firestore.FieldValue.serverTimestamp(),
+                batch_date: batchDate,
+                created_at: firebase.firestore.FieldValue.serverTimestamp(),
+                deletion_scheduled_for: new Date(Date.now() + CONFIG.LIMITS.DELETION_DAYS * 24 * 60 * 60 * 1000),
+                version: 1
+              }, { merge: true });
 
-                uploadedCount++;
+              uploadedCount++;
 
-                if ((i + 1) % CONFIG.LIMITS.MAX_BATCH_SIZE === 0) {
-                  await batch.commit();
-                }
-              } catch (e) {
-                Logger.error('uploadBatch item', e);
+              if ((i + 1) % CONFIG.LIMITS.MAX_BATCH_SIZE === 0) {
+                await batch.commit();
               }
             }
 
@@ -1281,14 +1431,12 @@
 
         fetchStats: async (userId, type = 'today') => {
           try {
-            if (!FirebaseManager.isReady() || !userId) {
-              throw new Error('Invalid state');
-            }
+            if (!FirebaseManager.isReady() || !userId) throw new Error('Invalid state');
 
             const today = new Date();
             const userRef = db.collection('users').doc(userId).collection('records');
-
             let query = userRef;
+
             switch (type) {
               case 'today': {
                 const todayStr = today.toISOString().split('T')[0];
@@ -1298,59 +1446,55 @@
               case 'yesterday': {
                 const yesterday = new Date(today);
                 yesterday.setDate(yesterday.getDate() - 1);
-                const yesterdayStr = yesterday.toISOString().split('T')[0];
-                query = query.where('batch_date', '==', yesterdayStr);
+                query = query.where('batch_date', '==', yesterday.toISOString().split('T')[0]);
                 break;
               }
               case 'week': {
                 const weekAgo = new Date(today);
                 weekAgo.setDate(weekAgo.getDate() - 7);
-                const weekAgoStr = weekAgo.toISOString().split('T')[0];
-                query = query.where('batch_date', '>=', weekAgoStr);
+                query = query.where('batch_date', '>=', weekAgo.toISOString().split('T')[0]);
                 break;
               }
-              case 'total':
-              default:
-                break;
             }
 
-            const snap = await (type === 'total' 
-              ? userRef.limit(CONFIG.LIMITS.MAX_RESULTS).get()
-              : query.limit(CONFIG.LIMITS.MAX_RESULTS).get());
-
+            const snap = await query.limit(CONFIG.LIMITS.MAX_RESULTS).get();
             return { success: true, count: snap.size };
           } catch (error) {
-            Logger.error('Firebase.fetchStats', error);
+            Logger.error('fetchStats', error);
             return { success: false, count: 0 };
+          }
+        },
+
+        fetchAllRecords: async (userId) => {
+          try {
+            if (!FirebaseManager.isReady() || !userId) throw new Error('Invalid state');
+
+            const userRef = db.collection('users').doc(userId).collection('records');
+            const snap = await userRef.limit(100).get();
+            return { success: true, data: snap.docs.map(d => d.data()) };
+          } catch (error) {
+            Logger.error('fetchAllRecords', error);
+            return { success: false, data: [] };
           }
         },
 
         fetchHistory: async (userId, date, id = null) => {
           try {
-            if (!FirebaseManager.isReady() || !userId) {
-              throw new Error('Invalid state');
-            }
+            if (!FirebaseManager.isReady() || !userId) throw new Error('Invalid state');
 
             const userRef = db.collection('users').doc(userId).collection('records');
 
             if (id) {
               const doc = await userRef.doc(id).get();
-              if (!doc.exists) {
-                return { success: true, data: [] };
-              }
-              return { success: true, data: [doc.data()] };
+              return { success: true, data: doc.exists ? [doc.data()] : [] };
             }
 
-            if (!date) {
-              throw new Error('Date is required');
-            }
+            if (!date) throw new Error('Date is required');
 
             try {
-              let query = userRef.where('batch_date', '==', date).orderBy('uploaded_at', 'desc');
-              const snap = await query.limit(CONFIG.LIMITS.MAX_RESULTS).get();
+              const snap = await userRef.where('batch_date', '==', date).orderBy('uploaded_at', 'desc').limit(CONFIG.LIMITS.MAX_RESULTS).get();
               return { success: true, data: snap.docs.map(d => d.data()) };
-            } catch (indexError) {
-              Logger.warn('fetchHistory', 'Index missing, using fallback');
+            } catch (e) {
               const snap = await userRef.where('batch_date', '==', date).limit(CONFIG.LIMITS.MAX_RESULTS).get();
               const docs = snap.docs.map(d => d.data()).sort((a, b) => {
                 const timeA = a.uploaded_at?.toDate?.() || new Date(0);
@@ -1360,48 +1504,7 @@
               return { success: true, data: docs };
             }
           } catch (error) {
-            return ExceptionHandler.handle('Firebase.fetchHistory', error);
-          }
-        },
-
-        setupDeletionJob: () => {
-          setInterval(async () => {
-            try {
-              FirebaseManager.deleteExpiredRecords();
-            } catch (e) {
-              Logger.error('deletionJob', e);
-            }
-          }, 60 * 60 * 1000);
-        },
-
-        deleteExpiredRecords: async () => {
-          try {
-            if (!FirebaseManager.isReady()) return;
-
-            const now = new Date();
-            const usersRef = db.collection('users');
-            const usersSnap = await usersRef.get();
-
-            let deletedCount = 0;
-
-            for (const userDoc of usersSnap.docs) {
-              const recordsRef = userDoc.ref.collection('records');
-              const expiredSnap = await recordsRef
-                .where('deletion_scheduled_for', '<=', now)
-                .limit(100)
-                .get();
-
-              for (const recordDoc of expiredSnap.docs) {
-                await recordDoc.ref.delete();
-                deletedCount++;
-              }
-            }
-
-            if (deletedCount > 0) {
-              Logger.info('deleteExpiredRecords', `Deleted ${deletedCount} expired records`);
-            }
-          } catch (error) {
-            Logger.error('deleteExpiredRecords', error);
+            return ExceptionHandler.handle('fetchHistory', error);
           }
         }
       };
@@ -1413,18 +1516,12 @@
     const MindAIdValidator = {
       format: (id) => {
         if (!id) return '';
-        const cleaned = id.replace(/\s/g, '').toUpperCase();
-        const withoutPrefix = cleaned.replace(/^MINDA/, '');
-        return `MINDA${withoutPrefix}`;
+        return `MINDA${id.replace(/\s/g, '').replace(/^MINDA/i, '').toUpperCase()}`;
       },
 
       validate: (id) => {
         const formatted = MindAIdValidator.format(id);
         return /^MINDA\d{3}$/.test(formatted) ? formatted : null;
-      },
-
-      display: (id) => {
-        return MindAIdValidator.format(id);
       }
     };
 
@@ -1433,6 +1530,7 @@
     // ========================================
     const AuthManager = (() => {
       let currentUser = null;
+      let isAdmin = false;
 
       return {
         login: async () => {
@@ -1440,28 +1538,23 @@
             const idInput = document.getElementById('loginId');
             const id = idInput?.value?.trim();
 
-            if (!id) {
-              throw new Error('Please enter your MindA ID');
-            }
+            if (!id) throw new Error('Enter your MindA ID');
 
             const formatted = MindAIdValidator.validate(id);
-            if (!formatted) {
-              throw new Error(`Invalid format! Expected: MindA### (3 digits). Got: ${MindAIdValidator.format(id)}`);
-            }
+            if (!formatted) throw new Error(`Invalid! Expected: MindA### (3 digits)`);
 
             SessionManager.save(formatted);
             currentUser = formatted;
+            isAdmin = formatted === CONFIG.ADMIN_USER;
 
-            document.getElementById('view-login').style.display = 'none';
-            document.getElementById('view-app').style.display = 'flex';
-            document.getElementById('userBadge').textContent = formatted;
-            idInput.value = '';
+            // If admin, show verification modal
+            if (isAdmin) {
+              document.getElementById('adminAuthModal').classList.add('show');
+              return;
+            }
 
-            Logger.info('Auth', `User logged in: ${formatted}`);
-            HistoryManager.fetch();
-
+            AuthManager.completeLogin();
           } catch (error) {
-            Logger.error('Auth.login', error);
             const errorDiv = document.getElementById('loginError');
             if (errorDiv) {
               errorDiv.textContent = error.message;
@@ -1470,39 +1563,121 @@
           }
         },
 
+        verifyAdmin: async () => {
+          try {
+            const passwordInput = document.getElementById('adminPassword');
+            const password = passwordInput?.value?.trim();
+
+            if (!password) throw new Error('Enter your name');
+            if (password.toLowerCase() !== CONFIG.ADMIN_PASSWORD.toLowerCase()) {
+              throw new Error('Incorrect name');
+            }
+
+            SessionManager.markAdminVerified();
+            document.getElementById('adminAuthModal').classList.remove('show');
+            AuthManager.completeLogin();
+          } catch (error) {
+            const errorDiv = document.getElementById('adminError');
+            if (errorDiv) {
+              errorDiv.textContent = error.message;
+              errorDiv.style.display = 'block';
+            }
+          }
+        },
+
+        closeAdminAuth: () => {
+          document.getElementById('adminAuthModal').classList.remove('show');
+          document.getElementById('adminPassword').value = '';
+          document.getElementById('adminError').style.display = 'none';
+          SessionManager.clear();
+          currentUser = null;
+          isAdmin = false;
+        },
+
+        completeLogin: () => {
+          document.getElementById('view-login').style.display = 'none';
+          document.getElementById('view-app').style.display = 'flex';
+
+          const badge = document.getElementById('userBadge');
+          const historyTab = document.getElementById('historyNavTab');
+          const adminTab = document.getElementById('adminNavTab');
+
+          badge.textContent = currentUser;
+          
+          if (isAdmin) {
+            badge.classList.add('admin');
+            badge.textContent = currentUser + ' (Admin)';
+            adminTab.style.display = 'block';
+            historyTab.style.display = 'block';
+          } else {
+            const hasAccess = SessionManager.hasHistoryAccess(currentUser);
+            if (hasAccess) {
+              historyTab.style.display = 'block';
+            } else {
+              historyTab.style.display = 'none';
+            }
+            adminTab.style.display = 'none';
+          }
+
+          document.getElementById('loginId').value = '';
+          document.getElementById('adminPassword').value = '';
+          Logger.info('Auth', `User logged in: ${currentUser}`);
+        },
+
         logout: () => {
-          if (confirm('Are you sure you want to logout?')) {
+          if (confirm('Logout?')) {
             currentUser = null;
+            isAdmin = false;
             SessionManager.clear();
             document.getElementById('view-app').style.display = 'none';
             document.getElementById('view-login').style.display = 'flex';
             document.getElementById('loginId').value = '';
-            Logger.info('Auth', 'User logged out');
           }
         },
 
         getUser: () => currentUser,
-
-        setUser: (user) => {
-          currentUser = user;
-        },
+        isAdminUser: () => isAdmin,
 
         initializeOnLoad: () => {
-          const savedUser = SessionManager.restore();
-          if (savedUser) {
-            currentUser = savedUser;
+          const session = SessionManager.restore();
+          if (session && session.user) {
+            currentUser = session.user;
+            isAdmin = session.isAdmin;
+
+            if (isAdmin && !SessionManager.isAdminVerified()) {
+              document.getElementById('view-login').style.display = 'flex';
+              return;
+            }
+
             document.getElementById('view-login').style.display = 'none';
             document.getElementById('view-app').style.display = 'flex';
-            document.getElementById('userBadge').textContent = savedUser;
-            HistoryManager.fetch();
-            Logger.info('Auth', `Session restored: ${savedUser}`);
+            
+            const badge = document.getElementById('userBadge');
+            const historyTab = document.getElementById('historyNavTab');
+            const adminTab = document.getElementById('adminNavTab');
+            
+            badge.textContent = currentUser;
+            if (isAdmin) {
+              badge.classList.add('admin');
+              badge.textContent = currentUser + ' (Admin)';
+              adminTab.style.display = 'block';
+              historyTab.style.display = 'block';
+            } else {
+              const hasAccess = SessionManager.hasHistoryAccess(currentUser);
+              if (hasAccess) {
+                historyTab.style.display = 'block';
+              } else {
+                historyTab.style.display = 'none';
+              }
+              adminTab.style.display = 'none';
+            }
           }
         }
       };
     })();
 
     // ========================================
-    // LOGIN ID PREVIEW
+    // LOGIN PREVIEW
     // ========================================
     (() => {
       const idInput = document.getElementById('loginId');
@@ -1513,21 +1688,168 @@
           const value = e.target.value.trim();
           if (value) {
             const formatted = MindAIdValidator.format(value);
-            const isValid = MindAIdValidator.validate(value);
-            
-            if (isValid) {
-              preview.innerHTML = `✓ Will login as: <strong>${formatted}</strong>`;
-              preview.classList.add('show');
-            } else {
-              preview.innerHTML = `Formatted: ${formatted}`;
-              preview.classList.add('show');
-            }
+            preview.innerHTML = `✓ ${formatted}`;
+            preview.classList.add('show');
           } else {
             preview.classList.remove('show');
           }
         });
       }
     })();
+
+    // ========================================
+    // ADMIN MANAGER
+    // ========================================
+    const AdminManager = {
+      loadAccessControl: () => {
+        const access = SessionManager.getAccessControl();
+        const list = document.getElementById('accessList');
+        if (!list) return;
+
+        let html = '';
+
+        // Granted users
+        access.granted.forEach(user => {
+          html += `<div class="user-item">
+            <div class="user-item-info">
+              <div class="user-item-name">${user}</div>
+              <div class="user-item-status granted">✓ History Access Granted</div>
+            </div>
+            <div class="user-item-actions">
+              <button class="btn-revoke" onclick="AdminManager.revokeAccess('${user}')">Revoke Access</button>
+            </div>
+          </div>`;
+        });
+
+        // Denied users
+        access.denied.forEach(user => {
+          html += `<div class="user-item">
+            <div class="user-item-info">
+              <div class="user-item-name">${user}</div>
+              <div class="user-item-status denied">✗ Access Denied</div>
+            </div>
+            <div class="user-item-actions">
+              <button class="btn-grant" onclick="AdminManager.grantAccess('${user}')">Grant Access</button>
+              <button class="btn-revoke" onclick="AdminManager.removeUser('${user}')">Remove</button>
+            </div>
+          </div>`;
+        });
+
+        list.innerHTML = html || '<div style="color: #94a3b8; text-align: center; padding: 20px;">No users added yet</div>';
+      },
+
+      addUser: () => {
+        const input = document.getElementById('newUserInput');
+        const userInput = input?.value?.trim();
+
+        if (!userInput) {
+          ExceptionHandler.toast('Enter a MindA ID', 'warning');
+          return;
+        }
+
+        const formatted = MindAIdValidator.validate(userInput);
+        if (!formatted) {
+          ExceptionHandler.toast('Invalid MindA ID format', 'error');
+          return;
+        }
+
+        if (formatted === CONFIG.ADMIN_USER) {
+          ExceptionHandler.toast('Cannot manage admin user', 'warning');
+          return;
+        }
+
+        const access = SessionManager.getAccessControl();
+        
+        if (access.granted.includes(formatted) || access.denied.includes(formatted)) {
+          ExceptionHandler.toast('User already exists', 'warning');
+          return;
+        }
+
+        access.denied.push(formatted);
+        SessionManager.saveAccessControl(access);
+        input.value = '';
+        AdminManager.loadAccessControl();
+        ExceptionHandler.toast(`✓ ${formatted} added (Access Denied)`, 'success');
+      },
+
+      grantAccess: (userId) => {
+        const access = SessionManager.getAccessControl();
+        const index = access.denied.indexOf(userId);
+        
+        if (index > -1) {
+          access.denied.splice(index, 1);
+          access.granted.push(userId);
+          SessionManager.saveAccessControl(access);
+          AdminManager.loadAccessControl();
+          ExceptionHandler.toast(`✓ Access granted to ${userId}`, 'success');
+        }
+      },
+
+      revokeAccess: (userId) => {
+        const access = SessionManager.getAccessControl();
+        const index = access.granted.indexOf(userId);
+        
+        if (index > -1) {
+          access.granted.splice(index, 1);
+          access.denied.push(userId);
+          SessionManager.saveAccessControl(access);
+          AdminManager.loadAccessControl();
+          ExceptionHandler.toast(`✓ Access revoked from ${userId}`, 'success');
+        }
+      },
+
+      removeUser: (userId) => {
+        if (!confirm(`Remove ${userId}?`)) return;
+
+        const access = SessionManager.getAccessControl();
+        let index = access.denied.indexOf(userId);
+        
+        if (index > -1) {
+          access.denied.splice(index, 1);
+        }
+
+        index = access.granted.indexOf(userId);
+        if (index > -1) {
+          access.granted.splice(index, 1);
+        }
+
+        SessionManager.saveAccessControl(access);
+        AdminManager.loadAccessControl();
+        ExceptionHandler.toast(`✓ ${userId} removed`, 'success');
+      },
+
+      copyAllAudits: async () => {
+        try {
+          const user = AuthManager.getUser();
+          if (!user) throw new Error('Not authenticated');
+
+          const preview = document.getElementById('auditPreview');
+          if (preview) {
+            preview.innerHTML = '<span style="color: #3b82f6;"><span class="spinner"></span> Loading...</span>';
+          }
+
+          const result = await FirebaseManager.fetchAllRecords(user);
+
+          if (!result.success || result.data.length === 0) {
+            throw new Error('No audits found');
+          }
+
+          const ids = result.data.map(d => d.id);
+
+          if (preview) {
+            preview.textContent = ids.slice(0, 100).join('\n');
+          }
+
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(ids.join('\n'));
+          }
+
+          ExceptionHandler.toast(`✓ Copied ${ids.length} IDs`, 'success');
+        } catch (error) {
+          ExceptionHandler.toast(error.message || 'Failed to copy audits', 'error');
+        }
+      }
+    };
 
     // ========================================
     // PROCESSOR MANAGER
@@ -1538,59 +1860,31 @@
       return {
         execute: async () => {
           const executeBtn = document.getElementById('executeBtn');
-          
           try {
-            if (!executeBtn) return;
             executeBtn.disabled = true;
             executeBtn.innerHTML = '<span class="spinner"></span> Processing...';
 
             const user = AuthManager.getUser();
-            if (!user) {
-              throw new Error('User not authenticated');
-            }
+            if (!user) throw new Error('Not authenticated');
 
             const inputData = document.getElementById('inputData')?.value;
-            if (!inputData?.trim()) {
-              throw new Error('Input field is empty');
-            }
+            if (!inputData?.trim()) throw new Error('Input field empty');
 
             const matches = inputData.match(CONFIG.REGEX.ID_PATTERN);
-            if (!matches?.length) {
-              throw new Error('No 11-digit IDs found in input');
-            }
+            if (!matches?.length) throw new Error('No 11-digit IDs found');
 
             const uniqueIds = [...new Set(matches)];
-            const bigIntIds = [];
-
-            for (const id of uniqueIds) {
-              try {
-                bigIntIds.push({ str: id, val: BigInt(id) });
-              } catch (e) {
-                Logger.warn('ProcessorManager', `Invalid BigInt: ${id}`);
-              }
-            }
-
-            if (bigIntIds.length === 0) {
-              throw new Error('Failed to process IDs');
-            }
-
-            bigIntIds.sort((a, b) => a.val < b.val ? -1 : (a.val > b.val ? 1 : 0));
+            const bigIntIds = uniqueIds.map(id => ({ str: id, val: BigInt(id) })).sort((a, b) => a.val < b.val ? -1 : 1);
 
             const sequentialIds = [];
             for (let i = 0; i < bigIntIds.length; i++) {
               const curr = bigIntIds[i].val;
               let isSequential = false;
 
-              try {
-                if (i > 0 && curr === bigIntIds[i - 1].val + 1n) isSequential = true;
-                if (i < bigIntIds.length - 1 && curr === bigIntIds[i + 1].val - 1n) isSequential = true;
-              } catch (e) {
-                Logger.warn('ProcessorManager', `Sequence check failed`);
-              }
+              if (i > 0 && curr === bigIntIds[i - 1].val + 1n) isSequential = true;
+              if (i < bigIntIds.length - 1 && curr === bigIntIds[i + 1].val - 1n) isSequential = true;
 
-              if (isSequential) {
-                sequentialIds.push(bigIntIds[i].str);
-              }
+              if (isSequential) sequentialIds.push(bigIntIds[i].str);
             }
 
             if (sequentialIds.length === 0) {
@@ -1605,121 +1899,97 @@
             };
 
             UIManager.showResultsModal(lastResults);
-
             document.getElementById('inputData').value = '';
 
             ProcessorManager.uploadInBackground(user, sequentialIds, lastResults.timestamp);
-
-            ExceptionHandler.toast(`✓ Found ${sequentialIds.length} sequential ID${sequentialIds.length > 1 ? 's' : ''}`, 'success');
+            ExceptionHandler.toast(`✓ Found ${sequentialIds.length} sequential ID(s)`, 'success');
 
           } catch (error) {
-            Logger.error('ProcessorManager.execute', error);
             ExceptionHandler.toast(error.message || 'Processing failed', 'error');
           } finally {
-            if (executeBtn) {
-              executeBtn.disabled = false;
-              executeBtn.innerHTML = 'EXECUTE';
-            }
+            executeBtn.disabled = false;
+            executeBtn.innerHTML = 'EXECUTE';
           }
         },
 
         uploadInBackground: async (userId, ids, batchDate) => {
           try {
-            const result = await FirebaseManager.uploadBatch(userId, ids, batchDate);
-            if (!result.success) {
-              Logger.error('uploadInBackground', new Error(result.error));
-            } else {
-              Logger.info('uploadInBackground', `Uploaded ${result.count} IDs`);
-            }
+            await FirebaseManager.uploadBatch(userId, ids, batchDate);
           } catch (error) {
-            Logger.error('ProcessorManager.uploadInBackground', error);
+            Logger.error('uploadBackground', error);
           }
-        },
-
-        getLastResults: () => lastResults
+        }
       };
     })();
 
     // ========================================
     // UI MANAGER
     // ========================================
-    const UIManager = (() => {
-      return {
-        showResultsModal: (results) => {
-          try {
-            const modal = document.getElementById('resultsModal');
-            const resultBox = document.getElementById('modalResultBox');
-
-            if (!modal || !resultBox) return;
-
-            document.getElementById('modalFound').textContent = results.all.length;
-            document.getElementById('modalSequential').textContent = results.sequential.length;
-            resultBox.textContent = results.sequential.join('\n');
-
-            modal.classList.add('show');
-          } catch (e) {
-            Logger.error('UIManager.showResultsModal', e);
-          }
-        },
-
-        closeModal: () => {
-          const modal = document.getElementById('resultsModal');
-          if (modal) modal.classList.remove('show');
-        },
-
-        copyFromModal: () => {
-          try {
-            const resultBox = document.getElementById('modalResultBox');
-            if (!resultBox?.textContent) {
-              throw new Error('Nothing to copy');
-            }
-
-            const text = resultBox.textContent;
-            if (navigator.clipboard?.writeText) {
-              navigator.clipboard.writeText(text)
-                .then(() => ExceptionHandler.toast('✓ Copied!', 'success'))
-                .catch(() => {
-                  document.execCommand('copy');
-                  ExceptionHandler.toast('✓ Copied!', 'success');
-                });
-            } else {
-              document.execCommand('copy');
-              ExceptionHandler.toast('✓ Copied!', 'success');
-            }
-          } catch (error) {
-            Logger.error('UIManager.copyFromModal', error);
-            ExceptionHandler.toast('Copy failed', 'error');
-          }
+    const UIManager = {
+      showResultsModal: (results) => {
+        const modal = document.getElementById('resultsModal');
+        const resultBox = document.getElementById('modalResultBox');
+        if (modal && resultBox) {
+          document.getElementById('modalFound').textContent = results.all.length;
+          document.getElementById('modalSequential').textContent = results.sequential.length;
+          resultBox.textContent = results.sequential.join('\n');
+          modal.classList.add('show');
         }
-      };
-    })();
+      },
+
+      closeModal: () => {
+        const modal = document.getElementById('resultsModal');
+        if (modal) modal.classList.remove('show');
+      },
+
+      copyFromModal: () => {
+        const resultBox = document.getElementById('modalResultBox');
+        if (!resultBox?.textContent) return;
+
+        if (navigator.clipboard?.writeText) {
+          navigator.clipboard.writeText(resultBox.textContent)
+            .then(() => ExceptionHandler.toast('✓ Copied!', 'success'))
+            .catch(() => ExceptionHandler.toast('Copy failed', 'error'));
+        } else {
+          ExceptionHandler.toast('✓ Copied!', 'success');
+        }
+      }
+    };
 
     // ========================================
     // NAVIGATION MANAGER
     // ========================================
-    const NavigationManager = (() => {
-      return {
-        goTo: (pageName, btnElement) => {
-          try {
-            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-
-            const page = document.getElementById(`page-${pageName}`);
-            if (page) page.classList.add('active');
-            if (btnElement) btnElement.classList.add('active');
-
-            if (pageName === 'history') {
-              StatsManager.load();
-            }
-
-            Logger.info('Navigation', `Navigated to ${pageName}`);
-          } catch (error) {
-            Logger.error('NavigationManager.goTo', error);
-            ExceptionHandler.toast('Navigation failed', 'error');
+    const NavigationManager = {
+      goTo: (pageName, btnElement) => {
+        if (pageName === 'history') {
+          const user = AuthManager.getUser();
+          const isAdmin = AuthManager.isAdminUser();
+          
+          if (!isAdmin && !SessionManager.hasHistoryAccess(user)) {
+            ExceptionHandler.toast('Access denied', 'error');
+            return;
           }
         }
-      };
-    })();
+
+        if (pageName === 'admin' && !AuthManager.isAdminUser()) {
+          ExceptionHandler.toast('Admin only', 'error');
+          return;
+        }
+
+        document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+
+        const page = document.getElementById(`page-${pageName}`);
+        if (page) page.classList.add('active');
+        if (btnElement) btnElement.classList.add('active');
+
+        if (pageName === 'history') {
+          StatsManager.load();
+        } else if (pageName === 'admin') {
+          AdminManager.loadAccessControl();
+        }
+      }
+    };
 
     // ========================================
     // STATS MANAGER
@@ -1730,86 +2000,38 @@
 
       return {
         load: async () => {
-          try {
-            const now = Date.now();
-            if (cachedStats && (now - cacheTime) < CONFIG.CACHE.STATS_TTL) {
-              StatsManager.display(cachedStats);
-              return;
-            }
-
-            const user = AuthManager.getUser();
-            if (!user) return;
-
-            const [today, yesterday, week, total] = await Promise.all([
-              FirebaseManager.fetchStats(user, 'today'),
-              FirebaseManager.fetchStats(user, 'yesterday'),
-              FirebaseManager.fetchStats(user, 'week'),
-              FirebaseManager.fetchStats(user, 'total')
-            ]);
-
-            const stats = {
-              today: today.count || 0,
-              yesterday: yesterday.count || 0,
-              week: week.count || 0,
-              total: total.count || 0
-            };
-
-            cachedStats = stats;
-            cacheTime = now;
-            StatsManager.display(stats);
-            ActivityManager.load();
-
-          } catch (error) {
-            Logger.error('StatsManager.load', error);
+          const now = Date.now();
+          if (cachedStats && (now - cacheTime) < 60000) {
+            StatsManager.display(cachedStats);
+            return;
           }
+
+          const user = AuthManager.getUser();
+          if (!user) return;
+
+          const [today, yesterday, week, total] = await Promise.all([
+            FirebaseManager.fetchStats(user, 'today'),
+            FirebaseManager.fetchStats(user, 'yesterday'),
+            FirebaseManager.fetchStats(user, 'week'),
+            FirebaseManager.fetchStats(user, 'total')
+          ]);
+
+          cachedStats = {
+            today: today.count || 0,
+            yesterday: yesterday.count || 0,
+            week: week.count || 0,
+            total: total.count || 0
+          };
+
+          cacheTime = now;
+          StatsManager.display(cachedStats);
         },
 
         display: (stats) => {
-          try {
-            const todayEl = document.getElementById('statToday');
-            const yesterdayEl = document.getElementById('statYesterday');
-            const weekEl = document.getElementById('statWeek');
-            const totalEl = document.getElementById('statTotal');
-
-            if (todayEl) todayEl.textContent = stats.today;
-            if (yesterdayEl) yesterdayEl.textContent = stats.yesterday;
-            if (weekEl) weekEl.textContent = stats.week;
-            if (totalEl) totalEl.textContent = stats.total;
-          } catch (e) {
-            Logger.error('StatsManager.display', e);
-          }
-        }
-      };
-    })();
-
-    // ========================================
-    // ACTIVITY MANAGER (Instead of Chart)
-    // ========================================
-    const ActivityManager = (() => {
-      return {
-        load: async () => {
-          try {
-            const user = AuthManager.getUser();
-            if (!user) return;
-
-            const stats = await FirebaseManager.fetchStats(user, 'total');
-            const weekStats = await FirebaseManager.fetchStats(user, 'week');
-
-            const lastUploadEl = document.getElementById('activityLastUpload');
-            const lastTimeEl = document.getElementById('activityLastTime');
-            const weekEl = document.getElementById('activityWeek');
-            const avgEl = document.getElementById('activityAverage');
-            const peakEl = document.getElementById('activityPeak');
-
-            if (lastUploadEl) lastUploadEl.textContent = weekStats.count;
-            if (lastTimeEl) lastTimeEl.textContent = new Date().toLocaleDateString();
-            if (weekEl) weekEl.textContent = weekStats.count;
-            if (avgEl) avgEl.textContent = Math.round(weekStats.count / 7) || 0;
-            if (peakEl) peakEl.textContent = stats.count;
-
-          } catch (error) {
-            Logger.error('ActivityManager.load', error);
-          }
+          document.getElementById('statToday').textContent = stats.today;
+          document.getElementById('statYesterday').textContent = stats.yesterday;
+          document.getElementById('statWeek').textContent = stats.week;
+          document.getElementById('statTotal').textContent = stats.total;
         }
       };
     })();
@@ -1817,91 +2039,61 @@
     // ========================================
     // HISTORY MANAGER
     // ========================================
-    const HistoryManager = (() => {
-      return {
-        fetch: async () => {
-          try {
-            const user = AuthManager.getUser();
-            if (!user) return;
+    const HistoryManager = {
+      fetch: async () => {
+        try {
+          const user = AuthManager.getUser();
+          if (!user) throw new Error('Not authenticated');
 
-            const dateVal = document.getElementById('filterDate')?.value;
-            const idVal = document.getElementById('filterId')?.value?.trim();
-            const tbody = document.getElementById('historyBody');
+          const dateVal = document.getElementById('filterDate')?.value;
+          const idVal = document.getElementById('filterId')?.value?.trim();
+          const tbody = document.getElementById('historyBody');
 
-            if (!tbody) return;
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:20px;"><span class="spinner"></span></td></tr>';
+          if (!tbody) return;
+          tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#94a3b8;"><span class="spinner"></span></td></tr>';
 
-            if (idVal && !/^\d{11}$/.test(idVal)) {
-              throw new Error('Invalid ID format (must be 11 digits)');
-            }
+          if (idVal && !/^\d{11}$/.test(idVal)) throw new Error('Invalid ID (must be 11 digits)');
+          if (!dateVal && !idVal) throw new Error('Select date or enter ID');
 
-            if (!dateVal && !idVal) {
-              throw new Error('Please select a date or enter an ID');
-            }
+          const result = await FirebaseManager.fetchHistory(user, dateVal || null, idVal || null);
 
-            const result = await FirebaseManager.fetchHistory(user, dateVal || null, idVal || null);
+          if (!result.success) throw new Error(result.error);
 
-            if (!result.success) {
-              throw new Error(result.error);
-            }
+          if (result.data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#94a3b8;">No records</td></tr>';
+            return;
+          }
 
-            if (result.data.length === 0) {
-              tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:20px;">No records found</td></tr>';
-              return;
-            }
+          let html = '';
+          result.data.forEach(d => {
+            const time = d.uploaded_at?.toDate?.()?.toLocaleTimeString?.() || 'N/A';
+            html += `<tr><td><b>${d.id}</b></td><td>${time}</td><td>${d.batch_date}</td><td style="color:#10b981;">✓</td></tr>`;
+          });
 
-            let html = '';
-            result.data.forEach(d => {
-              const time = d.uploaded_at?.toDate?.()?.toLocaleTimeString?.() || 'N/A';
-              const date = d.batch_date || 'N/A';
-              html += `<tr><td><b>${d.id}</b></td><td>${time}</td><td>${date}</td><td style="color:#10b981;">Stored</td></tr>`;
-            });
-
-            tbody.innerHTML = html;
-
-          } catch (error) {
-            Logger.error('HistoryManager.fetch', error);
-            const tbody = document.getElementById('historyBody');
-            if (tbody) {
-              tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#ef4444; padding:20px;">${error.message}</td></tr>`;
-            }
-            ExceptionHandler.toast(error.message, 'error');
+          tbody.innerHTML = html;
+        } catch (error) {
+          const tbody = document.getElementById('historyBody');
+          if (tbody) {
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#ef4444;">${error.message}</td></tr>`;
           }
         }
-      };
-    })();
+      }
+    };
 
     // ========================================
     // INITIALIZATION
     // ========================================
     (async () => {
       try {
-        const fbResult = await FirebaseManager.init();
-        if (!fbResult.success) {
-          ExceptionHandler.show('Database initialization failed. Please refresh the page.');
-          return;
-        }
-
+        await FirebaseManager.init();
         AuthManager.initializeOnLoad();
-
-        window.addEventListener('error', (e) => {
-          Logger.error('Global.Error', e.error || e.message);
-        });
-
-        window.addEventListener('unhandledrejection', (e) => {
-          Logger.error('Global.UnhandledRejection', e.reason);
-        });
 
         const dateInput = document.getElementById('filterDate');
         if (dateInput) {
           dateInput.valueAsDate = new Date();
         }
-
-        Logger.info('AppInit', 'Application initialized successfully');
-
       } catch (error) {
-        Logger.error('AppInit', error);
-        ExceptionHandler.show('Application initialization failed');
+        ExceptionHandler.show('Initialization failed');
       }
     })();
   </script>
