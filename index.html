@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Operations - Enterprise Real-Time</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operations - Enterprise Real-Time</title>
 
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-functions-compat.js"></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link rel="stylesheet" type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-  <style>
+    <style>
     :root {
       --bg-app: #f8fafc;
       --bg-panel: #ffffff;
@@ -26,18 +29,10 @@
       --success-color: #10b981;
       --error-color: #ef4444;
       --warning-color: #f59e0b;
-      --online-color: #10b981;
     }
 
-    * {
-      box-sizing: border-box;
-      outline: none;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; outline: none; }
+    html, body { margin: 0; padding: 0; }
 
     body {
       font-family: var(--font-stack);
@@ -86,14 +81,8 @@
       user-select: none;
     }
 
-    .nav-tab:hover {
-      background: var(--bg-hover);
-    }
-
-    .nav-tab.active {
-      background: #3b82f6;
-      color: white;
-    }
+    .nav-tab:hover { background: var(--bg-hover); }
+    .nav-tab.active { background: #3b82f6; color: white; }
 
     .user-section {
       display: flex;
@@ -131,24 +120,6 @@
       50% { opacity: 0.5; }
     }
 
-    .logout-btn {
-      background: transparent;
-      border: 1px solid var(--border-color);
-      color: var(--text-label);
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .logout-btn:hover {
-      background: var(--bg-hover);
-      color: var(--text-main);
-      border-color: #3b82f6;
-    }
-
     .container {
       flex: 1;
       overflow-y: auto;
@@ -167,9 +138,7 @@
       margin: 0 auto;
     }
 
-    .page.active {
-      display: block;
-    }
+    .page.active { display: block; }
 
     .processor-wrapper {
       display: flex;
@@ -226,9 +195,7 @@
       transition: all 0.3s ease;
     }
 
-    textarea::placeholder {
-      color: #cbd5e1;
-    }
+    textarea::placeholder { color: #cbd5e1; }
 
     textarea:focus {
       border-color: #3b82f6;
@@ -271,17 +238,9 @@
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      animation: fadeIn 0.2s ease-out;
     }
 
-    .modal-overlay.show {
-      display: flex;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+    .modal-overlay.show { display: flex; }
 
     .modal-content {
       background: var(--bg-panel);
@@ -290,22 +249,10 @@
       max-width: 600px;
       width: 90%;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      animation: slideUp 0.3s ease-out;
       border: 1px solid var(--border-color);
       max-height: 80vh;
       overflow-y: auto;
       position: relative;
-    }
-
-    @keyframes slideUp {
-      from {
-        transform: translateY(20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
     }
 
     .modal-close {
@@ -318,17 +265,9 @@
       cursor: pointer;
       color: var(--text-label);
       transition: color 0.2s;
-      padding: 0;
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .modal-close:hover {
-      color: var(--text-main);
-    }
+    .modal-close:hover { color: var(--text-main); }
 
     .modal-title {
       font-size: 18px;
@@ -351,12 +290,11 @@
       color: #059669;
       line-height: 1.7;
       word-break: break-all;
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
     }
 
     .modal-stats {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 12px;
       margin-bottom: 18px;
     }
@@ -374,6 +312,9 @@
       font-weight: 800;
       color: #3b82f6;
     }
+
+    .stat-item-value.green { color: #10b981; }
+    .stat-item-value.orange { color: #f59e0b; }
 
     .stat-item-label {
       font-size: 10px;
@@ -403,9 +344,7 @@
       transition: all 0.2s;
     }
 
-    .btn-copy:hover {
-      background: #2563eb;
-    }
+    .btn-copy:hover { background: #2563eb; }
 
     .btn-close {
       background: transparent;
@@ -426,6 +365,67 @@
       border-color: #3b82f6;
     }
 
+    /* User Dashboard */
+    .user-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+      width: 100%;
+    }
+
+    .dashboard-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dashboard-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+    }
+
+    .dashboard-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+    }
+
+    .dashboard-card.success::before {
+      background: linear-gradient(90deg, #10b981, #059669);
+    }
+
+    .dashboard-card.warning::before {
+      background: linear-gradient(90deg, #f59e0b, #d97706);
+    }
+
+    .dashboard-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-label);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .dashboard-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #3b82f6;
+    }
+
+    .dashboard-card.success .dashboard-value { color: #10b981; }
+    .dashboard-card.warning .dashboard-value { color: #f59e0b; }
+
+    /* Admin Panel */
     .admin-panel-wrapper {
       display: flex;
       flex-direction: column;
@@ -442,13 +442,8 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
-    .admin-section {
-      margin-bottom: 30px;
-    }
-
-    .admin-section:last-child {
-      margin-bottom: 0;
-    }
+    .admin-section { margin-bottom: 30px; }
+    .admin-section:last-child { margin-bottom: 0; }
 
     .admin-section-title {
       font-size: 14px;
@@ -483,7 +478,7 @@
 
     .analytics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 16px;
       margin-bottom: 24px;
       width: 100%;
@@ -516,7 +511,7 @@
     }
 
     .analytics-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--text-label);
       text-transform: uppercase;
@@ -525,185 +520,62 @@
     }
 
     .analytics-value {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 800;
       color: #3b82f6;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       transition: all 0.3s ease;
     }
 
     .analytics-subtext {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-label);
     }
 
-    .analytics-card.success .analytics-value {
-      color: #10b981;
-    }
+    .analytics-card.success .analytics-value { color: #10b981; }
+    .analytics-card.success::before { background: linear-gradient(90deg, #10b981, #059669); }
+    .analytics-card.warning .analytics-value { color: #f59e0b; }
+    .analytics-card.warning::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
+    .analytics-card.error .analytics-value { color: #ef4444; }
+    .analytics-card.error::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
+    .analytics-card.purple .analytics-value { color: #8b5cf6; }
+    .analytics-card.purple::before { background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
 
-    .analytics-card.success::before {
-      background: linear-gradient(90deg, #10b981, #059669);
-    }
-
-    .analytics-card.warning .analytics-value {
-      color: #f59e0b;
-    }
-
-    .analytics-card.warning::before {
-      background: linear-gradient(90deg, #f59e0b, #d97706);
-    }
-
-    .analytics-card.error .analytics-value {
-      color: #ef4444;
-    }
-
-    .analytics-card.error::before {
-      background: linear-gradient(90deg, #ef4444, #dc2626);
-    }
-
-    .user-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .user-item {
+    .active-users-widget {
       background: var(--bg-app);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.2s;
+      padding: 12px;
+      margin-top: 12px;
     }
 
-    .user-item:hover {
-      border-color: #3b82f6;
-      background: rgba(59, 130, 246, 0.02);
-    }
-
-    .user-item-info {
+    .active-users-list {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
-      flex: 1;
-    }
-
-    .user-item-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-main);
-      font-family: 'Consolas', monospace;
-      display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
     }
 
-    .user-online-dot {
-      width: 10px;
-      height: 10px;
+    .active-user-badge {
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
       background: #10b981;
+      padding: 4px 10px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .active-user-dot {
+      width: 6px;
+      height: 6px;
+      background: white;
       border-radius: 50%;
       animation: pulse 2s infinite;
     }
 
-    .user-item-status {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-label);
-    }
-
-    .user-item-status.granted {
-      color: #10b981;
-    }
-
-    .user-item-status.denied {
-      color: #ef4444;
-    }
-
-    .user-item-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .btn-grant {
-      background: #10b981;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 11px;
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-
-    .btn-grant:hover {
-      background: #059669;
-    }
-
-    .btn-revoke {
-      background: #ef4444;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 11px;
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-
-    .btn-revoke:hover {
-      background: #dc2626;
-    }
-
-    .add-user-group {
-      display: flex;
-      gap: 10px;
-    }
-
-    .add-user-input {
-      flex: 1;
-      padding: 10px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 12px;
-      background: var(--bg-app);
-      color: var(--text-main);
-      font-family: 'Consolas', monospace;
-    }
-
-    .add-user-input::placeholder {
-      color: #cbd5e1;
-    }
-
-    .add-user-input:focus {
-      border-color: #3b82f6;
-    }
-
-    .btn-add-user {
-      background: #3b82f6;
-      color: white;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-
-    .btn-add-user:hover {
-      background: #2563eb;
-    }
-
+    /* History Page */
     .history-header {
       display: flex;
       justify-content: space-between;
@@ -792,13 +664,8 @@
       transition: all 0.2s;
     }
 
-    .tool-input::placeholder {
-      color: #cbd5e1;
-    }
-
-    .tool-input:focus {
-      border-color: #3b82f6;
-    }
+    .tool-input::placeholder { color: #cbd5e1; }
+    .tool-input:focus { border-color: #3b82f6; }
 
     .table-wrapper {
       background: var(--bg-panel);
@@ -807,6 +674,8 @@
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       margin-bottom: 18px;
+      max-height: 400px;
+      overflow-y: auto;
     }
 
     table {
@@ -824,6 +693,9 @@
       border-bottom: 1px solid var(--border-color);
       text-transform: uppercase;
       letter-spacing: 0.4px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     td {
@@ -834,9 +706,7 @@
       color: var(--text-main);
     }
 
-    tr:hover {
-      background: var(--bg-hover);
-    }
+    tr:hover { background: var(--bg-hover); }
 
     .copy-all-btn {
       width: 100%;
@@ -853,10 +723,23 @@
       transition: all 0.2s;
     }
 
-    .copy-all-btn:hover {
-      background: #2563eb;
+    .copy-all-btn:hover { background: #2563eb; }
+
+    .btn-clear-filter {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
+    .btn-clear-filter:hover { background: #dc2626; }
+
+    /* Login View */
     #view-login {
       position: fixed;
       inset: 0;
@@ -867,6 +750,8 @@
       justify-content: center;
     }
 
+    #view-login.hidden { display: none; }
+
     .login-box {
       background: var(--bg-panel);
       padding: 35px;
@@ -875,7 +760,6 @@
       width: 340px;
       text-align: center;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      animation: slideUp 0.3s ease-out;
     }
 
     .login-box h3 {
@@ -906,9 +790,7 @@
       font-weight: 500;
     }
 
-    .login-input::placeholder {
-      color: #cbd5e1;
-    }
+    .login-input::placeholder { color: #cbd5e1; }
 
     .login-input:focus {
       border-color: #3b82f6;
@@ -926,9 +808,7 @@
       display: none;
     }
 
-    .login-preview.show {
-      display: block;
-    }
+    .login-preview.show { display: block; }
 
     #loginError {
       color: #ef4444;
@@ -941,27 +821,7 @@
       border-left: 2px solid #ef4444;
     }
 
-    #loginError.show {
-      display: block;
-    }
-
-    .error-banner {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #b91c1c;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 18px;
-      font-size: 12px;
-      display: none;
-      width: 100%;
-      max-width: 1200px;
-      border-left: 2px solid #ef4444;
-    }
-
-    .error-banner.show {
-      display: block;
-    }
+    #loginError.show { display: block; }
 
     .spinner {
       display: inline-block;
@@ -977,418 +837,360 @@
       to { transform: rotate(360deg); }
     }
 
-    .active-users-widget {
+    /* All Users Table for Admin */
+    .all-users-table {
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    .all-users-table th {
       background: var(--bg-app);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 12px;
-      margin-top: 12px;
-    }
-
-    .active-users-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .active-user-badge {
-      font-size: 11px;
-      font-weight: 600;
-      color: white;
-      background: #10b981;
-      padding: 4px 10px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .active-user-dot {
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-
-    /* Access Revoked Overlay */
-    .access-revoked-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-    }
-
-    .access-revoked-overlay.show {
-      display: flex;
-    }
-
-    .access-revoked-box {
-      background: var(--bg-panel);
-      padding: 40px;
-      border-radius: 12px;
-      text-align: center;
-      max-width: 400px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .access-revoked-icon {
-      font-size: 48px;
-      margin-bottom: 16px;
-    }
-
-    .access-revoked-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: #ef4444;
-      margin-bottom: 12px;
-    }
-
-    .access-revoked-text {
-      font-size: 13px;
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 10px;
+      font-weight: 700;
       color: var(--text-label);
-      margin-bottom: 20px;
-      line-height: 1.5;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-color);
     }
 
-    ::-webkit-scrollbar {
-      width: 6px;
+    .all-users-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 12px;
     }
 
-    ::-webkit-scrollbar-track {
-      background: transparent;
+    /* Duplicate warning */
+    .duplicate-warning {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 12px;
+      font-size: 11px;
+      color: #b45309;
     }
 
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 3px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
     @media (max-width: 768px) {
-      .header {
-        padding: 0 20px;
-      }
-
-      .container {
-        padding: 20px 15px;
-      }
-
-      .input-card, .admin-panel {
-        padding: 25px;
-      }
-
-      textarea {
-        min-height: 150px;
-      }
-
-      .modal-content {
-        padding: 25px;
-      }
-
-      .login-box {
-        width: 85%;
-        padding: 25px;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .analytics-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .history-tools {
-        flex-direction: column;
-      }
-
-      .tool-group {
-        width: 100%;
-      }
-
-      .user-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .user-item-actions {
-        width: 100%;
-        margin-top: 10px;
-      }
-
-      .user-item-actions button {
-        flex: 1;
-      }
+      .header { padding: 0 20px; }
+      .container { padding: 20px 15px; }
+      .input-card, .admin-panel { padding: 25px; }
+      textarea { min-height: 150px; }
+      .modal-content { padding: 25px; }
+      .login-box { width: 85%; padding: 25px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .analytics-grid { grid-template-columns: 1fr 1fr; }
+      .history-tools { flex-direction: column; }
+      .tool-group { width: 100%; }
+      .modal-stats { grid-template-columns: 1fr; }
     }
   </style>
-</head>
+  </head>
 
-<body>
+  <body>
 
-  <!-- ACCESS REVOKED OVERLAY -->
-  <div id="accessRevokedOverlay" class="access-revoked-overlay">
-    <div class="access-revoked-box">
-      <div class="access-revoked-icon">🚫</div>
-      <div class="access-revoked-title">Access Revoked</div>
-      <div class="access-revoked-text">Your access has been revoked by an administrator. Please contact support for assistance.</div>
-      <button class="btn-execute" onclick="AuthManager.forceLogout()">Return to Login</button>
-    </div>
-  </div>
-
-  <!-- LOGIN VIEW -->
-  <div id="view-login">
-    <div class="login-box">
-      <h3>MindA_ID</h3>
-      <input type="text" id="loginId" class="login-input" placeholder="MindA ID (e.g minda077)" spellcheck="false">
-      <div id="loginPreview" class="login-preview"></div>
-      <button class="btn-execute" onclick="AuthManager.login()">Login</button>
-      <div id="loginError"></div>
-    </div>
-  </div>
-
-  <!-- ADMIN AUTH MODAL -->
-  <div id="adminAuthModal" class="modal-overlay">
-    <div class="modal-content">
-      <button class="modal-close" onclick="AuthManager.closeAdminAuth()">&times;</button>
-      <h2 class="modal-title">Admin Verification</h2>
-      <div class="input-label" style="margin-bottom: 16px; text-align: center;">Enter your password</div>
-      <input type="password" id="adminPassword" class="login-input" placeholder="Enter password" spellcheck="false">
-      <div id="adminError" style="color: #ef4444; font-size: 11px; margin-top: 10px; display: none;"></div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px;">
-        <button class="btn-copy" onclick="AuthManager.verifyAdmin()">Verify</button>
-        <button class="btn-close" onclick="AuthManager.closeAdminAuth()">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- APP VIEW -->
-  <div id="view-app" style="display:none; height:100vh; flex-direction:column;">
-
-    <div class="header">
-      <div class="brand">📊 Enterprise Analytics</div>
-      <div class="nav-tabs">
-        <div class="nav-tab active" onclick="NavigationManager.goTo('processor', this)">Processor</div>
-        <div id="historyNavTab" class="nav-tab" style="display:none;" onclick="NavigationManager.goTo('history', this)">History</div>
-        <div id="adminNavTab" class="nav-tab" style="display:none;" onclick="NavigationManager.goTo('admin', this)">Admin</div>
-      </div>
-      <div class="user-section">
-        <div class="user-badge" id="userBadge">
-          <span class="status-dot"></span>
-          <span id="userBadgeText"></span>
-        </div>
-        <button class="logout-btn" onclick="AuthManager.logout()">Logout</button>
+    <!-- LOGIN VIEW -->
+    <div id="view-login">
+      <div class="login-box">
+        <h3>Progressive Patterns</h3>
+        <p>Enter MindA Id To Continue</p>
+        <input type="text" id="loginId" class="login-input"
+          placeholder="Write Your MindA ID" spellcheck="false"
+          autocomplete="off">
+        <div id="loginPreview" class="login-preview"></div>
+        <button class="btn-execute" id="loginBtn"
+          onclick="App.login()">Enter</button>
+        <div id="loginError"></div>
       </div>
     </div>
 
-    <div class="container">
-      <div id="errorBanner" class="error-banner"></div>
-
-      <!-- PROCESSOR PAGE -->
-      <div id="page-processor" class="page active">
-        <div class="processor-wrapper">
-          <div class="input-card">
-            <div class="input-label">Input Stream</div>
-            <div class="input-hint">Paste 11-digit IDs (comma, space, or newline separated)</div>
-            <textarea id="inputData" placeholder="Paste your data here..." spellcheck="false"></textarea>
-            <button id="executeBtn" class="btn-execute" onclick="ProcessorManager.execute()">EXECUTE</button>
-          </div>
+    <!-- ADMIN AUTH MODAL -->
+    <div id="adminAuthModal" class="modal-overlay">
+      <div class="modal-content">
+        <button class="modal-close"
+          onclick="App.closeAdminAuth()">&times;</button>
+        <h2 class="modal-title">Admin Verification</h2>
+        <div class="input-label"
+          style="margin-bottom: 16px; text-align: center;">Enter your
+          password</div>
+        <input type="password" id="adminPassword" class="login-input"
+          placeholder="Enter password" spellcheck="false">
+        <div id="adminError"
+          style="color: #ef4444; font-size: 11px; margin-top: 10px; display: none;"></div>
+        <div
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px;">
+          <button class="btn-copy" onclick="App.verifyAdmin()">Verify</button>
+          <button class="btn-close"
+            onclick="App.closeAdminAuth()">Cancel</button>
         </div>
       </div>
-
-      <!-- RESULTS MODAL -->
-      <div id="resultsModal" class="modal-overlay">
-        <div class="modal-content">
-          <button class="modal-close" onclick="UIManager.closeModal()">&times;</button>
-          <h2 class="modal-title">Results</h2>
-          
-          <div class="modal-stats">
-            <div class="stat-item">
-              <div class="stat-item-value" id="modalFound">0</div>
-              <div class="stat-item-label">Found</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-item-value" id="modalSequential">0</div>
-              <div class="stat-item-label">Sequential</div>
-            </div>
-          </div>
-
-          <div class="modal-result-box" id="modalResultBox"></div>
-
-          <div class="modal-actions">
-            <button class="btn-copy" onclick="UIManager.copyFromModal()">Copy All</button>
-            <button class="btn-close" onclick="UIManager.closeModal()">Close</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ADMIN PANEL PAGE -->
-      <div id="page-admin" class="page">
-        <div class="admin-panel-wrapper">
-          
-          <!-- Real-time Analytics -->
-          <div class="admin-panel">
-            <div class="admin-section">
-              <div class="admin-section-title">
-                <span>📊 Real-Time Analytics</span>
-                <span class="refresh-indicator">
-                  <span class="refresh-dot"></span>Live
-                </span>
-              </div>
-              <div class="analytics-grid">
-                <div class="analytics-card success">
-                  <div class="analytics-label">Total Unique Users</div>
-                  <div class="analytics-value" id="totalUsers">0</div>
-                  <div class="analytics-subtext">All time</div>
-                </div>
-                <div class="analytics-card">
-                  <div class="analytics-label">Active Right Now</div>
-                  <div class="analytics-value" id="activeUsersNow">0</div>
-                  <div class="analytics-subtext">Online</div>
-                </div>
-                <div class="analytics-card warning">
-                  <div class="analytics-label">Granted Access</div>
-                  <div class="analytics-value" id="grantedCount">0</div>
-                  <div class="analytics-subtext">Users with access</div>
-                </div>
-                <div class="analytics-card error">
-                  <div class="analytics-label">Pending Access</div>
-                  <div class="analytics-value" id="deniedCount">0</div>
-                  <div class="analytics-subtext">Awaiting approval</div>
-                </div>
-                <div class="analytics-card">
-                  <div class="analytics-label">Total IDs Uploaded</div>
-                  <div class="analytics-value" id="totalUploads">0</div>
-                  <div class="analytics-subtext">Processed</div>
-                </div>
-                <div class="analytics-card success">
-                  <div class="analytics-label">Sequential Found</div>
-                  <div class="analytics-value" id="sequentialCount">0</div>
-                  <div class="analytics-subtext">Detected</div>
-                </div>
-              </div>
-
-              <!-- Active Users Widget -->
-              <div class="active-users-widget">
-                <div class="input-label">Active Users Right Now</div>
-                <div class="active-users-list" id="activeUsersList">
-                  <span style="font-size: 11px; color: var(--text-label);">Loading...</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Access Control -->
-          <div class="admin-panel">
-            <div class="admin-section">
-              <div class="admin-section-title">
-                <span>🔐 Access Control</span>
-                <span class="refresh-indicator">
-                  <span class="refresh-dot"></span>Live
-                </span>
-              </div>
-              <div class="user-list" id="accessList"></div>
-              <div class="add-user-group" style="margin-top: 15px;">
-                <input type="text" id="newUserInput" class="add-user-input" placeholder="e.g., minda001" spellcheck="false">
-                <button class="btn-add-user" onclick="AdminManager.addUser()">Add User</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- System Info -->
-          <div class="admin-panel">
-            <div class="admin-section">
-              <div class="admin-section-title">📋 System Status</div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                <div style="background: var(--bg-app); padding: 12px; border-radius: 8px;">
-                  <div class="input-label">Database Status</div>
-                  <div style="font-size: 14px; font-weight: 700; color: #10b981; margin-top: 6px;">✓ Connected</div>
-                </div>
-                <div style="background: var(--bg-app); padding: 12px; border-radius: 8px;">
-                  <div class="input-label">Real-Time Updates</div>
-                  <div style="font-size: 14px; font-weight: 700; color: #10b981; margin-top: 6px;">✓ Active</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- HISTORY PAGE -->
-      <div id="page-history" class="page">
-        <div class="history-header">
-          <div class="history-title">📈 Search & Analyze</div>
-        </div>
-
-        <!-- Stats -->
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-label">Your Records</div>
-            <div class="stat-value" id="statYourRecords">0</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Shared with You</div>
-            <div class="stat-value" id="statSharedRecords">0</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Total Access</div>
-            <div class="stat-value" id="statTotalAccess">0</div>
-          </div>
-        </div>
-
-        <!-- Search Tools -->
-        <div class="history-tools">
-          <div class="tool-group">
-            <span class="tool-label">Filter Date</span>
-            <input type="date" id="filterDate" class="tool-input">
-          </div>
-          <div class="tool-group">
-            <span class="tool-label">Search ID or User</span>
-            <input type="text" id="filterId" class="tool-input" placeholder="11-digit ID or user">
-          </div>
-          <div class="tool-group">
-            <span class="tool-label">View Mode</span>
-            <select id="viewMode" class="tool-input" onchange="HistoryManager.fetch()">
-              <option value="my">My Records</option>
-              <option value="shared">Shared with Me</option>
-              <option value="all">All Access</option>
-            </select>
-          </div>
-          <button class="btn-execute" style="width: auto; padding: 8px 18px; font-size: 11px;" 
-            onclick="HistoryManager.fetch()">Search</button>
-        </div>
-
-        <!-- Table -->
-        <div class="table-wrapper">
-          <table id="historyTable">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Owner</th>
-                <th>Time</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="historyBody"></tbody>
-          </table>
-        </div>
-      </div>
-
     </div>
-  </div>
 
-  <script>
+    <!-- APP VIEW -->
+    <div id="view-app"
+      style="display:none; height:100vh; flex-direction:column;">
+
+      <div class="header">
+        <div class="brand">Progression Analytics</div>
+        <div class="nav-tabs">
+          <div class="nav-tab active"
+            onclick="App.navigate('processor', this)">Processor</div>
+          <div class="nav-tab" onclick="App.navigate('history', this)">My
+            Records</div>
+          <div id="adminNavTab" class="nav-tab" style="display:none;"
+            onclick="App.navigate('admin', this)">Admin Panel</div>
+        </div>
+        <div class="user-section">
+          <div class="user-badge" id="userBadge">
+            <span class="status-dot"></span>
+            <span id="userBadgeText"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+
+        <!-- PROCESSOR PAGE -->
+        <div id="page-processor" class="page active">
+          <div class="user-dashboard" id="userDashboard">
+            <div class="dashboard-card">
+              <div class="dashboard-label">Today's Unique IDs</div>
+              <div class="dashboard-value" id="userTodayIds">0</div>
+            </div>
+            <div class="dashboard-card success">
+              <div class="dashboard-label">Total Unique IDs</div>
+              <div class="dashboard-value" id="userTotalIds">0</div>
+            </div>
+            <div class="dashboard-card warning">
+              <div class="dashboard-label">Total Searches</div>
+              <div class="dashboard-value" id="userTotalSearches">0</div>
+            </div>
+          </div>
+
+          <div class="processor-wrapper">
+            <div class="input-card">
+              <div class="input-label">Input Stream</div>
+              <div class="input-hint">Paste 11-digit IDs (comma, space, or
+                newline separated)</div>
+              <textarea id="inputData" placeholder="Paste your data here..."
+                spellcheck="false"></textarea>
+              <button id="executeBtn" class="btn-execute"
+                onclick="App.execute()">EXECUTE</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESULTS MODAL -->
+        <div id="resultsModal" class="modal-overlay">
+          <div class="modal-content">
+            <button class="modal-close"
+              onclick="App.closeModal()">&times;</button>
+            <h2 class="modal-title">Results</h2>
+
+            <div id="duplicateWarning" class="duplicate-warning"
+              style="display:none;">
+              ⚠️ <span id="duplicateCount">0</span> IDs were already in your
+              records and were skipped.
+            </div>
+
+            <div class="modal-stats">
+              <div class="stat-item">
+                <div class="stat-item-value" id="modalFound">0</div>
+                <div class="stat-item-label">Total Found</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-item-value green" id="modalNew">0</div>
+                <div class="stat-item-label">New IDs</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-item-value orange" id="modalDuplicate">0</div>
+                <div class="stat-item-label">Duplicates</div>
+              </div>
+            </div>
+
+            <div class="modal-result-box" id="modalResultBox"></div>
+
+            <div class="modal-actions">
+              <button class="btn-copy" onclick="App.copyResults()">Copy New
+                IDs</button>
+              <button class="btn-close"
+                onclick="App.closeModal()">Close</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADMIN PANEL PAGE -->
+        <div id="page-admin" class="page">
+          <div class="admin-panel-wrapper">
+
+            <!-- Real-time Analytics -->
+            <div class="admin-panel">
+              <div class="admin-section">
+                <div class="admin-section-title">
+                  <span> Analytics</span>
+                  <span class="refresh-indicator">
+                    <span class="refresh-dot"></span>Live
+                  </span>
+                </div>
+                <div class="analytics-grid">
+                  <div class="analytics-card success">
+                    <div class="analytics-label">Total Users</div>
+                    <div class="analytics-value" id="adminTotalUsers">0</div>
+                    <div class="analytics-subtext">Registered</div>
+                  </div>
+                  <div class="analytics-card">
+                    <div class="analytics-label">Active Now</div>
+                    <div class="analytics-value" id="adminActiveUsers">0</div>
+                    <div class="analytics-subtext">Online</div>
+                  </div>
+                  <div class="analytics-card warning">
+                    <div class="analytics-label">Logins Today</div>
+                    <div class="analytics-value" id="adminLoginsToday">0</div>
+                    <div class="analytics-subtext">Today</div>
+                  </div>
+                  <div class="analytics-card purple">
+                    <div class="analytics-label">Total Searches</div>
+                    <div class="analytics-value" id="adminTotalSearches">0</div>
+                    <div class="analytics-subtext">All time</div>
+                  </div>
+                  <div class="analytics-card">
+                    <div class="analytics-label">Total Unique IDs</div>
+                    <div class="analytics-value" id="adminTotalIds">0</div>
+                    <div class="analytics-subtext">All users</div>
+                  </div>
+                  <div class="analytics-card success">
+                    <div class="analytics-label">IDs Today</div>
+                    <div class="analytics-value" id="adminIdsToday">0</div>
+                    <div class="analytics-subtext">Found today</div>
+                  </div>
+                  <div class="analytics-card error">
+                    <div class="analytics-label">Peak Hour</div>
+                    <div class="analytics-value" id="adminPeakHour">--</div>
+                    <div class="analytics-subtext">Most active</div>
+                  </div>
+                  <div class="analytics-card warning">
+                    <div class="analytics-label">Searches Today</div>
+                    <div class="analytics-value" id="adminSearchesToday">0</div>
+                    <div class="analytics-subtext">Today</div>
+                  </div>
+                </div>
+
+                <!-- Active Users Widget -->
+                <div class="active-users-widget">
+                  <div class="input-label">🟢 Active Users Right Now</div>
+                  <div class="active-users-list" id="activeUsersList">
+                    <span style="font-size: 11px; color: var(--text-label);">No
+                      users online</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- All Users List -->
+            <div class="admin-panel">
+              <div class="admin-section">
+                <div class="admin-section-title">
+                  <span>👥 All Users & Their Activity</span>
+                </div>
+                <div class="table-wrapper"
+                  style="box-shadow: none; border: none;">
+                  <table class="all-users-table">
+                    <thead>
+                      <tr>
+                        <th>User</th>
+                        <th>Status</th>
+                        <th>Total IDs</th>
+                        <th>Today's IDs</th>
+                        <th>Searches</th>
+                        <th>Last Active</th>
+                      </tr>
+                    </thead>
+                    <tbody id="allUsersBody">
+                      <tr><td colspan="6"
+                          style="text-align:center; color: var(--text-label);">Loading...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- HISTORY PAGE -->
+        <div id="page-history" class="page">
+          <div class="history-header">
+            <div class="history-title">📈 My Records</div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">Total Unique IDs</div>
+              <div class="stat-value" id="statTotalRecords">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Today</div>
+              <div class="stat-value" id="statTodayRecords">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Searches</div>
+              <div class="stat-value" id="statTotalSearches">0</div>
+            </div>
+          </div>
+
+          <div class="history-tools">
+            <div class="tool-group">
+              <span class="tool-label">Filter Date</span>
+              <input type="date" id="filterDate" class="tool-input">
+            </div>
+            <div class="tool-group">
+              <span class="tool-label">Search ID</span>
+              <input type="text" id="filterId" class="tool-input"
+                placeholder="Search any ID...">
+            </div>
+            <button class="btn-execute"
+              style="width: auto; padding: 8px 18px; font-size: 11px;"
+              onclick="App.searchHistory()">Search</button>
+            <button class="btn-clear-filter"
+              onclick="App.clearFilters()">Clear</button>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Time</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="historyBody">
+                <tr><td colspan="4"
+                    style="text-align:center; color: var(--text-label);">No
+                    records yet</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <button class="copy-all-btn" onclick="App.copyAllHistory()">Copy All
+            IDs (<span id="copyCount">0</span>)</button>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
     'use strict';
 
-    // CONFIG
+    // ============================================
+    // CONFIGURATION
+    // ============================================
     const CONFIG = {
       FIREBASE: {
         apiKey: "AIzaSyAAM8jlY-zKAsTNu3BKmrLtz0rb_fG-P24",
@@ -1400,727 +1202,505 @@
       },
       ADMIN_USER: 'MINDA077',
       ADMIN_PASSWORD: 'imran077',
-      SESSION_KEY: 'minda_session',
-      REGEX: {
-        ID_PATTERN: /\b\d{11}\b/g,
-        ID_VALIDATE: /^\d{11}$/,
-        MINDA_ID: /^minda\d{3}$/i
-      }
+      SESSION_KEY: 'minda_permanent_session_v3'
     };
 
-    // SESSION MANAGER - Handles persistence across page refreshes
-    const SessionManager = {
-      save: (userId, isAdmin) => {
-        const sessionData = {
-          userId,
-          isAdmin,
-          timestamp: Date.now()
-        };
-        localStorage.setItem(CONFIG.SESSION_KEY, JSON.stringify(sessionData));
-      },
-
-      get: () => {
-        try {
-          const data = localStorage.getItem(CONFIG.SESSION_KEY);
-          if (!data) return null;
-          
-          const session = JSON.parse(data);
-          // Session expires after 24 hours
-          if (Date.now() - session.timestamp > 24 * 60 * 60 * 1000) {
-            SessionManager.clear();
-            return null;
-          }
-          return session;
-        } catch (e) {
-          return null;
-        }
-      },
-
-      clear: () => {
-        localStorage.removeItem(CONFIG.SESSION_KEY);
-      },
-
-      exists: () => {
-        return SessionManager.get() !== null;
-      }
-    };
-
-    // FIREBASE MANAGER
-    const FirebaseManager = (() => {
-      let db = null;
-
-      return {
-        init: async () => {
-          try {
-            if (!firebase.apps.length) {
-              firebase.initializeApp(CONFIG.FIREBASE);
-            }
-            db = firebase.firestore();
-            
-            // Initialize admin documents if they don't exist
-            await FirebaseManager.initializeAdminDocs();
-            
-            return { success: true };
-          } catch (error) {
-            console.error('Firebase init error:', error);
-            return { success: false };
-          }
-        },
-
-        getDb: () => db,
-
-        initializeAdminDocs: async () => {
-          try {
-            // Initialize access_control document
-            const accessDoc = await db.collection('admin').doc('access_control').get();
-            if (!accessDoc.exists) {
-              await db.collection('admin').doc('access_control').set({
-                granted: [CONFIG.ADMIN_USER],
-                denied: []
-              });
-            }
-
-            // Initialize analytics document
-            const analyticsDoc = await db.collection('admin').doc('analytics').get();
-            if (!analyticsDoc.exists) {
-              await db.collection('admin').doc('analytics').set({
-                total_users: 0,
-                total_uploads: 0,
-                sequential_count: 0
-              });
-            }
-
-            // Initialize activity document
-            const activityDoc = await db.collection('admin').doc('activity').get();
-            if (!activityDoc.exists) {
-              await db.collection('admin').doc('activity').set({
-                active_users: {}
-              });
-            }
-          } catch (error) {
-            console.error('Init admin docs error:', error);
-          }
-        },
-
-        uploadBatch: async (userId, ids, batchDate) => {
-          try {
-            const batch = db.batch();
-            const userRef = db.collection('users').doc(userId);
-
-            for (const id of ids) {
-              if (!/^\d{11}$/.test(id)) continue;
-              const ref = userRef.collection('records').doc(id);
-              batch.set(ref, {
-                id,
-                uploaded_by: userId,
-                uploaded_at: firebase.firestore.FieldValue.serverTimestamp(),
-                batch_date: batchDate,
-                is_sequential: true
-              }, { merge: true });
-            }
-
-            await batch.commit();
-
-            // Update analytics
-            await db.collection('admin').doc('analytics').set({
-              total_uploads: firebase.firestore.FieldValue.increment(ids.length),
-              sequential_count: firebase.firestore.FieldValue.increment(ids.length),
-              last_upload: firebase.firestore.FieldValue.serverTimestamp()
-            }, { merge: true });
-
-            return { success: true, count: ids.length };
-          } catch (error) {
-            console.error('Upload error:', error);
-            return { success: false };
-          }
-        },
-
-        getAccessControl: async () => {
-          try {
-            const doc = await db.collection('admin').doc('access_control').get();
-            return doc.exists ? doc.data() : { granted: [CONFIG.ADMIN_USER], denied: [] };
-          } catch (error) {
-            return { granted: [CONFIG.ADMIN_USER], denied: [] };
-          }
-        },
-
-        saveAccessControl: async (access) => {
-          try {
-            await db.collection('admin').doc('access_control').set(access);
-            return true;
-          } catch (error) {
-            console.error('Save access error:', error);
-            return false;
-          }
-        },
-
-        updateUserActivity: async (userId, isOnline) => {
-          try {
-            if (isOnline) {
-              await db.collection('admin').doc('activity').set({
-                [`active_users.${userId}`]: firebase.firestore.FieldValue.serverTimestamp()
-              }, { merge: true });
-            } else {
-              await db.collection('admin').doc('activity').update({
-                [`active_users.${userId}`]: firebase.firestore.FieldValue.delete()
-              });
-            }
-          } catch (error) {
-            console.error('Activity update error:', error);
-          }
-        },
-
-        registerUser: async (userId) => {
-          try {
-            const userDoc = await db.collection('users').doc(userId).get();
-            if (!userDoc.exists) {
-              await db.collection('users').doc(userId).set({
-                created_at: firebase.firestore.FieldValue.serverTimestamp(),
-                user_id: userId
-              });
-              
-              // Update total users count
-              await db.collection('admin').doc('analytics').set({
-                total_users: firebase.firestore.FieldValue.increment(1)
-              }, { merge: true });
-            }
-          } catch (error) {
-            console.error('Register user error:', error);
-          }
-        },
-
-        getRecordsForUser: async (userId, accessControl) => {
-          try {
-            const userRef = db.collection('users').doc(userId);
-            const snap = await userRef.collection('records').limit(100).get();
-            const records = snap.docs.map(d => ({ ...d.data(), owner: userId }));
-
-            // Get shared records
-            if (accessControl.granted.includes(userId)) {
-              for (const owner of accessControl.granted) {
-                if (owner === userId) continue;
-                try {
-                  const sharedRef = db.collection('users').doc(owner);
-                  const sharedSnap = await sharedRef.collection('records').limit(50).get();
-                  sharedSnap.docs.forEach(d => records.push({ ...d.data(), owner, shared: true }));
-                } catch (e) {}
-              }
-            }
-
-            return records;
-          } catch (error) {
-            console.error('Get records error:', error);
-            return [];
-          }
-        },
-
-        // Real-time listeners
-        listenToAnalytics: (callback) => {
-          try {
-            return db.collection('admin').doc('analytics')
-              .onSnapshot((doc) => {
-                const data = doc.exists ? doc.data() : {};
-                callback(data);
-              }, (error) => {
-                console.error('Analytics listener error:', error);
-              });
-          } catch (error) {
-            console.error('Analytics listener setup error:', error);
-            return null;
-          }
-        },
-
-        listenToAccessControl: (callback) => {
-          try {
-            return db.collection('admin').doc('access_control')
-              .onSnapshot((doc) => {
-                const data = doc.exists ? doc.data() : { granted: [], denied: [] };
-                callback(data);
-              }, (error) => {
-                console.error('Access control listener error:', error);
-              });
-          } catch (error) {
-            console.error('Access control listener setup error:', error);
-            return null;
-          }
-        },
-
-        listenToActiveUsers: (callback) => {
-          try {
-            return db.collection('admin').doc('activity')
-              .onSnapshot((doc) => {
-                const data = doc.exists ? doc.data() : { active_users: {} };
-                callback(data.active_users || {});
-              }, (error) => {
-                console.error('Active users listener error:', error);
-              });
-          } catch (error) {
-            console.error('Active users listener setup error:', error);
-            return null;
-          }
-        }
-      };
-    })();
-
-    // EXCEPTION HANDLER
-    const ExceptionHandler = {
-      toast: (message, type = 'error') => {
-        const colors = {
-          error: '#ef4444',
-          warning: '#f59e0b',
-          success: '#10b981',
-          info: '#3b82f6'
-        };
-
+    // ============================================
+    // UTILITY FUNCTIONS
+    // ============================================
+    const Utils = {
+      toast: (message, type = 'info') => {
+        const colors = { error: '#ef4444', warning: '#f59e0b', success: '#10b981', info: '#3b82f6' };
         if (typeof Toastify !== 'undefined') {
           Toastify({
             text: message,
             duration: 2500,
-            style: {
-              background: colors[type] || colors.error,
-              borderRadius: "6px",
-              fontSize: "12px",
-              fontWeight: "600"
-            }
+            style: { background: colors[type], borderRadius: "6px", fontSize: "12px", fontWeight: "600" }
           }).showToast();
         }
+      },
+
+      formatId: (input) => {
+        const formatted = input.toUpperCase().replace(/\s/g, '');
+        if (/^\d{1,3}$/.test(formatted)) {
+          return `MINDA${formatted.padStart(3, '0')}`;
+        } else if (/^MINDA\d{1,3}$/.test(formatted)) {
+          const num = formatted.replace('MINDA', '').padStart(3, '0');
+          return `MINDA${num}`;
+        }
+        return null;
+      },
+
+      getToday: () => new Date().toISOString().split('T')[0],
+      
+      formatTime: (date) => {
+        if (!date) return '--';
+        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      },
+
+      formatDate: (date) => {
+        if (!date) return '--';
+        return date.toISOString().split('T')[0];
       }
     };
 
-    // AUTH MANAGER
-    const AuthManager = (() => {
-      let currentUser = null;
-      let isAdmin = false;
-
-      return {
-        login: async () => {
-          try {
-            const idInput = document.getElementById('loginId');
-            const id = idInput?.value?.trim();
-
-            if (!id) throw new Error('Enter your MindA ID');
-
-            const formatted = id.toUpperCase().replace(/\s/g, '');
-            if (!/^MINDA\d{3}$/.test(formatted) && !/^\d{3}$/.test(formatted)) {
-              throw new Error('Invalid format. Use: minda001 or 001');
-            }
-
-            const fullId = formatted.startsWith('MINDA') ? formatted : `MINDA${formatted}`;
-            
-            // Check if user has access (non-admin users)
-            if (fullId !== CONFIG.ADMIN_USER) {
-              const access = await FirebaseManager.getAccessControl();
-              if (!access.granted.includes(fullId)) {
-                if (!access.denied.includes(fullId)) {
-                  // Add new user to denied list (pending approval)
-                  access.denied.push(fullId);
-                  await FirebaseManager.saveAccessControl(access);
-                }
-                throw new Error('Access pending admin approval');
-              }
-            }
-
-            currentUser = fullId;
-            isAdmin = fullId === CONFIG.ADMIN_USER;
-
-            if (isAdmin) {
-              document.getElementById('adminAuthModal').classList.add('show');
-              return;
-            }
-
-            AuthManager.completeLogin();
-          } catch (error) {
-            const errorDiv = document.getElementById('loginError');
-            if (errorDiv) {
-              errorDiv.textContent = error.message;
-              errorDiv.classList.add('show');
-            }
-          }
-        },
-
-        verifyAdmin: async () => {
-          try {
-            const passwordInput = document.getElementById('adminPassword');
-            const password = passwordInput?.value?.trim();
-
-            if (!password) throw new Error('Enter password');
-            if (password !== CONFIG.ADMIN_PASSWORD) {
-              throw new Error('Incorrect password');
-            }
-
-            document.getElementById('adminAuthModal').classList.remove('show');
-            AuthManager.completeLogin();
-          } catch (error) {
-            const errorDiv = document.getElementById('adminError');
-            if (errorDiv) {
-              errorDiv.textContent = error.message;
-              errorDiv.style.display = 'block';
-            }
-          }
-        },
-
-        closeAdminAuth: () => {
-          document.getElementById('adminAuthModal').classList.remove('show');
-          document.getElementById('adminPassword').value = '';
-          document.getElementById('adminError').style.display = 'none';
-          currentUser = null;
-          isAdmin = false;
-        },
-
-        completeLogin: async () => {
-          try {
-            // Save session for persistence
-            SessionManager.save(currentUser, isAdmin);
-
-            // Register user and set activity
-            await FirebaseManager.registerUser(currentUser);
-            await FirebaseManager.updateUserActivity(currentUser, true);
-
-            document.getElementById('view-login').style.display = 'none';
-            document.getElementById('view-app').style.display = 'flex';
-
-            const badge = document.getElementById('userBadgeText');
-            badge.textContent = currentUser + (isAdmin ? ' (Admin)' : '');
-
-            if (isAdmin) {
-              document.getElementById('userBadge').classList.add('admin');
-              document.getElementById('historyNavTab').style.display = 'block';
-              document.getElementById('adminNavTab').style.display = 'block';
-              RealtimeManager.startAdminListeners();
-            } else {
-              document.getElementById('userBadge').classList.remove('admin');
-              document.getElementById('adminNavTab').style.display = 'none';
-              document.getElementById('historyNavTab').style.display = 'block';
-              RealtimeManager.startUserListeners();
-            }
-
-            document.getElementById('loginId').value = '';
-            document.getElementById('adminPassword').value = '';
-            document.getElementById('loginError').classList.remove('show');
-          } catch (error) {
-            ExceptionHandler.toast('Login failed', 'error');
-          }
-        },
-
-        restoreSession: async () => {
-          const session = SessionManager.get();
-          if (!session) return false;
-
-          try {
-            currentUser = session.userId;
-            isAdmin = session.isAdmin;
-
-            // Verify access is still valid for non-admin users
-            if (!isAdmin) {
-              const access = await FirebaseManager.getAccessControl();
-              if (!access.granted.includes(currentUser)) {
-                SessionManager.clear();
-                currentUser = null;
-                isAdmin = false;
-                return false;
-              }
-            }
-
-            // Restore the session
-            await FirebaseManager.updateUserActivity(currentUser, true);
-
-            document.getElementById('view-login').style.display = 'none';
-            document.getElementById('view-app').style.display = 'flex';
-
-            const badge = document.getElementById('userBadgeText');
-            badge.textContent = currentUser + (isAdmin ? ' (Admin)' : '');
-
-            if (isAdmin) {
-              document.getElementById('userBadge').classList.add('admin');
-              document.getElementById('historyNavTab').style.display = 'block';
-              document.getElementById('adminNavTab').style.display = 'block';
-              RealtimeManager.startAdminListeners();
-            } else {
-              document.getElementById('userBadge').classList.remove('admin');
-              document.getElementById('adminNavTab').style.display = 'none';
-              document.getElementById('historyNavTab').style.display = 'block';
-              RealtimeManager.startUserListeners();
-            }
-
-            return true;
-          } catch (error) {
-            console.error('Session restore error:', error);
-            SessionManager.clear();
-            return false;
-          }
-        },
-
-        logout: () => {
-          if (confirm('Logout?')) {
-            FirebaseManager.updateUserActivity(currentUser, false);
-            SessionManager.clear();
-            RealtimeManager.stopAll();
-            currentUser = null;
-            isAdmin = false;
-            document.getElementById('view-app').style.display = 'none';
-            document.getElementById('view-login').style.display = 'flex';
-            document.getElementById('accessRevokedOverlay').classList.remove('show');
-          }
-        },
-
-        forceLogout: () => {
-          FirebaseManager.updateUserActivity(currentUser, false);
-          SessionManager.clear();
-          RealtimeManager.stopAll();
-          currentUser = null;
-          isAdmin = false;
-          document.getElementById('view-app').style.display = 'none';
-          document.getElementById('view-login').style.display = 'flex';
-          document.getElementById('accessRevokedOverlay').classList.remove('show');
-        },
-
-        handleAccessRevoked: () => {
-          document.getElementById('accessRevokedOverlay').classList.add('show');
-        },
-
-        getUser: () => currentUser,
-        isAdmin: () => isAdmin
-      };
-    })();
-
-    // REAL-TIME MANAGER
-    const RealtimeManager = (() => {
-      let unsubscribers = [];
-      let accessControlCache = null;
-
-      return {
-        startAdminListeners: () => {
-          // Analytics listener
-          const analyticsSub = FirebaseManager.listenToAnalytics((data) => {
-            document.getElementById('totalUsers').textContent = data.total_users || 0;
-            document.getElementById('totalUploads').textContent = data.total_uploads || 0;
-            document.getElementById('sequentialCount').textContent = data.sequential_count || 0;
-          });
-          if (analyticsSub) unsubscribers.push(analyticsSub);
-
-          // Access control listener
-          const accessSub = FirebaseManager.listenToAccessControl((data) => {
-            accessControlCache = data;
-            document.getElementById('grantedCount').textContent = data.granted?.length || 0;
-            document.getElementById('deniedCount').textContent = data.denied?.length || 0;
-            AdminManager.renderAccessList(data);
-          });
-          if (accessSub) unsubscribers.push(accessSub);
-
-          // Active users listener
-          const activeSub = FirebaseManager.listenToActiveUsers((users) => {
-            const activeCount = Object.keys(users).filter(u => users[u]).length;
-            document.getElementById('activeUsersNow').textContent = activeCount;
-            RealtimeManager.updateActiveUsersList(users);
-          });
-          if (activeSub) unsubscribers.push(activeSub);
-        },
-
-        startUserListeners: () => {
-          // Access control listener - to detect when access is revoked
-          const accessSub = FirebaseManager.listenToAccessControl((data) => {
-            accessControlCache = data;
-            const currentUser = AuthManager.getUser();
-            
-            // Check if user's access was revoked
-            if (currentUser && currentUser !== CONFIG.ADMIN_USER) {
-              if (!data.granted.includes(currentUser)) {
-                // Access has been revoked
-                AuthManager.handleAccessRevoked();
-              }
-            }
-          });
-          if (accessSub) unsubscribers.push(accessSub);
-
-          // Active users listener
-          const activeSub = FirebaseManager.listenToActiveUsers((users) => {
-            // User can see who's online if needed
-          });
-          if (activeSub) unsubscribers.push(activeSub);
-        },
-
-        updateActiveUsersList: (users) => {
-          const list = document.getElementById('activeUsersList');
-          if (!list) return;
-
-          const activeUsers = Object.keys(users).filter(u => users[u]);
-          if (activeUsers.length === 0) {
-            list.innerHTML = '<span style="font-size: 11px; color: var(--text-label);">No users online</span>';
-            return;
-          }
-
-          list.innerHTML = activeUsers.map(user => 
-            `<div class="active-user-badge">
-              <span class="active-user-dot"></span>
-              ${user}
-            </div>`
-          ).join('');
-        },
-
-        getAccessControlCache: () => accessControlCache,
-
-        stopAll: () => {
-          unsubscribers.forEach(unsub => {
-            try {
-              if (typeof unsub === 'function') unsub();
-            } catch (e) {}
-          });
-          unsubscribers = [];
-        }
-      };
-    })();
-
-    // ADMIN MANAGER
-    const AdminManager = {
-      renderAccessList: (access) => {
-        const list = document.getElementById('accessList');
-        if (!list) return;
-
-        let html = '';
-        
-        if (access.granted.length === 0 && access.denied.length === 0) {
-          list.innerHTML = '<div style="color: var(--text-label); text-align: center; padding: 20px;">No users yet</div>';
-          return;
-        }
-
-        // Render granted users (except admin)
-        access.granted.filter(u => u !== CONFIG.ADMIN_USER).forEach(user => {
-          html += `<div class="user-item">
-            <div class="user-item-info">
-              <div class="user-item-name">${user}</div>
-              <div class="user-item-status granted">✓ Access Granted</div>
-            </div>
-            <div class="user-item-actions">
-              <button class="btn-revoke" onclick="AdminManager.revokeAccess('${user}')">Revoke</button>
-            </div>
-          </div>`;
-        });
-
-        // Render denied users
-        access.denied.forEach(user => {
-          html += `<div class="user-item">
-            <div class="user-item-info">
-              <div class="user-item-name">${user}</div>
-              <div class="user-item-status denied">✗ Access Denied</div>
-            </div>
-            <div class="user-item-actions">
-              <button class="btn-grant" onclick="AdminManager.grantAccess('${user}')">Grant</button>
-              <button class="btn-revoke" onclick="AdminManager.removeUser('${user}')">Remove</button>
-            </div>
-          </div>`;
-        });
-
-        list.innerHTML = html || '<div style="color: var(--text-label); text-align: center; padding: 20px;">No users to manage</div>';
+    // ============================================
+    // SESSION MANAGER (Local - No Firebase delay)
+    // ============================================
+    const Session = {
+      save: (userId, isAdmin) => {
+        localStorage.setItem(CONFIG.SESSION_KEY, JSON.stringify({ userId, isAdmin, ts: Date.now() }));
       },
-
-      addUser: async () => {
-        const input = document.getElementById('newUserInput');
-        const userInput = input?.value?.trim();
-
-        if (!userInput) {
-          ExceptionHandler.toast('Enter a MindA ID', 'warning');
-          return;
-        }
-
-        const formatted = userInput.toUpperCase();
-        const fullId = formatted.startsWith('MINDA') ? formatted : `MINDA${formatted}`;
-
-        if (!/^MINDA\d{3}$/.test(fullId)) {
-          ExceptionHandler.toast('Invalid format (use: minda001 or 001)', 'error');
-          return;
-        }
-
-        if (fullId === CONFIG.ADMIN_USER) {
-          ExceptionHandler.toast('Cannot manage admin', 'warning');
-          return;
-        }
-
+      get: () => {
         try {
-          const access = await FirebaseManager.getAccessControl();
-          if (access.granted.includes(fullId) || access.denied.includes(fullId)) {
-            ExceptionHandler.toast('User already exists', 'warning');
-            return;
-          }
-
-          access.denied.push(fullId);
-          await FirebaseManager.saveAccessControl(access);
-          input.value = '';
-          ExceptionHandler.toast(`Added ${fullId}`, 'success');
-        } catch (error) {
-          ExceptionHandler.toast('Failed to add user', 'error');
-        }
+          const data = localStorage.getItem(CONFIG.SESSION_KEY);
+          return data ? JSON.parse(data) : null;
+        } catch (e) { return null; }
       },
+      clear: () => localStorage.removeItem(CONFIG.SESSION_KEY),
+      exists: () => Session.get() !== null
+    };
 
-      grantAccess: async (userId) => {
+    // ============================================
+    // FIREBASE MANAGER
+    // ============================================
+    const DB = {
+      db: null,
+      initialized: false,
+      userRecordsCache: new Set(), // Cache to check duplicates quickly
+
+      init: async () => {
+        if (DB.initialized) return true;
         try {
-          const access = await FirebaseManager.getAccessControl();
-          const idx = access.denied.indexOf(userId);
-          if (idx > -1) {
-            access.denied.splice(idx, 1);
+          if (!firebase.apps.length) {
+            firebase.initializeApp(CONFIG.FIREBASE);
           }
-          if (!access.granted.includes(userId)) {
-            access.granted.push(userId);
-          }
-          await FirebaseManager.saveAccessControl(access);
-          ExceptionHandler.toast(`Access granted to ${userId}`, 'success');
-        } catch (error) {
-          ExceptionHandler.toast('Failed to grant access', 'error');
+          DB.db = firebase.firestore();
+          DB.initialized = true;
+          return true;
+        } catch (e) {
+          console.error('Firebase init error:', e);
+          return false;
         }
       },
 
-      revokeAccess: async (userId) => {
-        if (!confirm(`Revoke access for ${userId}? They will be logged out immediately.`)) return;
+      // Load user's existing IDs into cache
+      loadUserRecordsCache: async (userId) => {
+        if (!DB.db) return;
+        try {
+          const snap = await DB.db.collection('users').doc(userId).collection('records').get();
+          DB.userRecordsCache.clear();
+          snap.docs.forEach(doc => {
+            DB.userRecordsCache.add(doc.id);
+          });
+          console.log(`Loaded ${DB.userRecordsCache.size} existing records into cache`);
+        } catch (e) {
+          console.error('Load cache error:', e);
+        }
+      },
+
+      // Check if ID already exists
+      idExists: (id) => {
+        return DB.userRecordsCache.has(id);
+      },
+
+      // Register/update user on login
+      registerUser: async (userId) => {
+        if (!DB.db) return;
+        const today = Utils.getToday();
+        const userRef = DB.db.collection('users').doc(userId);
         
         try {
-          const access = await FirebaseManager.getAccessControl();
-          const idx = access.granted.indexOf(userId);
-          if (idx > -1) {
-            access.granted.splice(idx, 1);
-          }
-          if (!access.denied.includes(userId)) {
-            access.denied.push(userId);
-          }
-          await FirebaseManager.saveAccessControl(access);
-          
-          // Remove from active users
-          await FirebaseManager.updateUserActivity(userId, false);
-          
-          ExceptionHandler.toast(`Access revoked from ${userId}`, 'success');
-        } catch (error) {
-          ExceptionHandler.toast('Failed to revoke access', 'error');
+          await userRef.set({
+            user_id: userId,
+            last_login: firebase.firestore.FieldValue.serverTimestamp(),
+            last_login_date: today
+          }, { merge: true });
+
+          // Update global analytics - increment login count
+          await DB.db.collection('analytics').doc('global').set({
+            [`logins_${today}`]: firebase.firestore.FieldValue.increment(1)
+          }, { merge: true });
+        } catch (e) {
+          console.error('Register user error:', e);
         }
       },
 
-      removeUser: async (userId) => {
-        if (!confirm(`Completely remove ${userId}?`)) return;
+      // Update user activity status
+      setUserOnline: async (userId, isOnline) => {
+        if (!DB.db) return;
+        try {
+          await DB.db.collection('users').doc(userId).set({
+            is_online: isOnline,
+            last_active: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+        } catch (e) {
+          console.error('Set online error:', e);
+        }
+      },
+
+      // Save ONLY NEW records (no duplicates)
+      saveRecords: async (userId, ids) => {
+        if (!DB.db || ids.length === 0) return { newCount: 0, duplicateCount: 0 };
+        
+        const today = Utils.getToday();
+        const hour = new Date().getHours();
+        const userRef = DB.db.collection('users').doc(userId);
+
+        // Filter out duplicates
+        const newIds = ids.filter(id => !DB.idExists(id));
+        const duplicateCount = ids.length - newIds.length;
+
+        if (newIds.length === 0) {
+          // Only increment search count, no new IDs
+          await userRef.set({
+            total_searches: firebase.firestore.FieldValue.increment(1),
+            [`searches_${today}`]: firebase.firestore.FieldValue.increment(1)
+          }, { merge: true });
+
+          await DB.db.collection('analytics').doc('global').set({
+            total_searches: firebase.firestore.FieldValue.increment(1),
+            [`searches_${today}`]: firebase.firestore.FieldValue.increment(1)
+          }, { merge: true });
+
+          return { newCount: 0, duplicateCount };
+        }
+
+        const batch = DB.db.batch();
+
+        // Save each NEW ID only
+        newIds.forEach(id => {
+          const recordRef = userRef.collection('records').doc(id);
+          batch.set(recordRef, {
+            id,
+            date: today,
+            hour,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          // Add to cache
+          DB.userRecordsCache.add(id);
+        });
+
+        // Update user stats - only count NEW IDs
+        batch.set(userRef, {
+          total_ids: firebase.firestore.FieldValue.increment(newIds.length),
+          total_searches: firebase.firestore.FieldValue.increment(1),
+          [`ids_${today}`]: firebase.firestore.FieldValue.increment(newIds.length),
+          [`searches_${today}`]: firebase.firestore.FieldValue.increment(1),
+          [`hour_${hour}`]: firebase.firestore.FieldValue.increment(newIds.length)
+        }, { merge: true });
+
+        // Update global analytics - only count NEW IDs
+        const globalRef = DB.db.collection('analytics').doc('global');
+        batch.set(globalRef, {
+          total_ids: firebase.firestore.FieldValue.increment(newIds.length),
+          total_searches: firebase.firestore.FieldValue.increment(1),
+          [`ids_${today}`]: firebase.firestore.FieldValue.increment(newIds.length),
+          [`searches_${today}`]: firebase.firestore.FieldValue.increment(1),
+          [`hour_${hour}`]: firebase.firestore.FieldValue.increment(newIds.length)
+        }, { merge: true });
 
         try {
-          const access = await FirebaseManager.getAccessControl();
-          access.granted = access.granted.filter(u => u !== userId);
-          access.denied = access.denied.filter(u => u !== userId);
-          await FirebaseManager.saveAccessControl(access);
-          ExceptionHandler.toast(`Removed ${userId}`, 'success');
-        } catch (error) {
-          ExceptionHandler.toast('Failed to remove user', 'error');
+          await batch.commit();
+          return { newCount: newIds.length, duplicateCount, newIds };
+        } catch (e) {
+          console.error('Save records error:', e);
+          return { newCount: 0, duplicateCount: 0 };
         }
+      },
+
+      // Get user's own records with proper filtering
+      getUserRecords: async (userId, filters = {}) => {
+        if (!DB.db) return [];
+        try {
+          const userRef = DB.db.collection('users').doc(userId);
+          let query = userRef.collection('records').orderBy('timestamp', 'desc');
+          
+          const snap = await query.get();
+          let records = snap.docs.map(d => ({
+            id: d.id,
+            ...d.data(),
+            timestamp: d.data().timestamp?.toDate?.() || null
+          }));
+
+          // Apply date filter in memory (Firestore limitation with multiple conditions)
+          if (filters.date) {
+            records = records.filter(r => r.date === filters.date);
+          }
+
+          // Apply ID search filter
+          if (filters.search) {
+            const searchTerm = filters.search.toLowerCase();
+            records = records.filter(r => r.id.toLowerCase().includes(searchTerm));
+          }
+
+          return records;
+        } catch (e) {
+          console.error('Get records error:', e);
+          return [];
+        }
+      },
+
+      // Get user stats from document (accurate counts)
+      getUserStats: async (userId) => {
+        if (!DB.db) return { total: 0, today: 0, searches: 0 };
+        try {
+          const userDoc = await DB.db.collection('users').doc(userId).get();
+          if (!userDoc.exists) return { total: 0, today: 0, searches: 0 };
+          
+          const data = userDoc.data();
+          const today = Utils.getToday();
+          
+          return {
+            total: data.total_ids || 0,
+            today: data[`ids_${today}`] || 0,
+            searches: data.total_searches || 0
+          };
+        } catch (e) {
+          console.error('Get user stats error:', e);
+          return { total: 0, today: 0, searches: 0 };
+        }
+      },
+
+      // ADMIN: Get all analytics
+      getGlobalAnalytics: async () => {
+        if (!DB.db) return {};
+        try {
+          const doc = await DB.db.collection('analytics').doc('global').get();
+          return doc.exists ? doc.data() : {};
+        } catch (e) {
+          return {};
+        }
+      },
+
+      // ADMIN: Get all users with their stats
+      getAllUsers: async () => {
+        if (!DB.db) return [];
+        try {
+          const snap = await DB.db.collection('users').get();
+          const today = Utils.getToday();
+          
+          return snap.docs.map(doc => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              total_ids: data.total_ids || 0,
+              today_ids: data[`ids_${today}`] || 0,
+              searches: data.total_searches || 0,
+              is_online: data.is_online || false,
+              last_active: data.last_active
+            };
+          });
+        } catch (e) {
+          return [];
+        }
+      },
+
+      // ADMIN: Listen to real-time changes
+      listenToAnalytics: (callback) => {
+        if (!DB.db) return null;
+        return DB.db.collection('analytics').doc('global').onSnapshot(doc => {
+          callback(doc.exists ? doc.data() : {});
+        });
+      },
+
+      listenToUsers: (callback) => {
+        if (!DB.db) return null;
+        return DB.db.collection('users').onSnapshot(snap => {
+          const users = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          callback(users);
+        });
       }
     };
 
-    // PROCESSOR MANAGER
-    const ProcessorManager = {
+    // ============================================
+    // MAIN APP
+    // ============================================
+    const App = {
+      currentUser: null,
+      isAdmin: false,
+      currentRecords: [],
+      lastResults: [],
+      unsubscribers: [],
+
+      // INSTANT session check on page load
+      init: () => {
+        const session = Session.get();
+        
+        if (session) {
+          App.currentUser = session.userId;
+          App.isAdmin = session.isAdmin;
+          App.showApp();
+          
+          // Initialize Firebase and load cache in background
+          DB.init().then(async () => {
+            await DB.loadUserRecordsCache(App.currentUser);
+            DB.setUserOnline(App.currentUser, true);
+            App.loadUserDashboard();
+            if (App.isAdmin) {
+              App.startAdminListeners();
+            }
+          });
+        } else {
+          document.getElementById('view-login').classList.remove('hidden');
+        }
+
+        App.setupLoginPreview();
+        
+        // Don't set default date - let it be empty to show all records by default
+        document.getElementById('filterDate').value = '';
+
+        // Heartbeat every 30 seconds
+        setInterval(() => {
+          if (App.currentUser) {
+            DB.setUserOnline(App.currentUser, true);
+          }
+        }, 30000);
+      },
+
+      setupLoginPreview: () => {
+        const input = document.getElementById('loginId');
+        const preview = document.getElementById('loginPreview');
+        
+        input.addEventListener('input', (e) => {
+          document.getElementById('loginError').classList.remove('show');
+          const fullId = Utils.formatId(e.target.value.trim());
+          
+          if (fullId) {
+            preview.textContent = `✓ Will login as: ${fullId}`;
+            preview.classList.add('show');
+          } else {
+            preview.classList.remove('show');
+          }
+        });
+
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') App.login();
+        });
+
+        document.getElementById('adminPassword').addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') App.verifyAdmin();
+        });
+      },
+
+      login: async () => {
+        const input = document.getElementById('loginId').value.trim();
+        const errorDiv = document.getElementById('loginError');
+        
+        if (!input) {
+          errorDiv.textContent = 'Enter your MindA ID';
+          errorDiv.classList.add('show');
+          return;
+        }
+
+        const fullId = Utils.formatId(input);
+        if (!fullId) {
+          errorDiv.textContent = 'Invalid format. Use: minda001 or 001';
+          errorDiv.classList.add('show');
+          return;
+        }
+
+        App.currentUser = fullId;
+        App.isAdmin = fullId === CONFIG.ADMIN_USER;
+
+        if (App.isAdmin) {
+          document.getElementById('adminAuthModal').classList.add('show');
+          return;
+        }
+
+        App.completeLogin();
+      },
+
+      verifyAdmin: () => {
+        const password = document.getElementById('adminPassword').value.trim();
+        const errorDiv = document.getElementById('adminError');
+        
+        if (password !== CONFIG.ADMIN_PASSWORD) {
+          errorDiv.textContent = 'Incorrect password';
+          errorDiv.style.display = 'block';
+          return;
+        }
+
+        document.getElementById('adminAuthModal').classList.remove('show');
+        App.completeLogin();
+      },
+
+      closeAdminAuth: () => {
+        document.getElementById('adminAuthModal').classList.remove('show');
+        document.getElementById('adminPassword').value = '';
+        document.getElementById('adminError').style.display = 'none';
+        App.currentUser = null;
+        App.isAdmin = false;
+      },
+
+      completeLogin: async () => {
+        Session.save(App.currentUser, App.isAdmin);
+        App.showApp();
+
+        await DB.init();
+        await DB.loadUserRecordsCache(App.currentUser);
+        DB.registerUser(App.currentUser);
+        DB.setUserOnline(App.currentUser, true);
+        App.loadUserDashboard();
+
+        if (App.isAdmin) {
+          App.startAdminListeners();
+        }
+
+        document.getElementById('loginId').value = '';
+        document.getElementById('loginPreview').classList.remove('show');
+
+        Utils.toast(`Welcome, ${App.currentUser}!`, 'success');
+      },
+
+      showApp: () => {
+        document.getElementById('view-login').classList.add('hidden');
+        document.getElementById('view-app').style.display = 'flex';
+        
+        document.getElementById('userBadgeText').textContent = 
+          App.currentUser + (App.isAdmin ? ' (Admin)' : '');
+        
+        if (App.isAdmin) {
+          document.getElementById('userBadge').classList.add('admin');
+          document.getElementById('adminNavTab').style.display = 'block';
+        }
+      },
+
+      navigate: (page, btn) => {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        
+        document.getElementById(`page-${page}`).classList.add('active');
+        btn.classList.add('active');
+
+        if (page === 'history') {
+          App.loadHistory();
+        } else if (page === 'admin' && App.isAdmin) {
+          App.loadAdminData();
+        } else if (page === 'processor') {
+          App.loadUserDashboard();
+        }
+      },
+
+      // PROCESSOR - EXECUTE (with duplicate detection)
       execute: async () => {
         const btn = document.getElementById('executeBtn');
+        const inputData = document.getElementById('inputData').value;
+
+        if (!inputData.trim()) {
+          Utils.toast('Input is empty', 'warning');
+          return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Processing...';
+
         try {
-          btn.disabled = true;
-          btn.innerHTML = '<span class="spinner"></span> Processing...';
-
-          const user = AuthManager.getUser();
-          const inputData = document.getElementById('inputData')?.value;
-
-          if (!inputData?.trim()) throw new Error('Input empty');
-
-          const matches = inputData.match(CONFIG.REGEX.ID_PATTERN);
-          if (!matches?.length) throw new Error('No 11-digit IDs found');
+          const matches = inputData.match(/\b\d{11}\b/g);
+          if (!matches || matches.length === 0) {
+            Utils.toast('No 11-digit IDs found', 'warning');
+            return;
+          }
 
           const uniqueIds = [...new Set(matches)];
           const bigIntIds = uniqueIds.map(id => ({ str: id, val: BigInt(id) }))
@@ -2130,337 +1710,245 @@
           for (let i = 0; i < bigIntIds.length; i++) {
             const curr = bigIntIds[i].val;
             let isSeq = false;
-
             if (i > 0 && curr === bigIntIds[i - 1].val + 1n) isSeq = true;
             if (i < bigIntIds.length - 1 && curr === bigIntIds[i + 1].val - 1n) isSeq = true;
-
             if (isSeq) sequential.push(bigIntIds[i].str);
           }
 
           if (sequential.length === 0) {
-            ExceptionHandler.toast('No sequential IDs found', 'warning');
+            Utils.toast('No sequential IDs found', 'warning');
             return;
           }
 
-          UIManager.showResultsModal(sequential, uniqueIds.length);
+          // Save to Firebase and get duplicate info
+          const result = await DB.saveRecords(App.currentUser, sequential);
+          
+          // Store for copy
+          App.lastResults = result.newIds || [];
+
+          // Show results with duplicate info
+          document.getElementById('modalFound').textContent = sequential.length;
+          document.getElementById('modalNew').textContent = result.newCount;
+          document.getElementById('modalDuplicate').textContent = result.duplicateCount;
+
+          // Show duplicate warning if any
+          const warningDiv = document.getElementById('duplicateWarning');
+          if (result.duplicateCount > 0) {
+            document.getElementById('duplicateCount').textContent = result.duplicateCount;
+            warningDiv.style.display = 'block';
+          } else {
+            warningDiv.style.display = 'none';
+          }
+
+          // Show only NEW IDs in the result box
+          if (result.newCount > 0) {
+            document.getElementById('modalResultBox').textContent = result.newIds.join('\n');
+          } else {
+            document.getElementById('modalResultBox').textContent = '(All IDs were duplicates - no new IDs to show)';
+          }
+
+          document.getElementById('resultsModal').classList.add('show');
           document.getElementById('inputData').value = '';
 
-          // Background upload
-          const today = new Date().toISOString().split('T')[0];
-          await FirebaseManager.uploadBatch(user, sequential, today);
+          // Refresh dashboard
+          App.loadUserDashboard();
 
-          ExceptionHandler.toast(`Found ${sequential.length} sequential ID(s)`, 'success');
-        } catch (error) {
-          ExceptionHandler.toast(error.message || 'Processing failed', 'error');
+          if (result.newCount > 0) {
+            Utils.toast(`Found ${result.newCount} NEW sequential IDs!`, 'success');
+          } else {
+            Utils.toast('All IDs were already in your records', 'warning');
+          }
+
+        } catch (e) {
+          Utils.toast('Processing error', 'error');
+          console.error(e);
         } finally {
           btn.disabled = false;
           btn.innerHTML = 'EXECUTE';
         }
-      }
-    };
-
-    // UI MANAGER
-    const UIManager = {
-      showResultsModal: (sequential, total) => {
-        const modal = document.getElementById('resultsModal');
-        document.getElementById('modalFound').textContent = total;
-        document.getElementById('modalSequential').textContent = sequential.length;
-        document.getElementById('modalResultBox').textContent = sequential.join('\n');
-        modal?.classList.add('show');
       },
 
       closeModal: () => {
-        document.getElementById('resultsModal')?.classList.remove('show');
+        document.getElementById('resultsModal').classList.remove('show');
       },
 
-      copyFromModal: () => {
-        const box = document.getElementById('modalResultBox');
-        if (navigator.clipboard?.writeText) {
-          navigator.clipboard.writeText(box.textContent)
-            .then(() => ExceptionHandler.toast('✓ Copied!', 'success'))
-            .catch(() => ExceptionHandler.toast('Copy failed', 'error'));
+      copyResults: () => {
+        if (App.lastResults.length === 0) {
+          Utils.toast('No new IDs to copy', 'warning');
+          return;
         }
-      }
-    };
-
-    // NAVIGATION MANAGER
-    const NavigationManager = {
-      goTo: (pageName, btnElement) => {
-        const pages = document.querySelectorAll('.page');
-        const tabs = document.querySelectorAll('.nav-tab');
-
-        pages.forEach(p => p.classList.remove('active'));
-        tabs.forEach(t => t.classList.remove('active'));
-
-        const page = document.getElementById(`page-${pageName}`);
-        if (page) page.classList.add('active');
-        if (btnElement) btnElement.classList.add('active');
-
-        if (pageName === 'history') {
-          HistoryManager.loadStats();
-        }
-      }
-    };
-
-    // HISTORY MANAGER
-    const HistoryManager = {
-      loadStats: async () => {
-        try {
-          const user = AuthManager.getUser();
-          const access = await FirebaseManager.getAccessControl();
-          const records = await FirebaseManager.getRecordsForUser(user, access);
-
-          const yourRecords = records.filter(r => r.owner === user).length;
-          const sharedRecords = records.filter(r => r.shared).length;
-
-          document.getElementById('statYourRecords').textContent = yourRecords;
-          document.getElementById('statSharedRecords').textContent = sharedRecords;
-          document.getElementById('statTotalAccess').textContent = records.length;
-        } catch (error) {
-          console.error('Load stats error:', error);
-        }
+        const text = App.lastResults.join('\n');
+        navigator.clipboard.writeText(text)
+          .then(() => Utils.toast(`Copied ${App.lastResults.length} new IDs!`, 'success'))
+          .catch(() => Utils.toast('Copy failed', 'error'));
       },
 
-           fetch: async () => {
-        try {
-          const user = AuthManager.getUser();
-          const dateVal = document.getElementById('filterDate')?.value;
-          const searchVal = document.getElementById('filterId')?.value?.trim().toUpperCase();
-          const mode = document.getElementById('viewMode')?.value || 'my';
-          const tbody = document.getElementById('historyBody');
+      // USER DASHBOARD
+      loadUserDashboard: async () => {
+        const stats = await DB.getUserStats(App.currentUser);
+        document.getElementById('userTodayIds').textContent = stats.today;
+        document.getElementById('userTotalIds').textContent = stats.total;
+        document.getElementById('userTotalSearches').textContent = stats.searches;
+      },
 
-          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;"><span class="spinner"></span></td></tr>';
+      // HISTORY PAGE
+      loadHistory: async () => {
+        App.searchHistory();
+      },
 
-          const access = await FirebaseManager.getAccessControl();
-          const records = await FirebaseManager.getRecordsForUser(user, access);
+      searchHistory: async () => {
+        const tbody = document.getElementById('historyBody');
+        const dateVal = document.getElementById('filterDate').value;
+        const searchVal = document.getElementById('filterId').value.trim();
 
-          let filtered = records;
-          if (mode === 'my') {
-            filtered = records.filter(r => r.owner === user);
-          } else if (mode === 'shared') {
-            filtered = records.filter(r => r.shared);
-          }
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;"><span class="spinner"></span> Loading...</td></tr>';
 
-          // Filter by date
-          if (dateVal) {
-            filtered = filtered.filter(r => r.batch_date === dateVal);
-          }
+        // Get stats
+        const stats = await DB.getUserStats(App.currentUser);
+        document.getElementById('statTotalRecords').textContent = stats.total;
+        document.getElementById('statTodayRecords').textContent = stats.today;
+        document.getElementById('statTotalSearches').textContent = stats.searches;
 
-          // Filter by search term (ID or user)
-          if (searchVal) {
-            filtered = filtered.filter(r => 
-              r.id?.includes(searchVal) || 
-              r.owner?.toUpperCase().includes(searchVal)
-            );
-          }
+        // Get records with filters
+        const filters = {};
+        if (dateVal) filters.date = dateVal;
+        if (searchVal) filters.search = searchVal;
 
-          if (filtered.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-label);">No records found</td></tr>';
-            return;
-          }
+        const records = await DB.getUserRecords(App.currentUser, filters);
+        App.currentRecords = records;
 
-          // Sort by date (newest first)
-          filtered.sort((a, b) => {
-            const dateA = a.uploaded_at?.toDate?.() || new Date(0);
-            const dateB = b.uploaded_at?.toDate?.() || new Date(0);
-            return dateB - dateA;
-          });
+        // Update copy button count
+        document.getElementById('copyCount').textContent = records.length;
 
-          let html = '';
-          filtered.forEach(r => {
-            const uploadDate = r.uploaded_at?.toDate?.();
-            const time = uploadDate?.toLocaleTimeString?.() || 'N/A';
-            const date = r.batch_date || 'N/A';
-            const ownerDisplay = r.shared ? `${r.owner} (shared)` : r.owner;
-            
-            html += `<tr>
-              <td><b>${r.id}</b></td>
-              <td>${ownerDisplay}</td>
-              <td>${time}</td>
-              <td>${date}</td>
-              <td style="color:#10b981;">✓ Sequential</td>
-            </tr>`;
-          });
-
-          tbody.innerHTML = html;
-        } catch (error) {
-          console.error('Fetch error:', error);
-          document.getElementById('historyBody').innerHTML = 
-            '<tr><td colspan="5" style="text-align:center;color:#ef4444;">Error loading records</td></tr>';
+        if (records.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-label);">No records found</td></tr>';
+          return;
         }
-      }
-    };
 
-    // LOGIN PREVIEW - Show formatted ID as user types
-    (() => {
-      const idInput = document.getElementById('loginId');
-      const preview = document.getElementById('loginPreview');
+        let html = '';
+        records.forEach(r => {
+          const time = r.timestamp ? Utils.formatTime(r.timestamp) : '--';
+          const date = r.date || '--';
+          html += `<tr>
+            <td><b>${r.id}</b></td>
+            <td>${time}</td>
+            <td>${date}</td>
+            <td style="color:#10b981;">✓ Sequential</td>
+          </tr>`;
+        });
 
-      if (idInput) {
-        idInput.addEventListener('input', (e) => {
-          const value = e.target.value.trim();
-          const errorDiv = document.getElementById('loginError');
-          errorDiv?.classList.remove('show');
+        tbody.innerHTML = html;
+      },
+
+      clearFilters: () => {
+        document.getElementById('filterDate').value = '';
+        document.getElementById('filterId').value = '';
+        App.searchHistory();
+      },
+
+      copyAllHistory: () => {
+        if (App.currentRecords.length === 0) {
+          Utils.toast('No records to copy', 'warning');
+          return;
+        }
+        const ids = App.currentRecords.map(r => r.id).join('\n');
+        navigator.clipboard.writeText(ids)
+          .then(() => Utils.toast(`Copied ${App.currentRecords.length} IDs!`, 'success'))
+          .catch(() => Utils.toast('Copy failed', 'error'));
+      },
+
+      // ADMIN FUNCTIONS
+      startAdminListeners: () => {
+        const unsub1 = DB.listenToAnalytics(data => {
+          const today = Utils.getToday();
+          document.getElementById('adminTotalIds').textContent = data.total_ids || 0;
+          document.getElementById('adminTotalSearches').textContent = data.total_searches || 0;
+          document.getElementById('adminIdsToday').textContent = data[`ids_${today}`] || 0;
+          document.getElementById('adminSearchesToday').textContent = data[`searches_${today}`] || 0;
+          document.getElementById('adminLoginsToday').textContent = data[`logins_${today}`] || 0;
+
+          let maxHour = 0, maxCount = 0;
+          for (let h = 0; h < 24; h++) {
+            const count = data[`hour_${h}`] || 0;
+            if (count > maxCount) {
+              maxCount = count;
+              maxHour = h;
+            }
+          }
+          document.getElementById('adminPeakHour').textContent = 
+            maxCount > 0 ? `${maxHour.toString().padStart(2, '0')}:00` : '--';
+        });
+        if (unsub1) App.unsubscribers.push(unsub1);
+
+        const unsub2 = DB.listenToUsers(users => {
+          const today = Utils.getToday();
+          const onlineUsers = users.filter(u => u.is_online);
           
-          if (value) {
-            const formatted = value.toUpperCase().replace(/\s/g, '');
-            let fullId;
-            
-            if (/^\d{1,3}$/.test(formatted)) {
-              fullId = `MINDA${formatted.padStart(3, '0')}`;
-            } else if (/^MINDA\d{1,3}$/.test(formatted)) {
-              const num = formatted.replace('MINDA', '').padStart(3, '0');
-              fullId = `MINDA${num}`;
-            } else {
-              fullId = null;
-            }
-            
-            if (fullId && /^MINDA\d{3}$/.test(fullId)) {
-              preview.textContent = `✓ Will login as: ${fullId}`;
-              preview.classList.add('show');
-            } else {
-              preview.classList.remove('show');
-            }
+          document.getElementById('adminTotalUsers').textContent = users.length;
+          document.getElementById('adminActiveUsers').textContent = onlineUsers.length;
+
+          const activeList = document.getElementById('activeUsersList');
+          if (onlineUsers.length === 0) {
+            activeList.innerHTML = '<span style="font-size: 11px; color: var(--text-label);">No users online</span>';
           } else {
-            preview.classList.remove('show');
+            activeList.innerHTML = onlineUsers.map(u => 
+              `<div class="active-user-badge"><span class="active-user-dot"></span>${u.id}</div>`
+            ).join('');
+          }
+
+          const tbody = document.getElementById('allUsersBody');
+          if (users.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-label);">No users</td></tr>';
+          } else {
+            tbody.innerHTML = users.map(u => {
+              const lastActive = u.last_active?.toDate?.()?.toLocaleString?.() || 'Never';
+              const statusColor = u.is_online ? '#10b981' : '#94a3b8';
+              const statusText = u.is_online ? '🟢 Online' : '⚪ Offline';
+              return `<tr>
+                <td><b>${u.id}</b></td>
+                <td style="color:${statusColor}">${statusText}</td>
+                <td>${u.total_ids || 0}</td>
+                <td>${u[`ids_${today}`] || 0}</td>
+                <td>${u.total_searches || 0}</td>
+                <td style="font-size:11px;">${lastActive}</td>
+              </tr>`;
+            }).join('');
           }
         });
-
-        // Allow Enter key to submit
-        idInput.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-            AuthManager.login();
-          }
-        });
-      }
-
-      // Admin password Enter key
-      const adminPasswordInput = document.getElementById('adminPassword');
-      if (adminPasswordInput) {
-        adminPasswordInput.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-            AuthManager.verifyAdmin();
-          }
-        });
-      }
-    })();
-
-    // HEARTBEAT - Keep user activity updated
-    const Heartbeat = {
-      intervalId: null,
-      
-      start: () => {
-        // Update activity every 30 seconds
-        Heartbeat.intervalId = setInterval(() => {
-          const user = AuthManager.getUser();
-          if (user) {
-            FirebaseManager.updateUserActivity(user, true);
-          }
-        }, 30000);
+        if (unsub2) App.unsubscribers.push(unsub2);
       },
-      
-      stop: () => {
-        if (Heartbeat.intervalId) {
-          clearInterval(Heartbeat.intervalId);
-          Heartbeat.intervalId = null;
-        }
-      }
-    };
 
-    // Handle page visibility changes
-    document.addEventListener('visibilitychange', () => {
-      const user = AuthManager.getUser();
-      if (!user) return;
-      
-      if (document.hidden) {
-        // Page is hidden, but keep session
-      } else {
-        // Page is visible again, update activity
-        FirebaseManager.updateUserActivity(user, true);
-      }
-    });
-
-    // Handle page unload
-    window.addEventListener('beforeunload', () => {
-      const user = AuthManager.getUser();
-      if (user) {
-        // Use sendBeacon for reliable delivery on page close
-        const data = JSON.stringify({ user, action: 'offline' });
-        // Note: This won't work directly with Firestore, but we're setting up the pattern
-        // The heartbeat will handle cleanup when the user stops sending updates
-      }
-    });
-
-    // CLEANUP - Remove stale active users (run by admin)
-    const CleanupManager = {
-      cleanStaleUsers: async () => {
-        try {
-          const db = FirebaseManager.getDb();
-          const activityDoc = await db.collection('admin').doc('activity').get();
-          
-          if (!activityDoc.exists) return;
-          
-          const activeUsers = activityDoc.data().active_users || {};
-          const now = Date.now();
-          const staleThreshold = 2 * 60 * 1000; // 2 minutes
-          
-          const updates = {};
-          let hasUpdates = false;
-          
-          for (const [userId, timestamp] of Object.entries(activeUsers)) {
-            if (timestamp && timestamp.toDate) {
-              const lastActive = timestamp.toDate().getTime();
-              if (now - lastActive > staleThreshold) {
-                updates[`active_users.${userId}`] = firebase.firestore.FieldValue.delete();
-                hasUpdates = true;
-              }
-            }
-          }
-          
-          if (hasUpdates) {
-            await db.collection('admin').doc('activity').update(updates);
-          }
-        } catch (error) {
-          console.error('Cleanup error:', error);
-        }
-      }
-    };
-
-    // INITIALIZATION
-    (async () => {
-      try {
-        // Initialize Firebase first
-        const initResult = await FirebaseManager.init();
-        if (!initResult.success) {
-          throw new Error('Failed to connect to database');
-        }
-
-        // Set default date filter
-        const dateInput = document.getElementById('filterDate');
-        if (dateInput) {
-          dateInput.valueAsDate = new Date();
-        }
-
-        // Try to restore existing session
-        const sessionRestored = await AuthManager.restoreSession();
+      loadAdminData: async () => {
+        const analytics = await DB.getGlobalAnalytics();
+        const today = Utils.getToday();
         
-        if (sessionRestored) {
-          // Start heartbeat for active users
-          Heartbeat.start();
-          
-          // If admin, run cleanup periodically
-          if (AuthManager.isAdmin()) {
-            setInterval(() => CleanupManager.cleanStaleUsers(), 60000);
-            CleanupManager.cleanStaleUsers(); // Run immediately
-          }
-        }
-
-      } catch (error) {
-        console.error('Initialization error:', error);
-        ExceptionHandler.toast('Failed to initialize application', 'error');
+        document.getElementById('adminTotalIds').textContent = analytics.total_ids || 0;
+        document.getElementById('adminTotalSearches').textContent = analytics.total_searches || 0;
+        document.getElementById('adminIdsToday').textContent = analytics[`ids_${today}`] || 0;
+        document.getElementById('adminSearchesToday').textContent = analytics[`searches_${today}`] || 0;
       }
-    })();
+    };
+
+    // ============================================
+    // INITIALIZE ON PAGE LOAD
+    // ============================================
+    document.addEventListener('DOMContentLoaded', () => {
+      App.init();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && App.currentUser) {
+        DB.setUserOnline(App.currentUser, true);
+        App.loadUserDashboard();
+      }
+    });
+
+    window.addEventListener('beforeunload', () => {
+      if (App.currentUser) {
+        DB.setUserOnline(App.currentUser, false);
+      }
+    });
   </script>
 
-</body>
+  </body>
 </html>
