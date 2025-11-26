@@ -3,12 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operations - Enterprise Real-Time</title>
-
-    <script
-      src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script
-      src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <title>Operations - Local Storage Edition</title>
 
     <link rel="stylesheet" type="text/css"
       href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -16,6 +11,7 @@
       src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <style>
+    /* CSS Remains exactly the same */
     :root {
       --bg-app: #f8fafc;
       --bg-panel: #ffffff;
@@ -894,11 +890,10 @@
 
   <body>
 
-    <!-- LOGIN VIEW -->
     <div id="view-login">
       <div class="login-box">
         <h3>Progressive Patterns</h3>
-        <p>Enter MindA Id To Continue</p>
+        <p>Enter MindA Id To Continue (Local Mode)</p>
         <input type="text" id="loginId" class="login-input"
           placeholder="Write Your MindA ID" spellcheck="false"
           autocomplete="off">
@@ -909,7 +904,6 @@
       </div>
     </div>
 
-    <!-- ADMIN AUTH MODAL -->
     <div id="adminAuthModal" class="modal-overlay">
       <div class="modal-content">
         <button class="modal-close"
@@ -931,7 +925,6 @@
       </div>
     </div>
 
-    <!-- APP VIEW -->
     <div id="view-app"
       style="display:none; height:100vh; flex-direction:column;">
 
@@ -955,7 +948,6 @@
 
       <div class="container">
 
-        <!-- PROCESSOR PAGE -->
         <div id="page-processor" class="page active">
           <div class="user-dashboard" id="userDashboard">
             <div class="dashboard-card">
@@ -974,7 +966,7 @@
 
           <div class="processor-wrapper">
             <div class="input-card">
-              <div class="input-label">Input Stream</div>
+              <div class="input-label">Input Stream (Local Storage)</div>
               <div class="input-hint">Paste 11-digit IDs (comma, space, or
                 newline separated)</div>
               <textarea id="inputData" placeholder="Paste your data here..."
@@ -985,7 +977,6 @@
           </div>
         </div>
 
-        <!-- RESULTS MODAL -->
         <div id="resultsModal" class="modal-overlay">
           <div class="modal-content">
             <button class="modal-close"
@@ -1024,17 +1015,15 @@
           </div>
         </div>
 
-        <!-- ADMIN PANEL PAGE -->
         <div id="page-admin" class="page">
           <div class="admin-panel-wrapper">
 
-            <!-- Real-time Analytics -->
             <div class="admin-panel">
               <div class="admin-section">
                 <div class="admin-section-title">
                   <span> Analytics</span>
                   <span class="refresh-indicator">
-                    <span class="refresh-dot"></span>Live
+                    <span class="refresh-dot"></span>Local
                   </span>
                 </div>
                 <div class="analytics-grid">
@@ -1044,9 +1033,9 @@
                     <div class="analytics-subtext">Registered</div>
                   </div>
                   <div class="analytics-card">
-                    <div class="analytics-label">Active Now</div>
-                    <div class="analytics-value" id="adminActiveUsers">0</div>
-                    <div class="analytics-subtext">Online</div>
+                    <div class="analytics-label">Active Profiles</div>
+                    <div class="analytics-value" id="adminActiveUsers">--</div>
+                    <div class="analytics-subtext">On this device</div>
                   </div>
                   <div class="analytics-card warning">
                     <div class="analytics-label">Logins Today</div>
@@ -1080,18 +1069,14 @@
                   </div>
                 </div>
 
-                <!-- Active Users Widget -->
                 <div class="active-users-widget">
-                  <div class="input-label">🟢 Active Users Right Now</div>
+                  <div class="input-label">🟢 Users in Local Storage</div>
                   <div class="active-users-list" id="activeUsersList">
-                    <span style="font-size: 11px; color: var(--text-label);">No
-                      users online</span>
-                  </div>
+                    </div>
                 </div>
               </div>
             </div>
 
-            <!-- All Users List -->
             <div class="admin-panel">
               <div class="admin-section">
                 <div class="admin-section-title">
@@ -1103,7 +1088,6 @@
                     <thead>
                       <tr>
                         <th>User</th>
-                        <th>Status</th>
                         <th>Total IDs</th>
                         <th>Today's IDs</th>
                         <th>Searches</th>
@@ -1111,7 +1095,7 @@
                       </tr>
                     </thead>
                     <tbody id="allUsersBody">
-                      <tr><td colspan="6"
+                      <tr><td colspan="5"
                           style="text-align:center; color: var(--text-label);">Loading...</td></tr>
                     </tbody>
                   </table>
@@ -1122,7 +1106,6 @@
           </div>
         </div>
 
-        <!-- HISTORY PAGE -->
         <div id="page-history" class="page">
           <div class="history-header">
             <div class="history-title">📈 My Records</div>
@@ -1192,17 +1175,14 @@
     // CONFIGURATION
     // ============================================
     const CONFIG = {
-      FIREBASE: {
-        apiKey: "AIzaSyAAM8jlY-zKAsTNu3BKmrLtz0rb_fG-P24",
-        authDomain: "imranali-mngmt-e464f.firebaseapp.com",
-        projectId: "imranali-mngmt-e464f",
-        storageBucket: "imranali-mngmt-e464f.firebasestorage.app",
-        messagingSenderId: "1030605656898",
-        appId: "1:1030605656898:web:3825d797b521c9c90a2edb"
-      },
+      // Firebase config REMOVED
       ADMIN_USER: 'MINDA077',
       ADMIN_PASSWORD: 'imran077',
-      SESSION_KEY: 'minda_permanent_session_v3'
+      SESSION_KEY: 'minda_ls_session_v1',
+      // Local Storage Keys
+      STORE_USERS: 'PA_USERS',      // Store user profiles/stats
+      STORE_RECORDS: 'PA_RECORDS',  // Store the actual ID lists per user
+      STORE_GLOBAL: 'PA_ANALYTICS'  // Store global counters
     };
 
     // ============================================
@@ -1217,6 +1197,8 @@
             duration: 2500,
             style: { background: colors[type], borderRadius: "6px", fontSize: "12px", fontWeight: "600" }
           }).showToast();
+        } else {
+            alert(message);
         }
       },
 
@@ -1233,19 +1215,14 @@
 
       getToday: () => new Date().toISOString().split('T')[0],
       
-      formatTime: (date) => {
-        if (!date) return '--';
-        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      },
-
-      formatDate: (date) => {
-        if (!date) return '--';
-        return date.toISOString().split('T')[0];
+      formatTime: (isoString) => {
+        if (!isoString) return '--';
+        return new Date(isoString).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
       }
     };
 
     // ============================================
-    // SESSION MANAGER (Local - No Firebase delay)
+    // SESSION MANAGER
     // ============================================
     const Session = {
       save: (userId, isAdmin) => {
@@ -1257,258 +1234,200 @@
           return data ? JSON.parse(data) : null;
         } catch (e) { return null; }
       },
-      clear: () => localStorage.removeItem(CONFIG.SESSION_KEY),
-      exists: () => Session.get() !== null
+      clear: () => localStorage.removeItem(CONFIG.SESSION_KEY)
     };
 
     // ============================================
-    // FIREBASE MANAGER
+    // LOCAL DB MANAGER
     // ============================================
     const DB = {
-      db: null,
-      initialized: false,
-      userRecordsCache: new Set(), // Cache to check duplicates quickly
+      // Helpers to get/set JSON objects from LocalStorage
+      getStore: (key) => {
+          try {
+              return JSON.parse(localStorage.getItem(key)) || {};
+          } catch(e) { return {}; }
+      },
+      setStore: (key, data) => {
+          localStorage.setItem(key, JSON.stringify(data));
+      },
 
       init: async () => {
-        if (DB.initialized) return true;
+        // Just checking if localStorage works
         try {
-          if (!firebase.apps.length) {
-            firebase.initializeApp(CONFIG.FIREBASE);
-          }
-          DB.db = firebase.firestore();
-          DB.initialized = true;
-          return true;
-        } catch (e) {
-          console.error('Firebase init error:', e);
-          return false;
+            const test = '__test__';
+            localStorage.setItem(test, test);
+            localStorage.removeItem(test);
+            return true;
+        } catch(e) {
+            console.error('LocalStorage not available');
+            return false;
         }
       },
 
-      // Load user's existing IDs into cache
       loadUserRecordsCache: async (userId) => {
-        if (!DB.db) return;
-        try {
-          const snap = await DB.db.collection('users').doc(userId).collection('records').get();
-          DB.userRecordsCache.clear();
-          snap.docs.forEach(doc => {
-            DB.userRecordsCache.add(doc.id);
-          });
-          console.log(`Loaded ${DB.userRecordsCache.size} existing records into cache`);
-        } catch (e) {
-          console.error('Load cache error:', e);
-        }
+          // No complex caching needed for LS, direct read is fast enough
+          return true;
       },
 
-      // Check if ID already exists
-      idExists: (id) => {
-        return DB.userRecordsCache.has(id);
-      },
-
-      // Register/update user on login
+      // Register/Update User Stats on Login
       registerUser: async (userId) => {
-        if (!DB.db) return;
+        const users = DB.getStore(CONFIG.STORE_USERS);
+        const global = DB.getStore(CONFIG.STORE_GLOBAL);
         const today = Utils.getToday();
-        const userRef = DB.db.collection('users').doc(userId);
-        
-        try {
-          await userRef.set({
-            user_id: userId,
-            last_login: firebase.firestore.FieldValue.serverTimestamp(),
-            last_login_date: today
-          }, { merge: true });
 
-          // Update global analytics - increment login count
-          await DB.db.collection('analytics').doc('global').set({
-            [`logins_${today}`]: firebase.firestore.FieldValue.increment(1)
-          }, { merge: true });
-        } catch (e) {
-          console.error('Register user error:', e);
+        if (!users[userId]) {
+            users[userId] = {
+                user_id: userId,
+                total_ids: 0,
+                total_searches: 0,
+                created_at: new Date().toISOString()
+            };
         }
+
+        users[userId].last_login = new Date().toISOString();
+        users[userId].last_login_date = today;
+
+        // Global Analytics - Login Count
+        const loginKey = `logins_${today}`;
+        global[loginKey] = (global[loginKey] || 0) + 1;
+
+        DB.setStore(CONFIG.STORE_USERS, users);
+        DB.setStore(CONFIG.STORE_GLOBAL, global);
       },
 
-      // Update user activity status
       setUserOnline: async (userId, isOnline) => {
-        if (!DB.db) return;
-        try {
-          await DB.db.collection('users').doc(userId).set({
-            is_online: isOnline,
-            last_active: firebase.firestore.FieldValue.serverTimestamp()
-          }, { merge: true });
-        } catch (e) {
-          console.error('Set online error:', e);
+        // Just update last_active timestamp
+        const users = DB.getStore(CONFIG.STORE_USERS);
+        if(users[userId]) {
+            users[userId].last_active = new Date().toISOString();
+            DB.setStore(CONFIG.STORE_USERS, users);
         }
       },
 
-      // Save ONLY NEW records (no duplicates)
+      // Save Records Logic
       saveRecords: async (userId, ids) => {
-        if (!DB.db || ids.length === 0) return { newCount: 0, duplicateCount: 0 };
+        if (ids.length === 0) return { newCount: 0, duplicateCount: 0 };
+
+        const users = DB.getStore(CONFIG.STORE_USERS);
+        const allRecords = DB.getStore(CONFIG.STORE_RECORDS);
+        const global = DB.getStore(CONFIG.STORE_GLOBAL);
         
         const today = Utils.getToday();
         const hour = new Date().getHours();
-        const userRef = DB.db.collection('users').doc(userId);
+        const nowIso = new Date().toISOString();
 
-        // Filter out duplicates
-        const newIds = ids.filter(id => !DB.idExists(id));
+        // Initialize user record array if empty
+        if (!allRecords[userId]) allRecords[userId] = [];
+
+        // Check Duplicates within THIS user's history
+        const userExistingIds = new Set(allRecords[userId].map(r => r.id));
+        const newIds = [];
+        
+        ids.forEach(id => {
+            if (!userExistingIds.has(id)) {
+                newIds.push(id);
+            }
+        });
+
         const duplicateCount = ids.length - newIds.length;
 
-        if (newIds.length === 0) {
-          // Only increment search count, no new IDs
-          await userRef.set({
-            total_searches: firebase.firestore.FieldValue.increment(1),
-            [`searches_${today}`]: firebase.firestore.FieldValue.increment(1)
-          }, { merge: true });
+        // 1. Update Global Search Count (regardless of result)
+        global.total_searches = (global.total_searches || 0) + 1;
+        global[`searches_${today}`] = (global[`searches_${today}`] || 0) + 1;
 
-          await DB.db.collection('analytics').doc('global').set({
-            total_searches: firebase.firestore.FieldValue.increment(1),
-            [`searches_${today}`]: firebase.firestore.FieldValue.increment(1)
-          }, { merge: true });
-
-          return { newCount: 0, duplicateCount };
+        // 2. Update User Search Count
+        if (users[userId]) {
+            users[userId].total_searches = (users[userId].total_searches || 0) + 1;
         }
 
-        const batch = DB.db.batch();
+        if (newIds.length > 0) {
+            // Create record objects
+            const newRecordObjects = newIds.map(id => ({
+                id: id,
+                date: today,
+                hour: hour,
+                timestamp: nowIso
+            }));
 
-        // Save each NEW ID only
-        newIds.forEach(id => {
-          const recordRef = userRef.collection('records').doc(id);
-          batch.set(recordRef, {
-            id,
-            date: today,
-            hour,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-          });
-          // Add to cache
-          DB.userRecordsCache.add(id);
-        });
+            // Add to User's Record List
+            allRecords[userId].push(...newRecordObjects);
 
-        // Update user stats - only count NEW IDs
-        batch.set(userRef, {
-          total_ids: firebase.firestore.FieldValue.increment(newIds.length),
-          total_searches: firebase.firestore.FieldValue.increment(1),
-          [`ids_${today}`]: firebase.firestore.FieldValue.increment(newIds.length),
-          [`searches_${today}`]: firebase.firestore.FieldValue.increment(1),
-          [`hour_${hour}`]: firebase.firestore.FieldValue.increment(newIds.length)
-        }, { merge: true });
+            // Update User Stats
+            if (users[userId]) {
+                users[userId].total_ids = (users[userId].total_ids || 0) + newIds.length;
+            }
 
-        // Update global analytics - only count NEW IDs
-        const globalRef = DB.db.collection('analytics').doc('global');
-        batch.set(globalRef, {
-          total_ids: firebase.firestore.FieldValue.increment(newIds.length),
-          total_searches: firebase.firestore.FieldValue.increment(1),
-          [`ids_${today}`]: firebase.firestore.FieldValue.increment(newIds.length),
-          [`searches_${today}`]: firebase.firestore.FieldValue.increment(1),
-          [`hour_${hour}`]: firebase.firestore.FieldValue.increment(newIds.length)
-        }, { merge: true });
-
-        try {
-          await batch.commit();
-          return { newCount: newIds.length, duplicateCount, newIds };
-        } catch (e) {
-          console.error('Save records error:', e);
-          return { newCount: 0, duplicateCount: 0 };
+            // Update Global Stats
+            global.total_ids = (global.total_ids || 0) + newIds.length;
+            global[`ids_${today}`] = (global[`ids_${today}`] || 0) + newIds.length;
+            global[`hour_${hour}`] = (global[`hour_${hour}`] || 0) + newIds.length;
         }
+
+        // Commit all changes
+        DB.setStore(CONFIG.STORE_RECORDS, allRecords);
+        DB.setStore(CONFIG.STORE_USERS, users);
+        DB.setStore(CONFIG.STORE_GLOBAL, global);
+
+        return { newCount: newIds.length, duplicateCount, newIds };
       },
 
-      // Get user's own records with proper filtering
       getUserRecords: async (userId, filters = {}) => {
-        if (!DB.db) return [];
-        try {
-          const userRef = DB.db.collection('users').doc(userId);
-          let query = userRef.collection('records').orderBy('timestamp', 'desc');
-          
-          const snap = await query.get();
-          let records = snap.docs.map(d => ({
-            id: d.id,
-            ...d.data(),
-            timestamp: d.data().timestamp?.toDate?.() || null
-          }));
+        const allRecords = DB.getStore(CONFIG.STORE_RECORDS);
+        let records = allRecords[userId] || [];
 
-          // Apply date filter in memory (Firestore limitation with multiple conditions)
-          if (filters.date) {
+        // Sort desc
+        records.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+        if (filters.date) {
             records = records.filter(r => r.date === filters.date);
-          }
-
-          // Apply ID search filter
-          if (filters.search) {
-            const searchTerm = filters.search.toLowerCase();
-            records = records.filter(r => r.id.toLowerCase().includes(searchTerm));
-          }
-
-          return records;
-        } catch (e) {
-          console.error('Get records error:', e);
-          return [];
         }
+        if (filters.search) {
+            const term = filters.search.toLowerCase();
+            records = records.filter(r => r.id.toLowerCase().includes(term));
+        }
+        return records;
       },
 
-      // Get user stats from document (accurate counts)
       getUserStats: async (userId) => {
-        if (!DB.db) return { total: 0, today: 0, searches: 0 };
-        try {
-          const userDoc = await DB.db.collection('users').doc(userId).get();
-          if (!userDoc.exists) return { total: 0, today: 0, searches: 0 };
-          
-          const data = userDoc.data();
-          const today = Utils.getToday();
-          
-          return {
-            total: data.total_ids || 0,
-            today: data[`ids_${today}`] || 0,
-            searches: data.total_searches || 0
-          };
-        } catch (e) {
-          console.error('Get user stats error:', e);
-          return { total: 0, today: 0, searches: 0 };
-        }
+        const users = DB.getStore(CONFIG.STORE_USERS);
+        const allRecords = DB.getStore(CONFIG.STORE_RECORDS);
+        const today = Utils.getToday();
+        
+        const userData = users[userId] || {};
+        const userRecs = allRecords[userId] || [];
+        
+        // Calculate today's IDs dynamically from records array
+        const todayCount = userRecs.filter(r => r.date === today).length;
+
+        return {
+            total: userData.total_ids || 0,
+            today: todayCount,
+            searches: userData.total_searches || 0
+        };
       },
 
-      // ADMIN: Get all analytics
+      // ADMIN: Get Global Stats
       getGlobalAnalytics: async () => {
-        if (!DB.db) return {};
-        try {
-          const doc = await DB.db.collection('analytics').doc('global').get();
-          return doc.exists ? doc.data() : {};
-        } catch (e) {
-          return {};
-        }
+        return DB.getStore(CONFIG.STORE_GLOBAL);
       },
 
-      // ADMIN: Get all users with their stats
+      // ADMIN: Get All Users
       getAllUsers: async () => {
-        if (!DB.db) return [];
-        try {
-          const snap = await DB.db.collection('users').get();
-          const today = Utils.getToday();
-          
-          return snap.docs.map(doc => {
-            const data = doc.data();
+        const usersMap = DB.getStore(CONFIG.STORE_USERS);
+        const allRecords = DB.getStore(CONFIG.STORE_RECORDS);
+        const today = Utils.getToday();
+
+        return Object.values(usersMap).map(u => {
+            const userRecs = allRecords[u.user_id] || [];
+            const todayCount = userRecs.filter(r => r.date === today).length;
+            
             return {
-              id: doc.id,
-              total_ids: data.total_ids || 0,
-              today_ids: data[`ids_${today}`] || 0,
-              searches: data.total_searches || 0,
-              is_online: data.is_online || false,
-              last_active: data.last_active
+                id: u.user_id,
+                total_ids: u.total_ids || 0,
+                today_ids: todayCount,
+                searches: u.total_searches || 0,
+                last_active: u.last_active || u.last_login // Fallback
             };
-          });
-        } catch (e) {
-          return [];
-        }
-      },
-
-      // ADMIN: Listen to real-time changes
-      listenToAnalytics: (callback) => {
-        if (!DB.db) return null;
-        return DB.db.collection('analytics').doc('global').onSnapshot(doc => {
-          callback(doc.exists ? doc.data() : {});
-        });
-      },
-
-      listenToUsers: (callback) => {
-        if (!DB.db) return null;
-        return DB.db.collection('users').onSnapshot(snap => {
-          const users = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          callback(users);
         });
       }
     };
@@ -1521,9 +1440,8 @@
       isAdmin: false,
       currentRecords: [],
       lastResults: [],
-      unsubscribers: [],
+      adminInterval: null,
 
-      // INSTANT session check on page load
       init: () => {
         const session = Session.get();
         
@@ -1532,13 +1450,11 @@
           App.isAdmin = session.isAdmin;
           App.showApp();
           
-          // Initialize Firebase and load cache in background
           DB.init().then(async () => {
-            await DB.loadUserRecordsCache(App.currentUser);
-            DB.setUserOnline(App.currentUser, true);
+            DB.registerUser(App.currentUser); // Update last login
             App.loadUserDashboard();
             if (App.isAdmin) {
-              App.startAdminListeners();
+              App.startAdminPolling();
             }
           });
         } else {
@@ -1546,11 +1462,9 @@
         }
 
         App.setupLoginPreview();
-        
-        // Don't set default date - let it be empty to show all records by default
         document.getElementById('filterDate').value = '';
 
-        // Heartbeat every 30 seconds
+        // Heartbeat to update local last_active
         setInterval(() => {
           if (App.currentUser) {
             DB.setUserOnline(App.currentUser, true);
@@ -1638,19 +1552,18 @@
         App.showApp();
 
         await DB.init();
-        await DB.loadUserRecordsCache(App.currentUser);
         DB.registerUser(App.currentUser);
         DB.setUserOnline(App.currentUser, true);
         App.loadUserDashboard();
 
         if (App.isAdmin) {
-          App.startAdminListeners();
+          App.startAdminPolling();
         }
 
         document.getElementById('loginId').value = '';
         document.getElementById('loginPreview').classList.remove('show');
 
-        Utils.toast(`Welcome, ${App.currentUser}!`, 'success');
+        Utils.toast(`Welcome, ${App.currentUser}! (Local Mode)`, 'success');
       },
 
       showApp: () => {
@@ -1682,7 +1595,7 @@
         }
       },
 
-      // PROCESSOR - EXECUTE (with duplicate detection)
+      // PROCESSOR
       execute: async () => {
         const btn = document.getElementById('executeBtn');
         const inputData = document.getElementById('inputData').value;
@@ -1695,77 +1608,78 @@
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner"></span> Processing...';
 
-        try {
-          const matches = inputData.match(/\b\d{11}\b/g);
-          if (!matches || matches.length === 0) {
-            Utils.toast('No 11-digit IDs found', 'warning');
-            return;
-          }
+        // Add small delay to let UI render spinner (Local storage is sync and fast)
+        setTimeout(async () => {
+            try {
+              const matches = inputData.match(/\b\d{11}\b/g);
+              if (!matches || matches.length === 0) {
+                Utils.toast('No 11-digit IDs found', 'warning');
+                btn.disabled = false;
+                btn.innerHTML = 'EXECUTE';
+                return;
+              }
 
-          const uniqueIds = [...new Set(matches)];
-          const bigIntIds = uniqueIds.map(id => ({ str: id, val: BigInt(id) }))
-            .sort((a, b) => a.val < b.val ? -1 : 1);
+              const uniqueIds = [...new Set(matches)];
+              const bigIntIds = uniqueIds.map(id => ({ str: id, val: BigInt(id) }))
+                .sort((a, b) => a.val < b.val ? -1 : 1);
 
-          const sequential = [];
-          for (let i = 0; i < bigIntIds.length; i++) {
-            const curr = bigIntIds[i].val;
-            let isSeq = false;
-            if (i > 0 && curr === bigIntIds[i - 1].val + 1n) isSeq = true;
-            if (i < bigIntIds.length - 1 && curr === bigIntIds[i + 1].val - 1n) isSeq = true;
-            if (isSeq) sequential.push(bigIntIds[i].str);
-          }
+              const sequential = [];
+              for (let i = 0; i < bigIntIds.length; i++) {
+                const curr = bigIntIds[i].val;
+                let isSeq = false;
+                if (i > 0 && curr === bigIntIds[i - 1].val + 1n) isSeq = true;
+                if (i < bigIntIds.length - 1 && curr === bigIntIds[i + 1].val - 1n) isSeq = true;
+                if (isSeq) sequential.push(bigIntIds[i].str);
+              }
 
-          if (sequential.length === 0) {
-            Utils.toast('No sequential IDs found', 'warning');
-            return;
-          }
+              if (sequential.length === 0) {
+                Utils.toast('No sequential IDs found', 'warning');
+                btn.disabled = false;
+                btn.innerHTML = 'EXECUTE';
+                return;
+              }
 
-          // Save to Firebase and get duplicate info
-          const result = await DB.saveRecords(App.currentUser, sequential);
-          
-          // Store for copy
-          App.lastResults = result.newIds || [];
+              const result = await DB.saveRecords(App.currentUser, sequential);
+              
+              App.lastResults = result.newIds || [];
 
-          // Show results with duplicate info
-          document.getElementById('modalFound').textContent = sequential.length;
-          document.getElementById('modalNew').textContent = result.newCount;
-          document.getElementById('modalDuplicate').textContent = result.duplicateCount;
+              document.getElementById('modalFound').textContent = sequential.length;
+              document.getElementById('modalNew').textContent = result.newCount;
+              document.getElementById('modalDuplicate').textContent = result.duplicateCount;
 
-          // Show duplicate warning if any
-          const warningDiv = document.getElementById('duplicateWarning');
-          if (result.duplicateCount > 0) {
-            document.getElementById('duplicateCount').textContent = result.duplicateCount;
-            warningDiv.style.display = 'block';
-          } else {
-            warningDiv.style.display = 'none';
-          }
+              const warningDiv = document.getElementById('duplicateWarning');
+              if (result.duplicateCount > 0) {
+                document.getElementById('duplicateCount').textContent = result.duplicateCount;
+                warningDiv.style.display = 'block';
+              } else {
+                warningDiv.style.display = 'none';
+              }
 
-          // Show only NEW IDs in the result box
-          if (result.newCount > 0) {
-            document.getElementById('modalResultBox').textContent = result.newIds.join('\n');
-          } else {
-            document.getElementById('modalResultBox').textContent = '(All IDs were duplicates - no new IDs to show)';
-          }
+              if (result.newCount > 0) {
+                document.getElementById('modalResultBox').textContent = result.newIds.join('\n');
+              } else {
+                document.getElementById('modalResultBox').textContent = '(All IDs were duplicates - no new IDs to show)';
+              }
 
-          document.getElementById('resultsModal').classList.add('show');
-          document.getElementById('inputData').value = '';
+              document.getElementById('resultsModal').classList.add('show');
+              document.getElementById('inputData').value = '';
 
-          // Refresh dashboard
-          App.loadUserDashboard();
+              App.loadUserDashboard();
 
-          if (result.newCount > 0) {
-            Utils.toast(`Found ${result.newCount} NEW sequential IDs!`, 'success');
-          } else {
-            Utils.toast('All IDs were already in your records', 'warning');
-          }
+              if (result.newCount > 0) {
+                Utils.toast(`Found ${result.newCount} NEW sequential IDs!`, 'success');
+              } else {
+                Utils.toast('All IDs were already in your records', 'warning');
+              }
 
-        } catch (e) {
-          Utils.toast('Processing error', 'error');
-          console.error(e);
-        } finally {
-          btn.disabled = false;
-          btn.innerHTML = 'EXECUTE';
-        }
+            } catch (e) {
+              Utils.toast('Processing error', 'error');
+              console.error(e);
+            } finally {
+              btn.disabled = false;
+              btn.innerHTML = 'EXECUTE';
+            }
+        }, 50); // Small delay for UI update
       },
 
       closeModal: () => {
@@ -1783,7 +1697,6 @@
           .catch(() => Utils.toast('Copy failed', 'error'));
       },
 
-      // USER DASHBOARD
       loadUserDashboard: async () => {
         const stats = await DB.getUserStats(App.currentUser);
         document.getElementById('userTodayIds').textContent = stats.today;
@@ -1791,7 +1704,6 @@
         document.getElementById('userTotalSearches').textContent = stats.searches;
       },
 
-      // HISTORY PAGE
       loadHistory: async () => {
         App.searchHistory();
       },
@@ -1803,41 +1715,41 @@
 
         tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;"><span class="spinner"></span> Loading...</td></tr>';
 
-        // Get stats
-        const stats = await DB.getUserStats(App.currentUser);
-        document.getElementById('statTotalRecords').textContent = stats.total;
-        document.getElementById('statTodayRecords').textContent = stats.today;
-        document.getElementById('statTotalSearches').textContent = stats.searches;
+        // Add slight delay to simulate load
+        setTimeout(async () => {
+            const stats = await DB.getUserStats(App.currentUser);
+            document.getElementById('statTotalRecords').textContent = stats.total;
+            document.getElementById('statTodayRecords').textContent = stats.today;
+            document.getElementById('statTotalSearches').textContent = stats.searches;
 
-        // Get records with filters
-        const filters = {};
-        if (dateVal) filters.date = dateVal;
-        if (searchVal) filters.search = searchVal;
+            const filters = {};
+            if (dateVal) filters.date = dateVal;
+            if (searchVal) filters.search = searchVal;
 
-        const records = await DB.getUserRecords(App.currentUser, filters);
-        App.currentRecords = records;
+            const records = await DB.getUserRecords(App.currentUser, filters);
+            App.currentRecords = records;
 
-        // Update copy button count
-        document.getElementById('copyCount').textContent = records.length;
+            document.getElementById('copyCount').textContent = records.length;
 
-        if (records.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-label);">No records found</td></tr>';
-          return;
-        }
+            if (records.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-label);">No records found</td></tr>';
+                return;
+            }
 
-        let html = '';
-        records.forEach(r => {
-          const time = r.timestamp ? Utils.formatTime(r.timestamp) : '--';
-          const date = r.date || '--';
-          html += `<tr>
-            <td><b>${r.id}</b></td>
-            <td>${time}</td>
-            <td>${date}</td>
-            <td style="color:#10b981;">✓ Sequential</td>
-          </tr>`;
-        });
+            let html = '';
+            records.forEach(r => {
+                const time = r.timestamp ? Utils.formatTime(r.timestamp) : '--';
+                const date = r.date || '--';
+                html += `<tr>
+                <td><b>${r.id}</b></td>
+                <td>${time}</td>
+                <td>${date}</td>
+                <td style="color:#10b981;">✓ Sequential</td>
+                </tr>`;
+            });
 
-        tbody.innerHTML = html;
+            tbody.innerHTML = html;
+        }, 50);
       },
 
       clearFilters: () => {
@@ -1857,75 +1769,75 @@
           .catch(() => Utils.toast('Copy failed', 'error'));
       },
 
-      // ADMIN FUNCTIONS
-      startAdminListeners: () => {
-        const unsub1 = DB.listenToAnalytics(data => {
-          const today = Utils.getToday();
-          document.getElementById('adminTotalIds').textContent = data.total_ids || 0;
-          document.getElementById('adminTotalSearches').textContent = data.total_searches || 0;
-          document.getElementById('adminIdsToday').textContent = data[`ids_${today}`] || 0;
-          document.getElementById('adminSearchesToday').textContent = data[`searches_${today}`] || 0;
-          document.getElementById('adminLoginsToday').textContent = data[`logins_${today}`] || 0;
-
-          let maxHour = 0, maxCount = 0;
-          for (let h = 0; h < 24; h++) {
-            const count = data[`hour_${h}`] || 0;
-            if (count > maxCount) {
-              maxCount = count;
-              maxHour = h;
+      // ADMIN FUNCTIONS (Polling instead of Listeners for LocalStorage)
+      startAdminPolling: () => {
+        if(App.adminInterval) clearInterval(App.adminInterval);
+        
+        const poll = async () => {
+            // Only update if admin page is active to save resources
+            if(document.getElementById('page-admin').classList.contains('active')) {
+                await App.loadAdminData();
             }
-          }
-          document.getElementById('adminPeakHour').textContent = 
-            maxCount > 0 ? `${maxHour.toString().padStart(2, '0')}:00` : '--';
-        });
-        if (unsub1) App.unsubscribers.push(unsub1);
-
-        const unsub2 = DB.listenToUsers(users => {
-          const today = Utils.getToday();
-          const onlineUsers = users.filter(u => u.is_online);
-          
-          document.getElementById('adminTotalUsers').textContent = users.length;
-          document.getElementById('adminActiveUsers').textContent = onlineUsers.length;
-
-          const activeList = document.getElementById('activeUsersList');
-          if (onlineUsers.length === 0) {
-            activeList.innerHTML = '<span style="font-size: 11px; color: var(--text-label);">No users online</span>';
-          } else {
-            activeList.innerHTML = onlineUsers.map(u => 
-              `<div class="active-user-badge"><span class="active-user-dot"></span>${u.id}</div>`
-            ).join('');
-          }
-
-          const tbody = document.getElementById('allUsersBody');
-          if (users.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-label);">No users</td></tr>';
-          } else {
-            tbody.innerHTML = users.map(u => {
-              const lastActive = u.last_active?.toDate?.()?.toLocaleString?.() || 'Never';
-              const statusColor = u.is_online ? '#10b981' : '#94a3b8';
-              const statusText = u.is_online ? '🟢 Online' : '⚪ Offline';
-              return `<tr>
-                <td><b>${u.id}</b></td>
-                <td style="color:${statusColor}">${statusText}</td>
-                <td>${u.total_ids || 0}</td>
-                <td>${u[`ids_${today}`] || 0}</td>
-                <td>${u.total_searches || 0}</td>
-                <td style="font-size:11px;">${lastActive}</td>
-              </tr>`;
-            }).join('');
-          }
-        });
-        if (unsub2) App.unsubscribers.push(unsub2);
+        };
+        
+        poll(); // Run immediately
+        App.adminInterval = setInterval(poll, 2000); // Poll every 2s
       },
 
       loadAdminData: async () => {
         const analytics = await DB.getGlobalAnalytics();
+        const allUsers = await DB.getAllUsers();
         const today = Utils.getToday();
         
+        // Update Analytics Cards
         document.getElementById('adminTotalIds').textContent = analytics.total_ids || 0;
         document.getElementById('adminTotalSearches').textContent = analytics.total_searches || 0;
         document.getElementById('adminIdsToday').textContent = analytics[`ids_${today}`] || 0;
         document.getElementById('adminSearchesToday').textContent = analytics[`searches_${today}`] || 0;
+        document.getElementById('adminLoginsToday').textContent = analytics[`logins_${today}`] || 0;
+
+        // Calculate Peak Hour Locally
+        let maxHour = 0, maxCount = 0;
+        for (let h = 0; h < 24; h++) {
+          const count = analytics[`hour_${h}`] || 0;
+          if (count > maxCount) {
+            maxCount = count;
+            maxHour = h;
+          }
+        }
+        document.getElementById('adminPeakHour').textContent = 
+          maxCount > 0 ? `${maxHour.toString().padStart(2, '0')}:00` : '--';
+
+        // Update Users Table
+        document.getElementById('adminTotalUsers').textContent = allUsers.length;
+        
+        // For LocalStorage, "Active" just means they exist in the DB
+        document.getElementById('adminActiveUsers').textContent = allUsers.length;
+
+        const activeList = document.getElementById('activeUsersList');
+        if (allUsers.length === 0) {
+          activeList.innerHTML = '<span style="font-size: 11px; color: var(--text-label);">No users data</span>';
+        } else {
+          activeList.innerHTML = allUsers.map(u => 
+            `<div class="active-user-badge"><span class="active-user-dot"></span>${u.id}</div>`
+          ).join('');
+        }
+
+        const tbody = document.getElementById('allUsersBody');
+        if (allUsers.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-label);">No users</td></tr>';
+        } else {
+          tbody.innerHTML = allUsers.map(u => {
+            const lastActive = u.last_active ? new Date(u.last_active).toLocaleString() : 'Never';
+            return `<tr>
+              <td><b>${u.id}</b></td>
+              <td>${u.total_ids}</td>
+              <td>${u.today_ids}</td>
+              <td>${u.searches}</td>
+              <td style="font-size:11px;">${lastActive}</td>
+            </tr>`;
+          }).join('');
+        }
       }
     };
 
@@ -1942,13 +1854,6 @@
         App.loadUserDashboard();
       }
     });
-
-    window.addEventListener('beforeunload', () => {
-      if (App.currentUser) {
-        DB.setUserOnline(App.currentUser, false);
-      }
-    });
-  </script>
-
+    </script>
   </body>
 </html>
